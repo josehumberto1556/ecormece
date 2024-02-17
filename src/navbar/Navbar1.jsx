@@ -1,9 +1,11 @@
 import couch from "../images/couch.png"
+import "./Navbar.css"
+
 
 function Navbar1() {
   return (
     <div>
-     		<div className="hero">
+     		<div className="hero fondo">
 				<div className="container">
 					<div className="row justify-content-between">
 						<div className="col-lg-5">

@@ -10,10 +10,50 @@ import Nosotros from "./nosotros/Nosotros"
 import Servicios  from "./servicios/Servicios"
 import Contacto  from "./Contacto/Contacto"
 
+import IniciarSeccion    from "./inicioSeccion/IniciarSeccion"
+import RegistrarUsuario  from "./inicioSeccion/RegistrarUsuario"
+import Recuperar         from "./inicioSeccion/Recuperar"
+
+import LoginU              from  './cpanel/login/Login'
+import RecuperarClave      from  './cpanel/login/RecuperarClave'
+import  ProtectedRoute     from  './cpanel/login/ProtectedRoute' 
+import ModuloAdministrador  from "./cpanel/ModuloAdministrador"
+
+import  Usuarios           from  './cpanel/modulo_usuarios/usuarios'
+import  Registrar          from  './cpanel/modulo_usuarios/Registrar'
+import  Editar             from  './cpanel/modulo_usuarios/Editar'
+
+import  ListadoN           from  './cpanel/modulo_novedades/Listado'
+import  RegistrarN         from  './cpanel/modulo_novedades/Registrar'
+import  EditarN            from  './cpanel/modulo_novedades/Editar'
+
+
+import  ListadoP           from  './cpanel/modulo_categorias/ListadoP'
+import  RegistrarP         from  './cpanel/modulo_categorias/Registrar'
+import  EditarP            from  './cpanel/modulo_categorias/Editar' 
+
+import  ListadoPr          from  './cpanel/modulo_productos/ListadoPr'
+import  RegistrarPr        from  './cpanel/modulo_productos/Registrar'
+import  EditarPr           from  './cpanel/modulo_productos/Editar'
+import  AgregarImagenes    from  './cpanel/modulo_productos/AgregarImagenes'
+
+
+import  ListadoC           from  './cpanel/modulo_contacto/Listado'
+
+import  ListadoSub         from  './cpanel/modulo_sub/ListadoSub'
+
+//import  {DataProvider}  from  './context/DataProvider'
+import {UsuarioContextProvider} from "./context/UsuarioContext";
+import {DataProvider} from "./context/DataProvider";
+
 
 function App() {
   return (
-    <Router>
+   <UsuarioContextProvider>
+    
+	<DataProvider>
+   
+	<Router>
     
         <Routes>
 	     <Route path="/"                     element={<Inicio/>} />
@@ -21,11 +61,171 @@ function App() {
          <Route path="/Nosotros"             element={<Nosotros/>} />
          <Route path="/Servicios"            element={<Servicios/>} />
          <Route path="/Contacto"             element={<Contacto/>} />
+		 <Route path="/IniciarSeccion"       element={<IniciarSeccion/>} />
+		 <Route path="/RegistrarUsuario"     element={<RegistrarUsuario/>}/>
+	     <Route path="/RecuperarAcceso"      element={<Recuperar/>}/>
 		 
-		 </Routes> 
-	
-    
+		 	 <Route path="/CuentaUsuario"         
+		 element={<LoginU/>} 
+		 />
+          
+          <Route path="/RecuperarClave"         
+		 element={<RecuperarClave/>} 
+		 />
+		  
+		 
+		 <Route path="/ModuloAdministrador"  
+		 element={<ModuloAdministrador/>} />
+		 
+		 <Route 
+		path="/ModuloAdministrador/modulo_usuarios/ModuloUsuario" 
+		 element={
+			<ProtectedRoute>
+			    <Usuarios/>
+			</ProtectedRoute> 	
+				} 
+		 />
+		 
+		
+            <Route
+            path="/ModuloAdministrador/modulo_usuarios/RegistrarUsuarios"
+		    element={
+			        <ProtectedRoute>
+			           <Registrar/>
+			 	    </ProtectedRoute>
+				    } 
+		 />
+		 
+		  <Route
+		  path="/ModuloAdministrador/modulo_usuarios/EditarUsuarios/:id"
+		  element={
+			        <ProtectedRoute> 
+				       <Editar/>
+			        </ProtectedRoute>
+			      }  
+		 /> 
+		 
+		   	<Route 
+		path="/ModuloAdministrador/modulo_novedades/ModuloNovedades" 
+		 element={
+			        <ProtectedRoute>  
+				      <ListadoN/>
+				    </ProtectedRoute>
+				 } 
+		 />
+		 
+		  <Route
+		  path="/ModuloAdministrador/modulo_novedades/RegistraNovedades"
+		  element={
+			       <ProtectedRoute>
+					 <RegistrarN/>
+				   </ProtectedRoute>
+				  } 
+		 /> 
+		 
+	    
+		<Route
+		 path="/ModuloAdministrador/modulo_novedades/EditarNovedades/:id"
+		  element={
+			        <ProtectedRoute>
+				      <EditarN/>
+				    </ProtectedRoute>
+				   
+				   } 
+		 />
+		 
+         <Route 
+		path="/ModuloAdministrador/modulo_categorias/ModuloCategorias" 
+		 element={<ListadoP/>} 
+		 />
+		 
+		  <Route
+		  path="/ModuloAdministrador/modulo_categorias/RegistraCategoria"
+		  element={
+			         <ProtectedRoute>
+    					<RegistrarP/>
+					 </ProtectedRoute>	
+				  } 
+		 /> 
+	   	 
+	    <Route
+		 path="/ModuloAdministrador/modulo_contacto/ListadoContacto"
+		  element={
+			        <ProtectedRoute>
+					  <ListadoC/>
+				     </ProtectedRoute>
+				  } 
+		 />
+		 
+		 	 
+	    <Route
+		 path="/ModuloAdministrador/modulo_contacto/ListadoContacto"
+		  element={
+			        <ProtectedRoute>
+					  <EditarP/>
+				     </ProtectedRoute>
+				  } 
+		 />
+		  
+		<Route
+		 path="/ModuloAdministrador/Subscripcion"
+		  element={
+			        <ProtectedRoute>
+					  <ListadoSub/>
+				     </ProtectedRoute>
+				  } 
+		 />
+		 
+		<Route
+		 path="/ModuloAdministrador/Productos"
+		  element={
+			        <ProtectedRoute>
+		              <ListadoPr/>  
+		 
+		  </ProtectedRoute>
+				  } 
+		 />
+
+		 
+		 <Route
+		 path="/ModuloAdministrador/Productos/RegistarProductos"
+		  element={
+			        <ProtectedRoute>
+		              <RegistrarPr/>  
+		 
+		  </ProtectedRoute>
+				  } 
+		 />
+
+		 	 
+		 <Route
+		 path="/ModuloAdministrador/Productos/EditarProductos/:id"
+		  element={
+			        <ProtectedRoute>
+		              <EditarPr/>  
+		 
+		  </ProtectedRoute>
+				  } 
+		 />
+
+         <Route
+		 path="/ModuloAdministrador/Productos/AgregarImagenes/:id"
+		  element={
+			        <ProtectedRoute>
+		              <AgregarImagenes/>  
+		 
+		            </ProtectedRoute>
+				  } 
+		 />		
+
+		
+		</Routes> 
+		 
 	</Router>
+	
+	</DataProvider>
+	
+  </UsuarioContextProvider>	
   );
 }
 

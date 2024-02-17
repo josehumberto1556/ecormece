@@ -1,12 +1,32 @@
+import React,{useState,useContext} from "react";
+import  {DataContext}   from '../context/DataProvider'
 import {Link}   from "react-router-dom";
+//import  {DataContext}   from '../context/DataProv/ider'
+import "./Navbar.css"
+import  Usu from "../images/user.svg"
+import Carrito from "../images/cart.svg"
 
 function Navbar() {
+
+  const value = useContext(DataContext);
+  const [carrito] = value.carrito;
+  const [menu,setMenu] =value.menu;
+  const toogleMenu = () =>{
+   setMenu(!menu)
+  }
+
+  const letra = {
+	 color:"#ffffff"
+	
+	 
+ }  
+	
   return (
     <div>
-     		<nav className="custom-navbar navbar navbar navbar-expand-md navbar-dark bg-dark fixed-top" arial-label="Furni navigation bar">
+     		<nav className="custom-navbar navbar navbar navbar-expand-md navbar-dark navbars fixed-top" arial-label="Furni navigation bar">
 
 			<div className="container">
-				<a className="navbar-brand" href="index.html">Furni<span>.</span></a>
+				<Link to="/"  className="navbar-brand">ESA<span>.</span></Link>
 
 				<button className="navbar-toggler" type="button" data-bs-toggle="collapse" data-bs-target="#navbarsFurni" aria-controls="navbarsFurni" aria-expanded="false" aria-label="Toggle navigation">
 					<span className="navbar-toggler-icon"></span>
@@ -21,6 +41,7 @@ function Navbar() {
 						<li className="nav-item active">
 							<Link to="/Productos"  className="nav-link">Productos</Link>
 						</li>
+					
 						
 						<li className="nav-item active">
 							<Link to="/Nosotros"  className="nav-link">Sobre Nosotros</Link>
@@ -33,20 +54,24 @@ function Navbar() {
 						<li className="nav-item active">
 							<Link to="/Contacto"  className="nav-link">Contacto</Link>
 						</li>
-						
+ 
+                       
 						
 					</ul>
 
 					<ul className="custom-navbar-cta navbar-nav mb-2 mb-md-0 ms-5">
 						<li>
-						<a className="nav-link" href="#">
-						
-						</a>
+						<Link to="/IniciarSeccion" className="nav-link" href="#">
+						<img src={Usu}/>
+						</Link>
 						</li>
 						<li>
-						<a className="nav-link" href="cart.html">
-						
+						<a className="nav-link">
+						<img src={Carrito}/>
 						</a>
+						</li>
+						 <li className="nav-item active" onClick={toogleMenu}  style={letra}>
+                              <span className="item__total">{carrito.length}</span>
 						</li>
 					</ul>
 				</div>
