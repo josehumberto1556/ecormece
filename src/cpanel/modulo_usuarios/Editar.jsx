@@ -39,7 +39,7 @@ function Editar() {
             setcodigoempresa(empresa.data().nombre_usuario)    
             setNombreempresa(empresa.data().email_usuario)
 			setDireccionempresa(empresa.data().clave_usuario)   
-            setImagen(empresa.data().imagen)			
+            setImagen(empresa.data().imageni)			
         }else{
             console.log('El usuario no existe')
         }

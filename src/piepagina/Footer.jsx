@@ -37,13 +37,16 @@ function Navbar1() {
 								<div className="col-auto">
 									<input type="text" 
 									className="form-control" 
-									placeholder="Enter your name"/>
+									placeholder="Escriba su nombre"
+									required/>
 								</div>
 								
 								<div className="col-auto">
 									<input type="email" 
-								uw	className="form-control" 
-									placeholder="Enter your email"/>
+									className="form-control" 
+									placeholder="Escriba su correo electronico"
+                                    required								
+								/>
 								</div>
 								
 								<div className="col-auto">
@@ -66,7 +69,7 @@ function Navbar1() {
 						
  					    	<p className="mb-2 text-center text-lg-start">
 							Copyright &copy;. Todos los derechos Reservados
-							<a href="#" style={{color:"white"}}>Ecomerce Salvemos Argentina</a> 
+							<a href="#" style={{color:"white"}}> Ecomerce Salvemos Argentina</a> 
                            </p>
 						
 						</div>

@@ -1,9 +1,28 @@
-import product1 from "../images/product-1.png"
-import product2 from "../images/product-2.png"
-import product3 from "../images/product-3.png"
+import React,{useState,useEffect}from 'react'
+import {Link} from 'react-router-dom'
+import {db} from '../Configfirebase/Configfirebase'		
+import {collection,getDocs} from 'firebase/firestore'
 
 
 function ProductoPopular() {
+ 
+ const [empre,setEmpresas ]=useState([])
+  const  empresaCollection=collection(db,"m_productos")
+  const getEmpresas=async ()   => {
+  const data=await getDocs(empresaCollection)
+   //console.log(data.docs)
+   setEmpresas(
+       data.docs.map( (doc) => ( {...doc.data(),id:doc.id}))
+   )
+   
+     }
+	
+	  useEffect( () => {
+    getEmpresas()
+  }, [] )
+  
+	
+
   return (
     <div>
      		<div className="popular-product">
@@ -11,48 +30,23 @@ function ProductoPopular() {
 				<div className="row">
 
 					<div className="col-12 col-md-6 col-lg-4 mb-4 mb-lg-0">
-						<div className="product-item-sm d-flex">
+						{empre.map((empr)=>(
+						<div className="product-item-sm d-flex" key={empr.id}>
 							<div className="thumbnail">
-								<img src={product1} alt="Image" 
+								<img src={empr.imagen} alt="Image" 
 								className="img-fluid"/>
 							</div>
 							
 							<div className="pt-3">
-								<h3>Nordic Chair</h3>
-								<p>Donec facilisis quam ut purus rutrum lobortis. Donec vitae odio </p>
-								<p><a href="#">Read More</a></p>
+								<h3>{empr.nombre_productos}</h3>
+								<p>{empr.descripcion} </p>
+								<p><Link to={`/VerProducto/${empr.id}`}>Leer m&aacute;s</Link></p>
 							</div>
 						</div>
+						))}
 					</div>
 
-					<div className="col-12 col-md-6 col-lg-4 mb-4 mb-lg-0">
-						<div className="product-item-sm d-flex">
-							<div className="thumbnail">
-								<img src={product2} 
-								alt="Image" className="img-fluid"/>
-							</div>
-							
-							<div className="pt-3">
-								<h3>Kruzo Aero Chair</h3>
-								<p>Donec facilisis quam ut purus rutrum lobortis. Donec vitae odio </p>
-								<p><a href="#">Read More</a></p>
-							</div>
-						</div>
-					</div>
-
-					<div className="col-12 col-md-6 col-lg-4 mb-4 mb-lg-0">
-						<div className="product-item-sm d-flex">
-							<div className="thumbnail">
-                             <img src={product3}
-								alt="Image" className="img-fluid"/>
-							</div>
-							<div className="pt-3">
-								<h3>Ergonomic Chair</h3>
-								<p>Donec facilisis quam ut purus rutrum lobortis. Donec vitae odio </p>
-								<p><a href="#">Read More</a></p>
-							</div>
-						</div>
-					</div>
+					
 
 				</div>
 			</div>

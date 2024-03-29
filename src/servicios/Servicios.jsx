@@ -1,21 +1,48 @@
+import {Link}  from 'react-router-dom'
+import React, { useState, useEffect } from 'react';
+import {collection,
+        getDocs
+		} from 'firebase/firestore'
+import {app,db} from '../Configfirebase/Configfirebase'
 import Navbar  from "../navbar/Navbar"
 import Navbar1 from "../navbar/Navbar1"
-import Productos from "../productos/Productos"
-import Productos2 from "../productos/Productos2"
-import Productos3 from "../productos/Productos3"
 import ProductoPopular from "../productos/ProductoPopular"
-import Blog  from "../blog/Blog"
 import Footer  from "../piepagina/Footer"
-
-import truck from "../images/truck.svg"
-import bag   from "../images/bag.svg"
-import support from "../images/support.svg"
-import retur  from "../images/return.svg"
-import why    from "../images/why-choose-us-img.jpg"
-
 import "./Servicios.css"
 
 function Servicios() {
+	
+	
+	
+  const [searchTerm, setSearchTerm] = useState('');
+  const [empre,setEmpresas ]=useState([])
+  const  empresaCollection=collection(db,"ofertaempleo")
+  const getEmpresas=async ()   => {
+  const data=await getDocs(empresaCollection)
+   //console.log(data.docs)
+   setEmpresas(
+       data.docs.map( (doc) => ( {...doc.data(),id:doc.id}))
+   )
+   
+     }
+	
+	  useEffect( () => {
+    getEmpresas()
+  }, [] )
+  
+
+  
+
+  const handleSearch = (event) => {
+    setSearchTerm(event.target.value);
+	//console.log(empre.nombre_provincia)
+  };
+
+  const filteredData = empre.filter((item) =>
+    item.nombreempleo.toLowerCase().includes(searchTerm.toLowerCase())
+  );
+
+	
   return (
   <>
    <Navbar/>
@@ -25,7 +52,7 @@ function Servicios() {
 					<div className="row justify-content-between">
 						<div className="col-lg-5">
 							<div className="intro-excerpt">
-								<h1>Servicios</h1>
+								<h1>Ofertas de Empleo</h1>
 							</div>
 						</div>
 						
@@ -33,56 +60,58 @@ function Servicios() {
 				</div>
 			</div>
 			
-			<div className="why-choose-section">
-			<div className="container">
+
 				
+				<div className="row">
+					<div className="col-md-4 offset-md-4 p-4">
+						<h1 className="b">Oferta de Empelo</h1>
+							<form>
+							  <input type="text" 
+							   value={searchTerm} 
+		                       onChange={handleSearch}
+							  placeholder="Oferta de Empleo ..." 
+							  className="form-control"
+							  reuired/>
+							</form>	
+					</div>
+				</div>
 				
-				<div className="row my-5">
-					<div className="col-6 col-md-6 col-lg-3 mb-4">
-						<div className="feature">
-							<div className="icon">
-								<img src={truck} alt="Image"
-								className="imf-fluid"/>
-							</div>
-							<h3>Fast &amp; Free Shipping</h3>
-							<p>Donec vitae odio quis nisl dapibus malesuada. Nullam ac aliquet velit. Aliquam vulputate.</p>
-						</div>
-					</div>
-
-					<div className="col-6 col-md-6 col-lg-3 mb-4">
-						<div className="feature">
-							<div className="icon">
-								<img src={bag} alt="Image" 
-								className="imf-fluid"/>
-							</div>
-							<h3>Easy to Shop</h3>
-							<p>Donec vitae odio quis nisl dapibus malesuada. Nullam ac aliquet velit. Aliquam vulputate.</p>
-						</div>
-					</div>
-
-					<div className="col-6 col-md-6 col-lg-3 mb-4">
-						<div className="feature">
-							<div className="icon">
-								<img src={support} 
-								alt="Image" className="imf-fluid"/>
-							</div>
-							<h3>24/7 Support</h3>
-							<p>Donec vitae odio quis nisl dapibus malesuada. Nullam ac aliquet velit. Aliquam vulputate.</p>
-						</div>
-					</div>
-
-					<div className="col-6 col-md-6 col-lg-3 mb-4">
-						<div className="feature">
-							<div className="icon">
-								<img src={retur} alt="Image" className="imf-fluid"/>
-							</div>
-							<h3>Hassle Free Returns</h3>
-							<p>Donec vitae odio quis nisl dapibus malesuada. Nullam ac aliquet velit. Aliquam vulputate.</p>
-						</div>
-					</div>
-					</div>
-					</div></div>
-
+			   	<div className="row">
+			{filteredData.map((item) => (
+			
+	        
+		
+		<div className="col-md-6 col-lg-4 mb-4"  data-aos-delay="0"
+		key={item.id}>
+          <div className="card post-entry">
+            <a>
+			<img src={item.imagenempelo} 
+			className="card-img-top" 
+			alt={item.nombreempleo}
+			width="200" height="300"
+			/></a>
+            <div className="card-body">
+              <h1 className="b text-center">
+			    {item.nombreempleo}
+			  </h1>
+               <div className="text-center">
+			   <Link 
+				style={{color:'white'}}
+	            className="boton">
+                       Leer  m&aacute;s
+                 </Link>
+				   
+				 </div>		
+	
+		   </div>
+		  
+      </div>   
+		
+		 </div>
+			))}
+		 
+	      </div>
+					
 		      
 		 
 

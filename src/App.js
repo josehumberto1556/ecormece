@@ -9,6 +9,10 @@ import ListadoProducto from "./productos/ListadoProducto"
 import Nosotros from "./nosotros/Nosotros"
 import Servicios  from "./servicios/Servicios"
 import Contacto  from "./Contacto/Contacto"
+import Detalleproducto from "./productos/detalleProducto" 
+import VerProducto from "./productos/VerProducto" 
+import TodosBlog from "./blog/TodosBlog" 
+
 
 import IniciarSeccion    from "./inicioSeccion/IniciarSeccion"
 import RegistrarUsuario  from "./inicioSeccion/RegistrarUsuario"
@@ -56,14 +60,17 @@ function App() {
 	<Router>
     
         <Routes>
-	     <Route path="/"                     element={<Inicio/>} />
-		 <Route path="/Productos"            element={<ListadoProducto/>} />
-         <Route path="/Nosotros"             element={<Nosotros/>} />
-         <Route path="/Servicios"            element={<Servicios/>} />
-         <Route path="/Contacto"             element={<Contacto/>} />
-		 <Route path="/IniciarSeccion"       element={<IniciarSeccion/>} />
-		 <Route path="/RegistrarUsuario"     element={<RegistrarUsuario/>}/>
-	     <Route path="/RecuperarAcceso"      element={<Recuperar/>}/>
+	     <Route path="/"                    exact   element={<Inicio/>} />
+		 <Route path="/Productos"           exact   element={<ListadoProducto/>} />
+         <Route path="/detalleProducto/:id" exact   element={<Detalleproducto/>} />
+		 <Route path="/Nosotros"            exact   element={<Nosotros/>} />
+         <Route path="/OfertasEmpleo"       exact   element={<Servicios/>} />
+         <Route path="/VerProducto/:id"     exact   element={<VerProducto/>} />
+         <Route path="/Contacto"            exact   element={<Contacto/>} />
+         <Route path="/TodosBlog"           exact   element={<TodosBlog/>} />
+		 <Route path="/IniciarSeccion"      exact   element={<IniciarSeccion/>} />
+		 <Route path="/RegistrarUsuario"    exact   element={<RegistrarUsuario/>}/>
+	     <Route path="/RecuperarAcceso"     exact   element={<Recuperar/>}/>
 		 
 		 	 <Route path="/CuentaUsuario"         
 		 element={<LoginU/>} 

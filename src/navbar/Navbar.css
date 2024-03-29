@@ -11,3 +11,11 @@
 box-icon{background-color:#fff;color:#fff;}
 .item__total{background-color:red;color:#fff;width:3%;border-radius:5px;}
 
+@media (width <= 560px) {
+  .bajartexto{
+	  margin-top:50px;
+  }
+  .tamano{  
+    width:300px;
+  }
+}

@@ -27,7 +27,7 @@ function Productos2() {
 						</div>
 					</div>
 					<div className="col-lg-5 ps-lg-5">
-						<h2 className="section-title mb-4">We Help You Make Modern Interior Design</h2>
+						<h2 className="section-title mb-4">Tenemos los mejores Productos del mercado</h2>
 						<p>Donec facilisis quam ut purus rutrum lobortis. Donec vitae odio quis nisl dapibus malesuada. Nullam ac aliquet velit. Aliquam vulputate velit imperdiet dolor tempor tristique. Pellentesque habitant morbi tristique senectus et netus et malesuada</p>
 
 						<ul className="list-unstyled custom-list my-4">

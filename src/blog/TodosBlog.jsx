@@ -1,10 +1,10 @@
 import React,{useState,useEffect}from 'react'
 import {db} from '../Configfirebase/Configfirebase'		
 import {collection,getDocs} from 'firebase/firestore'
-import {Link}      from 'react-router-dom'
+import Navbar  from "../navbar/Navbar"
 
 
-function Blog() {
+function TodosBlog() {
 	
   const [empre,setEmpresas ]=useState([])
   const  empresaCollection=collection(db,"blog")
@@ -22,29 +22,30 @@ function Blog() {
   }, [] )
 	
   return (
-    <div>
+    <>
+	   <Navbar/>
+
      <div className="blog-section">
 			<div className="container">
 				<div className="row mb-5">
 					<div className="col-md-6">
-						<h2 className="section-title">Articulos Recientes</h2>
+						<h2 className="section-title">Articulos</h2>
 					</div>
-					<div className="col-md-6 text-start text-md-end">
-						<Link to="/TodosBlog" className="more">Ver Todos los articulos</Link>
-					</div>
+					
 				</div>
 
 				<div className="row">
                {empre.map((empr)=>(
-					<div className="col-12 col-sm-6 col-md-4 mb-4 mb-md-0">
-						<div className="post-entry">
+					<div className="col-12 col-sm-6 col-md-4 mb-4 mb-md-0" key={empr.id}>
+						<div className="post-entry"> 
 							<a href="#" className="post-thumbnail">
 							<img src={empr.imagenblog} alt="Image" 
 							className="img-fluid"/></a>
 							<div className="post-content-entry">
 								<h3><a href="#">{empr.nombre_blog}</a></h3>
 								<div className="meta">
-									<span>b<a href="#">{empr.descripcionblog}</a></span> <span> <a href="#">{empr.fechablog}</a></span>
+									<span>b
+									<a href="#">{empr.descripcionblog}</a></span> <span> <a href="#">{empr.fechablog}</a></span>
 								</div>
 							</div>
 						</div>
@@ -56,8 +57,8 @@ function Blog() {
 				</div>
 			</div>
 		</div>
-    </div>
+    </>
   );
 }
 
-export default Blog;
+export default TodosBlog;

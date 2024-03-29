@@ -58,7 +58,9 @@ function Contacto() {
                       <input type="text" 
 					  className="form-control" 
 					  id="fname"
-					  placeholder="Nombre ..."/>
+					  placeholder="Nombre ..."
+					  required
+					  />
                     </div>
                   </div>
                 
@@ -73,12 +75,17 @@ function Contacto() {
 
                 <div className="form-group mb-5">
                   <label className="text-black" for="message">Mensaje</label>
-                  <textarea name="" className="form-control" id="message" cols="30" rows="5"
+                  <textarea name="" 
+				  className="form-control" 
+				  id="message" cols="30" 
+				  rows="5"
 				   placeholder="Mensaje ..."
+				  required
 				  ></textarea>
                 </div>
 
-                <button type="submit" className="btn boton">Enviar Mensaje</button>
+                <button type="submit" className="btn boton"
+				style={{color:'white'}}>Enviar Mensaje</button>
               </form>
 
             </div>
