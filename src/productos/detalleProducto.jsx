@@ -6,6 +6,7 @@ import Navbar  from "../navbar/Navbar"
 import Navbar1 from "../navbar/Navbar1"
 import Footer  from "../piepagina/Footer"
 import {ProductoItem} from "./ProductoItem";
+import {DetalleItem}  from "./DetalleItem"
 
 function Detalleproducto() 
 {
@@ -40,19 +41,25 @@ function Detalleproducto()
 			</div>
 	
 			<div className="untree_co-section product-section before-footer-section">
-		    <div className="container">
-		      	<div className="row">
 
- 				<h2 className="text-center">Productos</h2>
+		        <div className="container">
+		      
+			         <div className="row">
+
+ 				        <h2 className="text-center">Productos</h2>
 				
-				</div>
-		    </div>
-		</div>
+				     </div>
+		        
+				 </div>
 
-	 
+				 <DetalleItem/>
+
+
+             </div>
+      
 	 <Footer/> 
 			  
-			 
+    			 
 			  </>
   )
 }		

@@ -8,7 +8,9 @@ import Inicio from "./inicio/Inicio"
 import ListadoProducto from "./productos/ListadoProducto"
 import Nosotros from "./nosotros/Nosotros"
 import Servicios  from "./servicios/Servicios"
+import Veroferta from "./servicios/Veroferta";
 import Contacto  from "./Contacto/Contacto"
+import ListadoCategoria  from "./productos/ListadoCategoria";
 import Detalleproducto from "./productos/detalleProducto" 
 import VerProducto from "./productos/VerProducto" 
 import TodosBlog from "./blog/TodosBlog" 
@@ -61,16 +63,19 @@ function App() {
     
         <Routes>
 	     <Route path="/"                    exact   element={<Inicio/>} />
-		 <Route path="/Productos"           exact   element={<ListadoProducto/>} />
-         <Route path="/detalleProducto/:id" exact   element={<Detalleproducto/>} />
-		 <Route path="/Nosotros"            exact   element={<Nosotros/>} />
-         <Route path="/OfertasEmpleo"       exact   element={<Servicios/>} />
-         <Route path="/VerProducto/:id"     exact   element={<VerProducto/>} />
-         <Route path="/Contacto"            exact   element={<Contacto/>} />
-         <Route path="/TodosBlog"           exact   element={<TodosBlog/>} />
-		 <Route path="/IniciarSeccion"      exact   element={<IniciarSeccion/>} />
-		 <Route path="/RegistrarUsuario"    exact   element={<RegistrarUsuario/>}/>
-	     <Route path="/RecuperarAcceso"     exact   element={<Recuperar/>}/>
+		 <Route path="/ListadoCategorias"          exact   element={<ListadoCategoria/>}/>
+		 
+		 <Route path="/Productos/:id"           exact   element={<ListadoProducto/>} />
+         <Route path="/detalleProducto/:id"     exact   element={<Detalleproducto/>} />
+		 <Route path="/Nosotros"                exact   element={<Nosotros/>} />
+         <Route path="/OfertasEmpleo"           exact   element={<Servicios/>} />
+         <Route path="/Veroferta/:id"           exact   element={<Veroferta/>}/>
+		 <Route path="/VerProducto/:id"         exact   element={<VerProducto/>} />
+         <Route path="/Contacto"                exact   element={<Contacto/>} />
+         <Route path="/TodosBlog"               exact   element={<TodosBlog/>} />
+		 <Route path="/IniciarSeccion"          exact   element={<IniciarSeccion/>} />
+		 <Route path="/RegistrarUsuario"        exact   element={<RegistrarUsuario/>}/>
+	     <Route path="/RecuperarAcceso"         exact   element={<Recuperar/>}/>
 		 
 		 	 <Route path="/CuentaUsuario"         
 		 element={<LoginU/>} 

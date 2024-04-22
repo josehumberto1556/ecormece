@@ -39,7 +39,7 @@ function Navbar() {
 						</li>
 						
 						<li className="nav-item active">
-							<Link to="/Productos"  className="nav-link">Productos</Link>
+							<Link to="/ListadoCategorias"  className="nav-link">Productos</Link>
 						</li>
 					
 						

@@ -1,9 +1,41 @@
 import sofa from "../images/sofa.png"
 import c    from "../images/envelope-outline.svg"
 import "./Footer.css"
+import React,{useState,useEffect}from 'react'
+import {Link }   from "react-router-dom";
+import {db} from '../Configfirebase/Configfirebase'		
+import { collection, addDoc } from 'firebase/firestore'
+import { getStorage,
+         ref, 
+		 uploadBytes,
+		 getDownloadURL } from 'firebase/storage'
+import Swal  from 'sweetalert2'
+import withReactContent from 'sweetalert2-react-content'
 
+const MySwal = withReactContent(Swal)
 
 function Navbar1() {
+
+	const [ nombre,setNombre ] = useState('')
+	const [ codigo_empresa,setcodigoempresa ] = useState('')
+	const store = async (e) => {
+	 e.preventDefault()
+	 
+	const empresaCollection = collection(db, "subscribcion")
+
+  await addDoc( empresaCollection, {
+	                                   nombre:nombre,
+	                                    email:codigo_empresa
+									 } )
+									 
+  MySwal.fire({
+					title: "Bien hecho!",
+					text: "subscribción con exito!",
+					icon: "success",
+					 button: "Felicitaciones!",
+  //console.log(e.target[0].value)
+	})}
+
   return (
     <div>
    
@@ -32,12 +64,14 @@ function Navbar1() {
 							informativo
 							</span></h3>
 
-							<form action="#" className="row g-3">
+							<form  onSubmit={store} className="row g-3">
 								
 								<div className="col-auto">
 									<input type="text" 
 									className="form-control" 
 									placeholder="Escriba su nombre"
+									value={nombre}
+                                    onChange={ (e) => setNombre(e.target.value)}
 									required/>
 								</div>
 								
@@ -45,7 +79,9 @@ function Navbar1() {
 									<input type="email" 
 									className="form-control" 
 									placeholder="Escriba su correo electronico"
-                                    required								
+									value={codigo_empresa}
+									onChange={ (e) => setcodigoempresa(e.target.value)}
+									required								
 								/>
 								</div>
 								

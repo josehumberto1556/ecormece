@@ -32,7 +32,7 @@ const [empre,setEmpresas ]=useState([])
 					<div className="col-md-12 col-lg-3 mb-5 mb-lg-0">
 						<h2 className="mb-4 section-title">Productos creados con execelencia.</h2>
 						<p className="mb-4">Ultimos Productos publicados diferentes categorias</p>
-						<p><a href="shop.html" classNameN="btn">Explore</a></p>
+						
 					</div> 
 					
 					{empre.map((empr)=>(

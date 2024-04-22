@@ -1,4 +1,9 @@
-import {useContext} from "react";
+import React, { useState, useEffect } from 'react';
+import {Link}  from 'react-router-dom'
+import {collection,
+        getDocs
+		} from 'firebase/firestore'
+import {app,db} from '../Configfirebase/Configfirebase'
 import Navbar  from "../navbar/Navbar"
 import Navbar1 from "../navbar/Navbar1"
 import Productos from "../productos/Productos"
@@ -8,18 +13,33 @@ import ProductoPopular from "../productos/ProductoPopular"
 import Blog  from "../blog/Blog"
 import Footer  from "../piepagina/Footer"
 import {DataContext} from "../context/DataProvider";
-import {ProductoItem} from "./ProductoItem";
+import {CategoriaItem} from "./CategoriaItem";
 import  Carrito         from  '../Carrito/Carrito'
 import "boxicons"
 
 
-function ListadoProducto() {
+function ListadoCategoria() {
 	
 	
-const value=useContext(DataContext)
-const [listadoproductos]=value.listadoproductos
+    const [searchTerm, setSearchTerm] = useState('');
+    const [empre,setEmpresas ]=useState([])
+    const  empresaCollection=collection(db,"categoria")
+    const getEmpresas=async ()   => {
+    const data=await getDocs(empresaCollection)
+     //console.log(data.docs)
+     setEmpresas(
+         data.docs.map( (doc) => ( {...doc.data(),id:doc.id}))
+     )
+     
+       }
+  
+   
+       useEffect( () => {
+        getEmpresas()
+      }, [] )  
   return (
   <>
+  <div>
    <Navbar/>
    
 	 <div className="hero fondo">
@@ -27,7 +47,7 @@ const [listadoproductos]=value.listadoproductos
 					<div className="row justify-content-between">
 						<div className="col-lg-5">
 							<div className="intro-excerpt">
-								<h1>Productos</h1>
+								<h1>Categorias</h1>
 							</div>
 						</div>
 						<div className="col-lg-7">
@@ -36,32 +56,33 @@ const [listadoproductos]=value.listadoproductos
 					</div>
 				</div>
 			</div>
-			<Carrito/>
+			
 			<div className="untree_co-section product-section before-footer-section">
 		    <div className="container">
 		      	<div className="row">
 
- 				<h2 className="text-center">Listado de Productos</h2>
+ 				<h2 className="text-center">Listado de Categorias</h2>
 				{
-					listadoproductos.map(productos=>(
-					   <ProductoItem 
+					empre.map(productos=>(
+					   <CategoriaItem 
 					   key={productos.id}
 					   id={productos.id}
-					   title={productos.title}
-					   price={productos.price}
-					   image={productos.image}
+					   nombre={productos.nombre_categoria}
+					   descripcion={productos.descripcion}
+					   imagen={productos.imagen}
 					   
 					   />
 					   ))
-		      	}
+                 }
 				</div>
 		    </div>
 		</div>
 
 	 
 	 <Footer/>
+</div>
   </>
   );
 }
 
-export default ListadoProducto;
+export default ListadoCategoria;

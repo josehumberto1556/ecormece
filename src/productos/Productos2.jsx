@@ -11,7 +11,10 @@ function Productos2() {
 				<div className="row justify-content-between">
 					<div className="col-lg-6">
 						<h2 className="section-title">Porque elejirnos</h2>
-						<p>Donec vitae odio quis nisl dapibus malesuada. Nullam ac aliquet velit. Aliquam vulputate velit imperdiet dolor tempor tristique.</p>
+						<p>
+							Somos una empresa compremetida con nuestro cliente 
+							en brindarle el mejor servicos
+						</p>
 
 						<div className="row my-5">
 							<div className="col-6 col-md-6">
@@ -20,7 +23,7 @@ function Productos2() {
 										<img src={Envios} alt="Image" className="imf-fluid"/>
 									</div>
 									<h3>Envio rapido</h3>
-									<p>Donec vitae odio quis nisl dapibus malesuada. Nullam ac aliquet velit. Aliquam vulputate.</p>
+									<p>Entrega direacta con el cliente.</p>
 								</div>
 							</div>
 							
@@ -33,7 +36,7 @@ function Productos2() {
 										alt="Image" className="imf-fluid"/>
 									</div>
 									<h3>Facil de compra</h3>
-									<p>Donec vitae odio quis nisl dapibus malesuada. Nullam ac aliquet velit. Aliquam vulputate.</p>
+									<p>Plataforma con facilidad de compra.</p>
 								</div>
 							</div>
 
@@ -43,7 +46,7 @@ function Productos2() {
 										<img src={soporteTecnico} alt="Soporte Tecnico" className="imf-fluid"/>
 									</div>
 									<h3>24/7 Soporte</h3>
-									<p>Donec vitae odio quis nisl dapibus malesuada. Nullam ac aliquet velit. Aliquam vulputate.</p>
+									<p>soporte Tecnico las 24 horas para ayudar a nuestros clientes.</p>
 								</div>
 							</div>
 

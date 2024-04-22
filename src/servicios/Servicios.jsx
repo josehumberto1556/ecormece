@@ -96,6 +96,7 @@ function Servicios() {
 			  </h1>
                <div className="text-center">
 			   <Link 
+			   to={`/Veroferta/${item.id}`} 
 				style={{color:'white'}}
 	            className="boton">
                        Leer  m&aacute;s
