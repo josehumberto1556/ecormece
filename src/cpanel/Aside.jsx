@@ -44,8 +44,7 @@ const Aside = () => {
         <li className="nav-item">
 		
          <Link className="nav-link" style={{color:"white"}}
-		  to="/ModuloAdministrador"
-		  >Inicio</Link>
+		  to="/ModuloAdministrador">Inicio</Link>
 		  
         </li>
         
@@ -53,16 +52,14 @@ const Aside = () => {
 		<li className="nav-item">
           
 		  <Link className="nav-link" style={{color:"white"}}
-		  to="/ModuloAdministrador/modulo_usuarios/ModuloUsuario"
-		  >Usuarios</Link>
+		  to="/ModuloAdministrador/modulo_usuarios/ModuloUsuario">Usuarios</Link>
 		  
         </li>
 		
 		<li className="nav-item">
           
 		  <Link className="nav-link" style={{color:"white"}}
-		  to="/ModuloAdministrador/modulo_novedades/ModuloNovedades"
-		  >Novedades</Link>
+		  to="/ModuloAdministrador/modulo_novedades/ModuloNovedades">Novedades</Link>
 		  
         </li>
 		
@@ -95,7 +92,8 @@ const Aside = () => {
           </Link>
         
 		</li>
-		
+		{
+			/*
 		 <li className="nav-item">
           
 		     <Link className="nav-link" style={{color:"white"}}
@@ -105,7 +103,7 @@ const Aside = () => {
           </Link>
         
 		</li>
-		
+		*/}
 	    	 <li className="nav-item">
           
 		     <Link 

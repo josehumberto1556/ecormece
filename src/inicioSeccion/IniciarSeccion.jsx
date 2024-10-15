@@ -3,10 +3,76 @@ import Navbar1 from "../navbar/Navbar1"
 import Footer  from "../piepagina/Footer"
 import "./IniciarSeccion.css"
 import {Link, useNavigate }   from "react-router-dom";
-
+import { useUserAuth } from "../context/UsuarioContext";
+import Swal from 'sweetalert2'
+import withReactContent from 'sweetalert2-react-content'
+const MySwal = withReactContent(Swal)
 
 function IniciarSeccion() {
-  return (
+  const{log} = useUserAuth();
+  let navigate = useNavigate();
+   
+  const  submitHandler=async(e)=>{
+      
+    e.preventDefault()
+    const email=e.target.emailField.value
+    const password=e.target.passwordField.value
+    try
+    {
+       
+      await log(email,password);
+      MySwal.fire({
+                    title: "Bien hecho!",
+                    text: "Has Iniciado Sección!",
+                    icon: "success",
+                     button: "Felicitaciones!",
+                 });
+              navigate("/PanelUsuario"); 
+    }catch(error){
+      
+      
+      
+      if(error.code ==='auth/invalid-email')
+      {
+                MySwal.fire({
+                    title: "Error!",
+                    text: "Correo Electronico Invalido!",
+                    icon: "danger",
+                     button: "Felicitaciones!"
+            });
+               
+        
+              }
+      
+      if(error.code ==='auth/user-not-found')
+      {
+                MySwal.fire({
+                    title: "Error!",
+                    text: "Correo no existe!",
+                    icon: "danger",
+                     button: "Felicitaciones!"
+            });
+               
+        
+              }
+      
+      if (error.code === 'auth/wrong-password')
+      {
+           MySwal.fire({
+                    title: "Error!",
+                    text: "Contraseña debil minimo 6 caracteres!",
+                    icon: "danger",
+                     button: "Felicitaciones!"
+            });
+      }
+      
+      
+
+    }//fin del try catch
+
+  }
+
+ return (
   <>
    <Navbar/>
 	
@@ -52,7 +118,7 @@ function IniciarSeccion() {
 
             <h3 className="mb-5">Cuenta de Usuario</h3>
 
-            <form>
+            <form onSubmit={submitHandler}>
 
             <div className="form-outline mb-4">
               <input 

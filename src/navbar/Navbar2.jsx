@@ -6,7 +6,7 @@ import "./Navbar.css"
 import  Usu from "../images/user.svg"
 import Carrito from "../images/cart.svg"
 
-function Navbar() {
+function NavbarDos() {
 
  /* const value = useContext(DataContext);
   const [carrito] = value.carrito;
@@ -74,6 +74,11 @@ function Navbar() {
                               <span className="item__total">{carrito.length}</span>
   </li>*/}
                      
+                     
+						<li className="nav-item active">
+							<Link to=""  className="nav-link">Cerrar Secci&oacute;n</Link>
+						</li>
+
 					</ul>
 				</div>
 			</div>
@@ -83,4 +88,4 @@ function Navbar() {
   );
 }
 
-export default Navbar;
+export default NavbarDos;

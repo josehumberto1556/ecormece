@@ -19,19 +19,7 @@ function Nosotros() {
   return (
   <>
    <Navbar/>
-	
-	<div className="hero fondo">
-				<div className="container">
-					<div className="row justify-content-between">
-						<div className="col-lg-5">
-							<div className="intro-excerpt">
-								<h1>Sobre Nosotros</h1>
-							</div>
-						</div>
-						
-					</div>
-				</div>
-			</div>
+	<Navbar1/>
 			
 			<div className="why-choose-section">
 			<div className="container">
@@ -52,7 +40,7 @@ function Nosotros() {
 										className="imf-fluid"/>
 									</div>
 									<h3>Env&iacute;o y entrega Rapido</h3>
-									<p>Donec vitae odio quis nisl dapibus malesuada. Nullam ac aliquet velit. Aliquam vulputate.</p>
+									<p>Entrega direacta con el cliente.</p>
 								</div>
 							</div>
 
@@ -63,7 +51,7 @@ function Nosotros() {
 										className="imf-fluid"/>
 									</div>
 									<h3>Comprar Facil</h3>
-									<p>Donec vitae odio quis nisl dapibus malesuada. Nullam ac aliquet velit. Aliquam vulputate.</p>
+									<p>Plataforma con facilidad de compra.</p>
 								</div>
 							</div>
 
@@ -74,7 +62,8 @@ function Nosotros() {
 										className="imf-fluid"/>
 									</div>
 									<h3>24/7 Soporte Tecnico</h3>
-									<p>Donec vitae odio quis nisl dapibus malesuada. Nullam ac aliquet velit. Aliquam vulputate.</p>
+									<p>soporte Tecnico las 24 horas para ayudar a nuestros clientes.</p>
+
 								</div>
 							</div>
 

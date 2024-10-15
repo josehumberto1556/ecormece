@@ -143,7 +143,7 @@ function RegistrarN() {
 						    placeholder="Url  Video..."
 						    value={video}
                             onChange={ (e) => setVideo(e.target.value)}
-                            required
+                            
                         />
                     </div> 
 					

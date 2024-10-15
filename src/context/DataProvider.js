@@ -1,5 +1,11 @@
-import React, {  useState, useEffect,createContext } from "react";
-import Data from "../Data/Data.js";
+/*import React, {  useState, useEffect,createContext } from "react";
+import { ListadoPo } from "../productos/Listadoprod";
+import {app,db} from '../Configfirebase/Configfirebase'	
+import {collection,
+	getDocs,
+	getDoc,
+	deleteDoc,
+	doc} from 'firebase/firestore'
 
 export const DataContext = createContext();
 
@@ -8,10 +14,18 @@ export const DataProvider = (props) => {
     const [menu,setMenu] = useState(false);
     const [carrito, setCarrito] =useState([])
     const [total, setTotal] = useState(0)
- 
+    const [empre,setEmpresas ]=useState([])
+	const  empresaCollection=collection(db,"m_productos")
+	const getEmpresas=async ()   => {
+	const data=await getDocs(empresaCollection)
+	 //console.log(data.docs)
+	 setEmpresas(
+		 data.docs.map( (doc) => ( {...doc.data(),id:doc.id}))
+	 )}
+
 	useEffect(() => {
-		const productos = Data.items
-		if(productos){
+		const productos = getEmpresas()
+					if(productos){
 	    setListadoproductos(productos)
 		}else{
 			setListadoproductos([])
@@ -57,10 +71,10 @@ export const DataProvider = (props) => {
 	
 		const value = {
 		listadoproductos : [listadoproductos],
-		menu: [menu, setMenu],
-		carrito: [carrito, setCarrito],
-		addCarrito: addCarrito,
-		total: [total, setTotal]
+//		menu: [menu, setMenu],
+//		carrito: [carrito, setCarrito],
+//		addCarrito: addCarrito,
+//		total: [total, setTotal]
 		
 	}
 	
@@ -72,3 +86,4 @@ export const DataProvider = (props) => {
 		</DataContext.Provider>
 	)
 };
+*/

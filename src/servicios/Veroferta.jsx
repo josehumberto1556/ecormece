@@ -45,7 +45,7 @@ function Veroferta() {
    return(
    <>
     <Navbar/>
-
+    <Navbar1/>
              <div className="section" style={{marginTop:"80px"}}>
    <div className="container article">
      <div className="row justify-content-center align-items-stretch">

@@ -33,7 +33,7 @@ function ProductoPopular() {
 						{empre.map((empr)=>(
 						<div className="product-item-sm d-flex" key={empr.id}>
 							<div className="thumbnail">
-								<img src={empr.imagen} alt="Image" 
+								<img src={empr.imagenq} alt="Image" 
 								className="img-fluid"/>
 							</div>
 							

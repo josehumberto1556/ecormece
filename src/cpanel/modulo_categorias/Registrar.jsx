@@ -21,12 +21,14 @@ const storage=getStorage(app)
 
 function RegistrarP() {
 	
+  const [listado,setListado]=useState([])
   const [ codigo_empresa,setcodigoempresa ] = useState('')
   const [ nombre_empresa,setNombreempresa ] = useState('')
   const navigate = useNavigate()
 
-  const empresaCollection = collection(db, "categoria")
- /* let urlDescarga
+  const empresaCollection = collection(db,"categoria")
+ 
+  /* let urlDescarga
 
   async function subirArchivo(e)
    {
@@ -55,6 +57,9 @@ function RegistrarP() {
         navigate('/ModuloAdministrador/modulo_categorias/ModuloCategorias')
     
   }
+
+
+  
 
   return (
    <div className="hold-transition sidebar-mini layout-fixed">

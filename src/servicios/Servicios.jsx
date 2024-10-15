@@ -46,19 +46,7 @@ function Servicios() {
   return (
   <>
    <Navbar/>
-	
-	<div className="hero fondo">
-				<div className="container">
-					<div className="row justify-content-between">
-						<div className="col-lg-5">
-							<div className="intro-excerpt">
-								<h1>Ofertas de Empleo</h1>
-							</div>
-						</div>
-						
-					</div>
-				</div>
-			</div>
+   <Navbar1/>
 			
 
 				

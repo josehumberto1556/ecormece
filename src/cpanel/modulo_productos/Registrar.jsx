@@ -1,6 +1,13 @@
 import React,{useState,useEffect}from 'react'
 import {Link,useNavigate}  from 'react-router-dom'
-import { collection, addDoc } from 'firebase/firestore'
+import { collection, 
+	     addDoc,
+	     getDocs,
+	     getDoc,
+	     deleteDoc,
+	    doc
+	 } from 'firebase/firestore'
+
 import {db,app} from '../../Configfirebase/Configfirebase'	
 
 import { getStorage,
@@ -21,7 +28,8 @@ const storage=getStorage(app)
 
 function RegistrarPr() {
 	
-	 const [ codigo_empresa,setcodigoempresa ] = useState('')
+	 const [listado,setListado]=useState([])
+     const [ codigo_empresa,setcodigoempresa ] = useState('')
      const [ nombre_empresa,setNombreempresa ] = useState('')
      const [ direccion_empresa,setDireccionempresa ] = useState('')
 	 const [ video,setVideo ] = useState('')
@@ -29,10 +37,23 @@ function RegistrarPr() {
 	 const [ categoria,setCategoria ] = useState('')
 	 const [ i,setI ] = useState(null)
 	 
+
+     const categoriaCollection=collection(db,'categoria')
+
+	 const Categorias=async()=>{
+
+		const data=await getDocs(categoriaCollection)
+		setListado(
+		  data.docs.map((doc)=>({...doc.data(),id:doc.id}))
+		)
+	
+	 }
+	
+
 	 const empresaCollection = collection(db, "m_productos")
      const navigate = useNavigate()
 	 let urlDescarga
-    
+         
 
   async function subirArchivo(e)
    {
@@ -70,6 +91,10 @@ function RegistrarPr() {
     }
   }
 
+
+  useEffect(()=>{
+	 Categorias()
+  },[])
 
   return (
       <>
@@ -154,7 +179,7 @@ function RegistrarPr() {
 						name="precio" 
 						placeholder="Precio" 
 						minlength="1" 
-						maxlength="6" size="10"
+						maxlength="6" size="1"
 						className='form-control'
 						 value={precio}
                          onChange={ (e) => setPrecio(e.target.value)}
@@ -167,8 +192,14 @@ function RegistrarPr() {
 						required 
 						className='form-control' 
 						onChange={ (e) => setCategoria(e.target.value)}>
-                          <option value="">-Seleccione</option>
-						  <option value="1">-Seleccione</option>
+                           <option value="">-Seleccione</option>
+						  {
+						     listado.map((list)=>
+							 <option value={list.nombre_categoria} key={list.id}>{list.nombre_categoria}</option>
+							)
+						   }
+						
+						
                         </select>						
                        
                     </div> 

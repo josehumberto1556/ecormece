@@ -1,4 +1,4 @@
-import Navbar  from "../navbar/Navbar"
+import NavbarDos  from "../navbar/Navbar2"
 import Navbar1 from "../navbar/Navbar1"
 import Productos from "../productos/Productos"
 import Productos2 from "../productos/Productos2"
@@ -8,10 +8,10 @@ import Blog  from "../blog/Blog"
 import Footer  from "../piepagina/Footer"
 
 
-function Inicio() {
+export const PanelUsuario=()=> {
   return (
   <>
-   <Navbar/>
+   <NavbarDos/>
 	 <Navbar1/>
 	 <Productos/>
 	 <Productos2/>
@@ -23,4 +23,4 @@ function Inicio() {
   );
 }
 
-export default Inicio;
+

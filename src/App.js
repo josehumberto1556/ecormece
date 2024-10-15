@@ -48,6 +48,8 @@ import  ListadoC           from  './cpanel/modulo_contacto/Listado'
 
 import  ListadoSub         from  './cpanel/modulo_sub/ListadoSub'
 
+import { PanelUsuario }     from "./inicioSeccion/CpanelUsuario";
+
 //import  {DataProvider}  from  './context/DataProvider'
 import {UsuarioContextProvider} from "./context/UsuarioContext";
 import {DataProvider} from "./context/DataProvider";
@@ -57,15 +59,14 @@ function App() {
   return (
    <UsuarioContextProvider>
     
-	<DataProvider>
+	
    
 	<Router>
     
         <Routes>
-	     <Route path="/"                    exact   element={<Inicio/>} />
-		 <Route path="/ListadoCategorias"          exact   element={<ListadoCategoria/>}/>
-		 
-		 <Route path="/Productos/:id"           exact   element={<ListadoProducto/>} />
+	     <Route path="/"                        exact   element={<Inicio/>} />
+		 <Route path="/ListadoCategorias"       exact   element={<ListadoCategoria/>}/>
+		 <Route path="/Productos/:nombre"       exact   element={<ListadoProducto/>} />
          <Route path="/detalleProducto/:id"     exact   element={<Detalleproducto/>} />
 		 <Route path="/Nosotros"                exact   element={<Nosotros/>} />
          <Route path="/OfertasEmpleo"           exact   element={<Servicios/>} />
@@ -76,6 +77,10 @@ function App() {
 		 <Route path="/IniciarSeccion"          exact   element={<IniciarSeccion/>} />
 		 <Route path="/RegistrarUsuario"        exact   element={<RegistrarUsuario/>}/>
 	     <Route path="/RecuperarAcceso"         exact   element={<Recuperar/>}/>
+		 
+		 
+		 <Route path="/PanelUsuario" exact
+		  element={<PanelUsuario/>}/>
 		 
 		 	 <Route path="/CuentaUsuario"         
 		 element={<LoginU/>} 
@@ -88,6 +93,7 @@ function App() {
 		 
 		 <Route path="/ModuloAdministrador"  
 		 element={<ModuloAdministrador/>} />
+
 		 
 		 <Route 
 		path="/ModuloAdministrador/modulo_usuarios/ModuloUsuario" 
@@ -156,6 +162,15 @@ function App() {
 		  element={
 			         <ProtectedRoute>
     					<RegistrarP/>
+					 </ProtectedRoute>	
+				  } 
+		 /> 
+
+<Route
+		  path="/ModuloAdministrador/modulo_categorias/EditarCategoria/:id"
+		  element={
+			         <ProtectedRoute>
+    					<EditarP/>
 					 </ProtectedRoute>	
 				  } 
 		 /> 
@@ -235,7 +250,6 @@ function App() {
 		 
 	</Router>
 	
-	</DataProvider>
 	
   </UsuarioContextProvider>	
   );

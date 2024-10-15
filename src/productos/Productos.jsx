@@ -1,4 +1,4 @@
-import React,{useState,useEffect}from 'react'
+import React,{useState,useEffect} from 'react'
 import {db} from '../Configfirebase/Configfirebase'		
 import {collection,getDocs,orderBy, limit,query} from 'firebase/firestore'
 import {Link}      from 'react-router-dom'
@@ -41,9 +41,9 @@ const [empre,setEmpresas ]=useState([])
 		
 					<div className="col-12 col-md-4 col-lg-3 mb-5 mb-md-0" key={empr.id}>
 					 
-				{//		<Link to={`/VerProducto/${empr.id}`} className="product-item" href="cart.html">
-                      }
-					  <div className="product-item">
+					<Link to={`/VerProducto/${empr.id}`}>
+            
+			        <section 	className="product-item" >
 					<img src={empr.imagen}
 							className="img-fluid product-thumbnail"/>
 							
@@ -54,10 +54,10 @@ const [empre,setEmpresas ]=useState([])
 								<img src={empr.imagenq} 
 								className="img-fluid"/>
 							</span>
-							</div>
-					{//	</Link>
-					}
-					</div> 
+				
+				   </section>
+				</Link>
+								</div> 
 					))
 					}
 					

@@ -5,3 +5,15 @@
 	
 	
 }
+
+.boton2{
+	background:linear-gradient(#051126 70%,#203560);
+	color:white;
+	width:100px;
+}
+
+.boton3{
+	background:linear-gradient(#051126 70%,#203560);
+	width:300px;
+	height:300px;
+}

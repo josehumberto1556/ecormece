@@ -107,11 +107,11 @@ const LoginU = () => {
 
             <div className="form-outline mb-4">
               <input type="password" 
-			  id="typePasswordX-2" 
+			  
 			  className="form-control form-control-lg" 
 			   name="password" 
 			  id="passwordField"
-			  className="form-control" 
+			
 			  placeholder="Password"
 			  minlength="6"
 			  maxlength="20"

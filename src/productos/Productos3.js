@@ -28,15 +28,16 @@ function Productos2() {
 					</div>
 					<div className="col-lg-5 ps-lg-5">
 						<h2 className="section-title mb-4">Tenemos los mejores Productos del mercado</h2>
-						<p>Donec facilisis quam ut purus rutrum lobortis. Donec vitae odio quis nisl dapibus malesuada. Nullam ac aliquet velit. Aliquam vulputate velit imperdiet dolor tempor tristique. Pellentesque habitant morbi tristique senectus et netus et malesuada</p>
+						<p className="text-justify">
+						Ecomerce salvemos argentina  ofrece una amplia gama de productos  para el hogar, 
+						la belleza, la moda y la alimentación. Todos los productos están cuidadosamente 
+						seleccionados para garantizar que sean de alta calidad y tengan un impacto mínimo en el medio ambiente. Tienda Verde se compromete a brindar a sus clientes una experiencia de compra conveniente y agradable, 
+						a la vez que apoya prácticas comerciales sostenibles.
 
-						<ul className="list-unstyled custom-list my-4">
-							<li>Donec vitae odio quis nisl dapibus malesuada</li>
-							<li>Donec vitae odio quis nisl dapibus malesuada</li>
-							<li>Donec vitae odio quis nisl dapibus malesuada</li>
-							<li>Donec vitae odio quis nisl dapibus malesuada</li>
-						</ul>
-						<p><a herf="#" className="btn">Explore</a></p>
+						</p>
+
+						
+					
 					</div>
 				</div>
 			</div>

@@ -160,13 +160,13 @@ function Registrar() {
                         <label for="Categoriar">Correo Usuario</label>
                         <input
                             type="email"
-							 id="emailField" 
+						              	 id="emailField" 
                             className='form-control'
-						    placeholder="Correo Usuario ..."
-							minlength="3"
-							maxlength="100"
+						                placeholder="Correo Usuario ..."
+							              minlength="3"
+							              maxlength="100"
                             required
-							 value={nombre_empresa}
+							              value={nombre_empresa}
                             onChange={ (e) => setNombreempresa(e.target.value)}
                         />
                     </div>  
