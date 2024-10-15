@@ -1,14 +1,16 @@
 import React,{useState,useEffect}from 'react'
 import {db} from '../Configfirebase/Configfirebase'		
-import {collection,getDocs} from 'firebase/firestore'
-
+import {collection,getDocs,orderBy, limit,query} from 'firebase/firestore'
+import {Link}      from 'react-router-dom'
 function Productos() {
  
   
 const [empre,setEmpresas ]=useState([])
   const  empresaCollection=collection(db,"m_productos")
   const getEmpresas=async ()   => {
-  const data=await getDocs(empresaCollection)
+//  const limitedQuery=await getDocs(empresaCollection)
+  const limitedQuery=query(empresaCollection,orderBy("nombre_productos"), limit(3))
+  const data=await getDocs(limitedQuery)
    //console.log(data.docs)
    setEmpresas(
        data.docs.map( (doc) => ( {...doc.data(),id:doc.id}))
@@ -39,18 +41,22 @@ const [empre,setEmpresas ]=useState([])
 		
 					<div className="col-12 col-md-4 col-lg-3 mb-5 mb-md-0" key={empr.id}>
 					 
-						<a className="product-item" href="cart.html">
-							<img src={empr.imagen}
+				{//		<Link to={`/VerProducto/${empr.id}`} className="product-item" href="cart.html">
+                      }
+					  <div className="product-item">
+					<img src={empr.imagen}
 							className="img-fluid product-thumbnail"/>
 							
 							<h3 className="product-title">{empr.nombre_productos}</h3>
 							<strong className="product-price">{empr.precio}</strong>
 
 							<span className="icon-cross">
-								<img src={empr.imagen} 
+								<img src={empr.imagenq} 
 								className="img-fluid"/>
 							</span>
-						</a>
+							</div>
+					{//	</Link>
+					}
 					</div> 
 					))
 					}
