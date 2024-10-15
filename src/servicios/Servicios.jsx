@@ -83,6 +83,7 @@ function Servicios() {
 			    {item.nombreempleo}
 			  </h1>
                <div className="text-center">
+			  {item.descripcionempleo}<br/>
 			   <Link 
 			   to={`/Veroferta/${item.id}`} 
 				style={{color:'white'}}

@@ -12,13 +12,13 @@ function Veroferta() {
     const {id} = useParams()
     
     
-    const [nombreempleo,setNombreempleo ] = useState('')
-    const [ imagen,setImagen ] = useState('')
-    const [ descripcion,setDescripcion ] = useState('')	
-    const [ fecha,setFecha ] = useState('')
-    
-     
-    
+    const [nombreempleo,setNombreempleo ] = useState('');
+    const [ imagen,setImagen ] = useState('');
+    const [ descripcion,setDescripcion ] = useState('');	
+    const [ fecha,setFecha ] = useState('');
+    const [ responsabilidades,setResponsabilidades]=useState('');  
+    const [ requisitos,setRequisitos]=useState('');    
+        
     const getEmpresaById = async (id) => {
        const empresa = await getDoc( doc(db, "ofertaempleo", id) )
        if(empresa.exists()) {
@@ -28,6 +28,8 @@ function Veroferta() {
            setImagen(empresa.data().imagenempelo)
            setDescripcion(empresa.data().descripcionempleo) 
            setFecha(empresa.data().fecha)	
+           setResponsabilidades(empresa.data().Responsabilidades)
+           setRequisitos(empresa.data().Requisitos)
        }else{
            console.log('El  no existe')
        }
@@ -66,6 +68,16 @@ function Veroferta() {
          <strong>{fecha}</strong>
          </p>
          
+         <p>
+          <b>Responsabilidades:</b><br/>
+          {responsabilidades}
+         </p>
+         
+         <p>
+          Requisitos:<br/>
+          {requisitos}
+         </p>
+
          { /*<p>
            
            <iframe width="560" height="315" src={video} frameborder="0" allow="accelerometer; autoplay; encrypted-media; gyroscope; picture-in-picture" allowfullscreen></iframe>
