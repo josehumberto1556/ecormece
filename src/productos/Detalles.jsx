@@ -1,11 +1,14 @@
-import "./templatemo.css"
-export const Detalles=({id,title,price,image})=>{
+import "./templatemo.css";
+export const Detalles=({nombre,color,descripcion,image,image1,image2,image3,price})=>{
 		
     return(
         <div class="row">
         <div class="col-lg-5 mt-5">
 			<div class="card mb-3">
-				<img class="card-img img-fluid" src={image} alt={title} id="Detalle-producto"/>
+				<img className="card-img img-fluid" 
+				src={image}
+				alt={nombre} 
+				id="Detalle-producto"/>
 			</div>
 			<div class="row">
 				
@@ -25,43 +28,32 @@ export const Detalles=({id,title,price,image})=>{
 							<div class="row">
 								<div class="col-4">
 									<a href="#">
-										<img class="card-img img-fluid" src={image} alt="Product Image 1" />
+										<img 
+										className="card-img img-fluid" 
+										src={image1} 
+										alt="Product Image 1" />
 									</a>
 								</div>
 								<div class="col-4">
 									<a href="#">
-										<img class="card-img img-fluid" src={image} alt="Product Image 2" />
+										<img 
+										className="card-img img-fluid" 
+										src={image2}
+										 alt="Product Image 2" />
 									</a>
 								</div>
 								<div class="col-4">
 									<a href="#">
-										<img class="card-img img-fluid" src={image} alt="Product Image 3" />
+										<img class="card-img img-fluid" 
+										src={image3}
+										 alt="Product Image 3" />
 									</a>
 								</div>
 							</div>
 						</div>
 						
 
-						
-						<div class="carousel-item">
-							<div class="row">
-								<div class="col-4">
-									<a href="#">
-										<img class="card-img img-fluid" src={image} alt="Product Image 4" />
-									</a>
-								</div>
-								<div class="col-4">
-									<a href="#">
-										<img class="card-img img-fluid" src={image} alt="Product Image 5" />
-									</a>
-								</div>
-								<div class="col-4">
-									<a href="#">
-										<img class="card-img img-fluid" src={image} alt="Product Image 6" />
-									</a>
-								</div>
-							</div>
-						</div>
+					
 					
 					  
 					</div>
@@ -81,7 +73,7 @@ export const Detalles=({id,title,price,image})=>{
 		<div class="col-lg-7 mt-5">
 			<div class="card">
 				<div class="card-body">
-					<h1 class="h2">{title}</h1>
+					<h1 class="h2">{nombre}</h1>
 					<p class="h3 py-2">{price}</p>
 					<p class="py-2">
 						<i class="fa fa-star text-warning"></i>
@@ -101,13 +93,13 @@ export const Detalles=({id,title,price,image})=>{
 					</ul>
 
 					<h6>Descripci&oacute;n:</h6>
-					<p>Lorem ipsum dolor sit amet, consectetur adipiscing elit, sed do eiusmod temp incididunt ut labore et dolore magna aliqua. Quis ipsum suspendisse. Donec condimentum elementum convallis. Nunc sed orci a diam ultrices aliquet interdum quis nulla.</p>
+					<p>{descripcion}</p>
 					<ul class="list-inline">
 						<li class="list-inline-item">
 							<h6>Avaliable Color :</h6>
 						</li>
 						<li class="list-inline-item">
-							<p class="text-muted"><strong>White / Black</strong></p>
+							<p class="text-muted"><strong>{color}</strong></p>
 						</li>
 					</ul>
 
@@ -125,35 +117,48 @@ export const Detalles=({id,title,price,image})=>{
 					<form action="" method="GET">
 						<input type="hidden" name="product-title" value="Activewear" />
 						<div class="row">
-							<div class="col-auto">
-								<ul class="list-inline pb-3">
-									<li class="list-inline-item">Size :
-										<input type="hidden" name="product-size" id="product-size" value="S" />
-									</li>
-									<li class="list-inline-item"><span class="btn btn-success btn-size">S</span></li>
-									<li class="list-inline-item"><span class="btn btn-success btn-size">M</span></li>
-									<li class="list-inline-item"><span class="btn btn-success btn-size">L</span></li>
-									<li class="list-inline-item"><span class="btn btn-success btn-size">XL</span></li>
-								</ul>
-							</div>
-							<div class="col-auto">
-								<ul class="list-inline pb-3">
+							
+							<div className="col-auto">
+								<ul className="list-inline pb-3">
 									<li class="list-inline-item text-right">
-										Quantity
+										Cantidad
 										<input type="hidden" name="product-quanity" id="product-quanity" value="1" />
 									</li>
-									<li class="list-inline-item"><span class="btn btn-success" id="btn-minus">-</span></li>
-									<li class="list-inline-item"><span class="badge bg-secondary" id="var-value">1</span></li>
-									<li class="list-inline-item"><span class="btn btn-success" id="btn-plus">+</span></li>
+									<li className="list-inline-item">
+										<span className="btn btn-success" id="btn-minus" 
+										style={{ background:"linear-gradient(#051126 70%,#203560)",color:"white"}}>
+											-
+										</span>
+									</li>
+									<li class="list-inline-item">
+										<span class="badge bg-secondary"
+										 id="var-value"
+										 style={{ background:"linear-gradient(#051126 70%,#203560)",color:"white"}}
+										 >1</span>
+									</li>
+									<li class="list-inline-item">
+										<span 
+										class="btn btn-success" 
+										id="btn-plus"
+										style={{ background:"linear-gradient(#051126 70%,#203560)",color:"white"}}>+</span>
+									</li>
 								</ul>
 							</div>
 						</div>
 						<div class="row pb-3">
 							<div class="col d-grid">
-								<button type="submit" class="btn btn-success btn-lg" name="submit" value="buy">Buy</button>
+								<button type="submit" className="btn  btn-lg" 
+								style={{background:"linear-gradient(#051126 70%,#203560)",color:"white"}} 
+								name="submit"
+								 value="buy">Comprar</button>
 							</div>
 							<div class="col d-grid">
-								<button type="submit" class="btn btn-success btn-lg" name="submit" value="addtocard">Add To Cart</button>
+								<button 
+								type="submit" 
+								className="btn btn-success btn-lg"
+								 name="submit" 
+								 value="addtocard" 
+								style={{ background:"linear-gradient(#051126 70%,#203560)",color:"white"}}>Añadir al Carrito</button>
 							</div>
 						</div>
 					</form>
