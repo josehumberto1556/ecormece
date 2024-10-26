@@ -7,6 +7,7 @@ export const CategoriaItem=({id,nombre,imagen})=>
   
 
 	return (
+		
 		<div className="col-12 col-md-4 col-lg-3 mb-5">
 		   <Link  to={`/Productos/${nombre}`}>
               
@@ -21,7 +22,7 @@ export const CategoriaItem=({id,nombre,imagen})=>
 							  </span>
 						</div>
 		   </Link>
-	   </div>  		
+	   </div>    		
   )
 }		
 			

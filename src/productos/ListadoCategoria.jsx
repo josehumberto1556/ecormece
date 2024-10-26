@@ -1,8 +1,6 @@
 import React, { useState, useEffect } from 'react';
 import {Link}  from 'react-router-dom'
-import {collection,
-        getDocs
-		} from 'firebase/firestore'
+import { collection, getDocs, query, limit, startAfter,orderBy } from 'firebase/firestore';
 import {app,db} from '../Configfirebase/Configfirebase'
 import Navbar  from "../navbar/Navbar"
 import Navbar1 from "../navbar/Navbar1"
@@ -20,23 +18,40 @@ import "boxicons"
 
 function ListadoCategoria() {
 	
-	
-    const [searchTerm, setSearchTerm] = useState('');
-    const [empre,setEmpresas ]=useState([])
-    const  empresaCollection=collection(db,"categoria")
-    const getEmpresas=async ()   => {
-    const data=await getDocs(empresaCollection)
-     //console.log(data.docs)
-     setEmpresas(
-         data.docs.map( (doc) => ( {...doc.data(),id:doc.id}))
-     )
-     
-       }
+  const [products, setProducts] = useState([]);
+  const [lastVisible, setLastVisible] = useState(null);
+  const [loading, setLoading] = useState(true);
+  const [pageSize] = useState(12);
+
+  const fetchProducts = async (startAfterDoc =1) => {
+    setLoading(true);
+    const productsRef = collection(db, 'categoria');
+    const productsQuery = query(
+      productsRef,
+      orderBy("nombre_categoria","asc"), 
+      limit(pageSize),
+      startAfterDoc ? startAfter(startAfterDoc) : 0
+    );
+
+    const querySnapshot = await getDocs(productsQuery);
+    const newProducts = querySnapshot.docs.map(doc => ({ id: doc.id, ...doc.data() }));
+    
+   // setProducts(prevProducts => [...prevProducts, ...newProducts]);
+   setProducts(querySnapshot.docs.map( (doc) => ( {...doc.data(),id:doc.id}))) 
+   setLastVisible(querySnapshot.docs[querySnapshot.docs.length - 1]);
+    setLoading(false);
+  };
+
+  useEffect(() => {
+    fetchProducts();
+  }, []);
+
+  const handleLoadMore = () => {
+    if (lastVisible) {
+      fetchProducts(lastVisible);
+    }
+  };
   
-   
-       useEffect( () => {
-        getEmpresas()
-      }, [] )  
   return (
   <>
   <div>
@@ -49,8 +64,10 @@ function ListadoCategoria() {
 		      	<div className="row">
 
  				<h2 className="text-center">Listado de Categorias</h2>
-				{
-					empre.map(productos=>(
+         
+        {
+          
+					products.map(productos=>(
 					   <CategoriaItem 
 					   key={productos.id}
 					   id={productos.id}
@@ -59,8 +76,14 @@ function ListadoCategoria() {
 					   
 					   />
 					   ))
-                 }
-				</div>
+          }
+        
+       
+				{!loading && lastVisible && (
+        <button onClick={handleLoadMore}>Cargar más</button>
+      )}
+        </div>
+
 		    </div>
 		</div>
 
