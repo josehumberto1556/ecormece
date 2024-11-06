@@ -12,60 +12,55 @@ export const Detalles=({nombre,color,descripcion,image,image1,image2,image3,pric
 			</div>
 			<div class="row">
 				
-				<div class="col-1 align-self-center">
-					<a href="#multi-item-example" role="button" data-bs-slide="prev">
+				
+			<div class="col-1 align-self-center">
+					<a href="#carouselExampleControls" role="button" data-bs-slide="prev">
 						<i class="text-dark fas fa-chevron-left"></i>
 						<span class="sr-only">Siguiente</span>
 					</a>
 				</div>
 
-			 <div id="multi-item-example" class="col-10 carousel slide carousel-multi-item" data-bs-ride="carousel">
+				<div id="carouselExampleControls" class="col-8 carousel slide carousel-multi-item" data-bs-ride="carousel">
+                
+				<div className="carousel-inner product-links-wap" role="listbox">
 
-					<div class="carousel-inner product-links-wap" role="listbox">
-
-						
-						<div class="carousel-item active">
-							<div class="row">
-								<div class="col-4">
-									<a href="#">
-										<img 
-										className="card-img img-fluid" 
-										src={image1} 
-										alt="Product Image 1" />
-									</a>
-								</div>
-								<div class="col-4">
-									<a href="#">
-										<img 
-										className="card-img img-fluid" 
-										src={image2}
-										 alt="Product Image 2" />
-									</a>
-								</div>
-								<div class="col-4">
-									<a href="#">
-										<img class="card-img img-fluid" 
-										src={image3}
-										 alt="Product Image 3" />
-									</a>
-								</div>
-							</div>
+                  
+					<div className="carousel-item   active">
+						<div class="row">
+						<div class="col-4">
+						<a><img src={image1}   width="200" alt="..."/></a>
 						</div>
-						
-
-					
-					
-					  
+						</div>
 					</div>
-					
+
+					<div class="carousel-item">
+						<div class="row">
+						<div class="col-4">
+							<img src={image2}  width="200" alt="..."/>
+						</div>
+						</div>
+					</div>
+		  
+				<div class="carousel-item">
+				<div class="row">
+					<div class="col-4">
+						<img src={image3}  width="200" alt="..."/>
+					</div>
+					</div>
 				</div>
+			</div>
 
 				<div class="col-1 align-self-center">
-					<a href="#multi-item-example" role="button" data-bs-slide="next">
+					<a href="#carouselExampleControls" role="button" data-bs-slide="next">
 						<i class="text-dark fas fa-chevron-right"></i>
 						<span class="sr-only">Next</span>
 					</a>
 				</div>
+				
+      </div>
+			 
+
+				
 				
 			</div>
 		</div>

@@ -29,7 +29,9 @@ function Detalleproducto()
 		setNombrep(empresa.data().nombre_productos); 
 		setColor(empresa.data().color);    
 		setImagen(empresa.data().imagenq);
-		setImagen1(empresa.data().imagen1);    
+		setImagen1(empresa.data().imagen1); 
+		setImagen2(empresa.data().imagen2);
+		setImagen3(empresa.data().imagen3);     
 		setDescripcion(empresa.data().descripcion);
 		setPrecio(empresa.data().precio);
 	}else{
