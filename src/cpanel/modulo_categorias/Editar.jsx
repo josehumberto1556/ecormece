@@ -137,7 +137,7 @@ function EditarP() {
                     </div>                  
                     
                     <div className="form-group">
-                        <label for="Categoriar">Foto Provincia</label>
+                        <label for="Categoriar">Foto Categoria</label>
                         <img
 						             src={nombre_empresa}
 						             width="100"  height="100"

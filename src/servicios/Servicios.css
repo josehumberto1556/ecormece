@@ -8,6 +8,6 @@
 .boton{
 	background:linear-gradient(#051126 70%,#203560);
 	color:white;
-	width:600px;
-	height:300px;
+	margin-left:50px;
+	width:80px;
 }

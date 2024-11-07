@@ -48,21 +48,7 @@ useEffect( () => {
 	return (
 	<>
 	          <Navbar/>
-   
-	 <div className="hero fondo">
-				<div className="container">
-					<div className="row justify-content-between">
-						<div className="col-lg-5">
-							<div className="intro-excerpt">
-								<h1>Producto</h1>
-							</div>
-						</div>
-						<div className="col-lg-7">
-							
-						</div>
-					</div>
-				</div>
-			</div>
+             <Navbar1/>
 	
 			<div className="untree_co-section product-section before-footer-section">
 

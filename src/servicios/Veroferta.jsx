@@ -18,7 +18,7 @@ function Veroferta() {
     const [ fecha,setFecha ] = useState('');
     const [ responsabilidades,setResponsabilidades]=useState('');  
     const [ requisitos,setRequisitos]=useState('');    
-        
+    const [ link,setLink]=useState(''); 
     const getEmpresaById = async (id) => {
        const empresa = await getDoc( doc(db, "ofertaempleo", id) )
        if(empresa.exists()) {
@@ -30,6 +30,7 @@ function Veroferta() {
            setFecha(empresa.data().fecha)	
            setResponsabilidades(empresa.data().Responsabilidades)
            setRequisitos(empresa.data().Requisitos)
+           setLink(empresa.data().link_oferta)
        }else{
            console.log('El  no existe')
        }
@@ -88,9 +89,10 @@ function Veroferta() {
      
 
 
-         <div className="pt-5">
-           
-           
+         <div className="mb-5">
+           <Link to={link}>
+           <button className="boton">Postularse</button>
+           </Link>
            {/*/<Comentarios/>
           
              <Formulariocontacto id={id}/>

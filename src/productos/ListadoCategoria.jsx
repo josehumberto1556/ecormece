@@ -72,7 +72,7 @@ function ListadoCategoria() {
 					   key={productos.id}
 					   id={productos.id}
 					   nombre={productos.nombre_categoria}
-					   imagen={productos.imagen}
+					   imagen={productos.imagenq}
 					   
 					   />
 					   ))
