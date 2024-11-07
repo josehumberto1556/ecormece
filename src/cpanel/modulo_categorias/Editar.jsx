@@ -10,60 +10,30 @@ import Header  from '../header'
 import Aside   from '../Aside'
 import Footer  from '../Footer'
 import './formulario.css'
+import Swal  from 'sweetalert2'
+import withReactContent from 'sweetalert2-react-content'
 
 
 const storage=getStorage(app)
+const MySwal = withReactContent(Swal)
+
+
 
 function EditarP() {
   const [ codigo_empresa,setcodigoempresa ] = useState('')
   const [ nombre_empresa,setNombreempresa ] = useState('')
-  
+  const [ i,setI ] = useState(null)
    
     const {id} = useParams()
 
-    let urlDescarga
 
-  /*async function subirArchivo(e)
-   {
-	   //detectar archivo
-	   const archivoLocal=e.target.files[0];
-	   console.log(archivoLocal)
-	   //cargar a firebasestore
-	   const archivoRef=ref(storage,`provincias/${archivoLocal.name}`)
-	   const uplo=await uploadBytes(archivoRef,archivoLocal)
-	   urlDescarga=await getDownloadURL(archivoRef)
-	   console.log(uplo)
-	   console.log(urlDescarga)
-   }
-  */
-    const update = async (e) => {
-        e.preventDefault()
-		
-        const empresa = doc(db, "categoria", id)
-		//console.log("hola",urlDescarga)
-		/*if(urlDescarga){
-        const data = { nombre_categoria:codigo_empresa, 
-	                   //bandera:urlDescarga
-									   
-					}
-        await updateDoc(empresa, data)
-       alert("Registro Modificado con Exito ")
-		
-      }
-	  else
-	  {*/
-		   const data = {nombre_categoria:codigo_empresa}
-        await updateDoc(empresa, data)
-        alert("Registro Modificado con Exito ")
-	  //}		  
-	}
-    
+
 	 const getEmpresaById = async (id) => {
         const empresa = await getDoc( doc(db, "categoria", id) )
         if(empresa.exists()) {
             //console.log(product.data())
             setcodigoempresa(empresa.data().nombre_categoria)    
-            //setNombreempresa(empresa.data().bandera)    
+            setNombreempresa(empresa.data().imagenq)    
         }else{
             console.log(' no existe')
         }
@@ -73,6 +43,55 @@ function EditarP() {
         getEmpresaById(id)
         // eslint-disable-next-line
     }, [])
+    
+
+    let urlDescarga
+
+    async function subirArchivo(e)
+    {
+      //detectar archivo
+       const archivoLocal=e.target.files[0]
+      setI(archivoLocal);
+    }
+
+    const update = async (e) => {
+      e.preventDefault()
+  if(!i)
+  {
+    
+    
+    const empresa = doc(db, "categoria", id)
+    const data = {nombre_categoria:codigo_empresa}
+    await updateDoc(empresa, data)
+        MySwal.fire({
+                         title: "Felicitaciones!",
+                         text: "Registro Modificado con exito!",
+                         icon: "danger",
+                         button: "Felicitaciones!"
+            });
+  }
+  else{
+    const empresa = doc(db, "categoria", id)	
+    const n=i	  
+    const archivoRef=ref(storage,`categoria/${n.name}`)
+    const uplo=await uploadBytes(archivoRef,n)
+    urlDescarga=await getDownloadURL(archivoRef)   
+  
+  const data = { 
+                    nombre_categoria:codigo_empresa,
+                    imagenq:urlDescarga
+              }
+      await updateDoc(empresa, data)
+       MySwal.fire({
+                         title: "Felicitaciones!",
+                         text: "Registro mpdificado con exito!",
+                         icon: "danger",
+                         button: "Felicitaciones!"
+            });		
+  }
+  }
+   
+
 
   return (
    <div className="hold-transition sidebar-mini layout-fixed">
@@ -104,20 +123,38 @@ function EditarP() {
                  <form className="forms-sample" onSubmit={update}>
 
 				    <div className="form-group">
-                        <label for="Categoriar">Nombre Categoria</label>
-                        <input
-                            type="text"
-                            className='form-control'
-						    placeholder="Nombre  Categoria ..."
-							minlength="3"
-							maxlength="20"
-                            required
-							value={codigo_empresa}
-                            onChange={ (e) => setcodigoempresa(e.target.value)}
-                        />
+                <label for="Categoriar">Nombre Categoria</label>
+                 <input
+                  type="text"
+                  className='form-control'
+						      placeholder="Nombre  Categoria ..."
+							    minlength="3"
+							    maxlength="20"
+                  required
+						    	value={codigo_empresa}
+                  onChange={ (e) => setcodigoempresa(e.target.value)}
+                  />
                     </div>                  
-				
+                    
+                    <div className="form-group">
+                        <label for="Categoriar">Foto Provincia</label>
+                        <img
+						             src={nombre_empresa}
+						             width="100"  height="100"
+                        />
+                    </div> 
+				 
+
+                    <div className="form-group">
+                        <label for="Categoriar">Subir Imagen</label>
+                        <input
+                            type="file"
+                            className='form-control'
+                            onChange={subirArchivo} 
+                        />
+                    </div>
 			     
+
 				 {/*<div className="form-group">
                         <label for="Categoriar">Foto Provincia</label>
                         <img

@@ -14,7 +14,7 @@ import {DataContext} from "../context/DataProvider";
 import {CategoriaItem} from "./CategoriaItem";
 import  Carrito         from  '../Carrito/Carrito'
 import "boxicons"
-
+import "./productos.css"
 
 function ListadoCategoria() {
 	
@@ -80,7 +80,7 @@ function ListadoCategoria() {
         
        
 				{!loading && lastVisible && (
-        <button onClick={handleLoadMore}>Cargar más</button>
+        <button onClick={handleLoadMore} className="boton">Cargar más</button>
       )}
         </div>
 

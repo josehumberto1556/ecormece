@@ -68,13 +68,13 @@ function ListadoP() {
 	name:"Nombre Provincia",
 	selector:(row)=>row.nombre_categoria
   },
-  
-  /*{
+
+{
 	name:"Bandera Provincia ",
-	selector:(row)=><img src={row.bandera} width="100" height="100"/>,
+	selector:(row)=><img src={row.imagenq} width="100" height="100"/>,
 	sortable:true
-  },*/
-  
+  },
+
   {
 	name:"Modificar",
 	cell:(row)=><Link 

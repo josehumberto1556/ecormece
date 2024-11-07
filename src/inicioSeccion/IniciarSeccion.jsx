@@ -107,71 +107,86 @@ function IniciarSeccion() {
               </div>
 
 			   <div>
+          
+         <h3 className="mb-5 text-center">Cuenta de Usuario</h3>
+
+         <form  onSubmit={submitHandler}>
+
+  <div data-mdb-input-init className="form-outline mb-4">
+    <input 
+      className="form-control"
+       type="email" 
+        placeholder="Email"
+        name="email" 
+        id="emailField"
+        autofocus=""
+        minlength="3"
+        maxlength="100" 
+        required
+      />
+    <label className="form-label" for="form2Example1">Correo Electronico</label>
+  </div>
+
+
+  <div data-mdb-input-init class="form-outline mb-4">
+    <input 
+    name="password" 
+    id="passwordField"
+    className="form-control" 
+    placeholder="Password"
+    minlength="6"
+    maxlength="20"
+    required
+    class="form-control" />
+    <label class="form-label" for="form2Example2">Contraseña</label>
+  </div>
+
+
+  <div className="row mb-4">
   
- <section className="vh-100">
- 
- <div className="container py-5 h-100">
-    <div className="row d-flex justify-content-center align-items-center h-100">
-      <div className="col-12 col-md-8 col-lg-6 col-xl-5">
-        <div className="card shadow-2-strong" style={{borderRadius:"1rem"}}>
-          <div className="card-body p-5 text-center">
-
-            <h3 className="mb-5">Cuenta de Usuario</h3>
-
-            <form onSubmit={submitHandler}>
-
-            <div className="form-outline mb-4">
-              <input 
-			  type="email" 
-			  className="form-control form-control-lg" 
-			  placeholder="Email"
-		      name="email" 
-		      id="emailField"
-		      autofocus=""
-		      minlength="3"
-		      maxlength="100" 
-		      required
-			  />
-              <label className="form-label" for="typeEmailX-2">Email</label>
-            </div>
-
-            <div className="form-outline mb-4">
-              <input type="password" 
-			  id="typePasswordX-2" 
-			  className="form-control form-control-lg" 
-			   name="password" 
-			  id="passwordField"
-			  className="form-control" 
-			  placeholder="Password"
-			  minlength="6"
-			  maxlength="20"
-			  required
-			  />
-			  
-              <label className="form-label" for="typePasswordX-2">Password</label>
-            </div>
-
-            
-            <div className="form-check d-flex justify-content-start mb-4">
-              <Link className="text-center"
-				to="/RegistrarUsuario"> 
-				 Registar
-                </Link>
-              <Link className="text-center"
-				to="/RecuperarAcceso"> 
-				Olvido Contraseña
-                </Link>
-            </div>
-
-            <button className="btn btn-primary btn-lg btn-block" type="submit">Entrar</button>
-           </form>
-
-          </div>
-        </div>
+   <div className="col d-flex justify-content-center">
+      
+      <div class="form-check">
+        <input className="form-check-input" type="checkbox" value="" id="form2Example31" checked />
+        <label className="form-check-label" for="form2Example31"> Selecionado para recuperar </label>
       </div>
     </div>
+
+    <div class="col">
+     
+    <Link className="text-center"
+				to="/RecuperarAcceso"> 
+			  Recuperar Contraseña
+                </Link>
+    </div>
   </div>
-</section>
+ 
+  <div class="d-grid gap-2 col-6 mx-auto">
+   <button  type="button" className="boton4 mb-4">Entrar</button>
+  </div>
+  
+  <div class="text-center">
+    <p><a href="#!">Registrarse</a></p>
+    {/*}
+    <p>or sign up with:</p>
+    <button  type="button" data-mdb-button-init data-mdb-ripple-init class="btn btn-link btn-floating mx-1">
+      <i class="fab fa-facebook-f"></i>
+    </button>
+    <button  type="button" data-mdb-button-init data-mdb-ripple-init class="btn btn-link btn-floating mx-1">
+      <i class="fab fa-google"></i>
+    </button>
+
+    <button  type="button" data-mdb-button-init data-mdb-ripple-init class="btn btn-link btn-floating mx-1">
+      <i class="fab fa-twitter"></i>
+    </button>
+
+    <button  type="button" data-mdb-button-init data-mdb-ripple-init class="btn btn-link btn-floating mx-1">
+      <i class="fab fa-github"></i>
+    </button>
+  */}
+    </div>
+</form>
+
  </div>
 
             </div>
