@@ -1,12 +1,16 @@
-//import {useContext} from "react";
+import {useContext} from "react";
 //import {DataContext} from "../context/DataProvider";
 import {Detalles} from "./Detalles"
+import { CarritoContext } from "../context/CarritoContext"
 
-export const DetalleItem=({nombre,color,image,image1,image2,image3,descripcion,price})=>
+export const DetalleItem=({id,nombre,color,image,image1,image2,image3,descripcion,price, handleAgregar, handleQuitar, handleAumentar, handleDisminuir})=>
 {
   /*  const value=useContext(DataContext)
     const [listadoproductos]=value.listadoproductos
 */
+
+
+  
 return(
 <section>
 	<div className="container pb-5">
@@ -19,7 +23,13 @@ return(
         image3={image3}
         descripcion={descripcion}
         price={price}
-        />
+        handleAgregar={handleAgregar}
+        handleQuitar={handleQuitar}
+        handleAumentar={handleAumentar} 
+        handleDisminuir={handleAumentar}
+       
+     
+     />
         
 
 	</div>

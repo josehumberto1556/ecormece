@@ -1,4 +1,4 @@
-import React, { useState,useEffect } from "react"
+import React, { useContext,useState,useEffect } from "react"
 import {Link,useParams} from 'react-router-dom'
 import { getDoc, updateDoc, doc } from "firebase/firestore"
 import {db,app} from '../Configfirebase/Configfirebase'
@@ -7,6 +7,7 @@ import {ProductoItem} from "./ProductoItem";
 import {DetalleItem}  from "./DetalleItem"
 import Navbar  from "../navbar/Navbar"
 import Navbar1 from "../navbar/Navbar1"
+import { CarritoContext } from "../context/CarritoContext"
 import Footer  from "../piepagina/Footer"
 
 
@@ -44,6 +45,16 @@ useEffect( () => {
 	// eslint-disable-next-line
 }, [])
    
+
+const { agregarCompra, eliminarCompra } = useContext(CarritoContext)
+
+const handleAgregar = (compra) =>{
+  agregarCompra(compra)
+}
+
+const handleQuitar = (id) =>{
+	eliminarCompra(id)
+  }
 	
 	return (
 	<>
@@ -58,6 +69,7 @@ useEffect( () => {
 				 </div>
 
 				<DetalleItem
+				 id={id}
 				 nombre={nombrep}
 				 color={color}
 				 image={imagen}
@@ -66,6 +78,8 @@ useEffect( () => {
 				 image3={imagen3}
 				 descripcion={descripcion}
 				 price={precio}
+				 handleAgregar={() => handleAgregar(nombrep)}
+				 handleQuitar={() => handleQuitar(id)}
 				 />
 
              </div>

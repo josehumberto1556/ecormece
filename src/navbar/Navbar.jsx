@@ -5,6 +5,7 @@ import {Link}   from "react-router-dom";
 import "./Navbar.css"
 import  Usu from "../images/user.svg"
 import Carrito from "../images/cart.svg"
+import { CarritoContext } from "../context/CarritoContext"
 
 function Navbar() {
 
@@ -20,8 +21,9 @@ function Navbar() {
 	
 	 
  }  
-	
+ const { listaCompras } = useContext(CarritoContext)
   return (
+	
     <div>
      		<nav className="custom-navbar navbar navbar navbar-expand-md navbar-dark navbars fixed-top" arial-label="Furni navigation bar">
 
@@ -65,10 +67,11 @@ function Navbar() {
 						<img src={Usu}/>
 						</Link>
 						</li>
+						
 						<li>
-						<a className="nav-link">
-						<img src={Carrito}/>
-						</a>
+						  <Link to='/CarritoProductos' className="nav-link">
+						    <img src={Carrito}/>{listaCompras.length}
+						   </Link>
 						</li>
 					{/*	 <li className="nav-item active" onClick={toogleMenu}  style={letra}>
                               <span className="item__total">{carrito.length}</span>

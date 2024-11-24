@@ -12,6 +12,7 @@ export const CategoriaItem=({id,nombre,imagen})=>
 		   <Link  to={`/Productos/${nombre}`}>
               
 					   <div className="product-item">
+
 							<img src={imagen}
 							className="img-fluid product-thumbnail"/>
 							<h3 className="product-title">{nombre}</h3>

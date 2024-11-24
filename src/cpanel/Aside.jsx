@@ -10,7 +10,7 @@ import "./aside.css"
 const Aside = () => {
   
   const { logOut, user } = useUserAuth();
-  const n  =user.email
+  const n  =user.nom
   const navigate = useNavigate();
   const handleLogout = async () => {
     try {
@@ -117,9 +117,10 @@ const Aside = () => {
 			
 		   <li className="nav-item">
 		   {
-		      <a className="nav-link" 
-		  style={{color:"white"}}
-		  onClick={handleLogout}>Cerrar Sección</a>
+		      <a 
+			   className="nav-link" 
+		       style={{color:"white"}}
+		       onClick={handleLogout}>Cerrar Sección</a>
           }
 		</li>
 		 

@@ -4,8 +4,8 @@ import {collection,getDocs,orderBy, limit,query} from 'firebase/firestore'
 import {Link}      from 'react-router-dom'
 function Productos() {
  
-  
-const [empre,setEmpresas ]=useState([])
+
+  const [empre,setEmpresas ]=useState([])
   const  empresaCollection=collection(db,"m_productos")
   const getEmpresas=async ()   => {
 //  const limitedQuery=await getDocs(empresaCollection)

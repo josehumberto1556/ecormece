@@ -1,6 +1,5 @@
 import Navbar  from "../navbar/Navbar"
 import Navbar1 from "../navbar/Navbar1"
-import NavbarDos  from "../navbar/Navbar2"
 import Productos from "../productos/Productos"
 import Productos2 from "../productos/Productos2"
 import Productos3 from "../productos/Productos3"
@@ -9,16 +8,15 @@ import Blog  from "../blog/Blog"
 import Footer  from "../piepagina/Footer"
 import { useUserAuth } from "../context/UsuarioContext";
 
-function Inicio() {
+function Inicio1() {
 
-	const { user } = useUserAuth();
-	let nom=user.email
+
 
 	return (
   <>
-  { nom ? <NavbarDos/>:<Navbar/> }	
-	
-	<Navbar1/>
+  	
+	 <Navbar/>
+	 <Navbar1/>
 	 <Productos/>
 	 <Productos2/>
 	 <Productos3/>
@@ -29,4 +27,4 @@ function Inicio() {
   );
 }
 
-export default Inicio;
+export default Inicio1;

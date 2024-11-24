@@ -5,7 +5,11 @@ import {Link}   from "react-router-dom";
 import "./Navbar.css"
 import  Usu from "../images/user.svg"
 import Carrito from "../images/cart.svg"
-
+import { useNavigate } from "react-router";
+import { useUserAuth } from "../context/UsuarioContext";
+import Swal from 'sweetalert2'
+import withReactContent from 'sweetalert2-react-content'
+const MySwal = withReactContent(Swal)
 function NavbarDos() {
 
  /* const value = useContext(DataContext);
@@ -15,6 +19,29 @@ function NavbarDos() {
    setMenu(!menu)
   }
 */
+
+const { logOut, user } = useUserAuth();
+const n  =user.email
+const navigate = useNavigate();
+const handleLogout = async () => {
+  try {
+
+	await logOut();
+	MySwal.fire({
+		title: "Bien hecho!",
+		text: "Has Cerrado Sección!",
+		icon: "success",
+		 button: "Felicitaciones!",
+	 });
+	navigate("/Inicio");
+  } catch (error) {
+	console.log(error.message);
+  }
+};
+
+
+
+
   const letra = {
 	 color:"#ffffff"
 	
@@ -76,7 +103,7 @@ function NavbarDos() {
                      
                      
 						<li className="nav-item active">
-							<Link to=""  className="nav-link">Cerrar Secci&oacute;n</Link>
+							<a onClick={handleLogout}  className="nav-link">Cerrar Secci&oacute;n</a>
 						</li>
 
 					</ul>

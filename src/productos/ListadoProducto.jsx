@@ -1,4 +1,3 @@
-//import {useContext} from "react";
 import Navbar  from "../navbar/Navbar"
 import Navbar1 from "../navbar/Navbar1"
 import Productos from "../productos/Productos"
@@ -7,22 +6,22 @@ import Productos3 from "../productos/Productos3"
 import ProductoPopular from "../productos/ProductoPopular"
 import Blog  from "../blog/Blog"
 import Footer  from "../piepagina/Footer"
-//import {DataContext} from "../context/DataProvider";
 import {ProductoItem} from "./ProductoItem";
-import  Carrito         from  '../Carrito/Carrito'
-import React,{useState,useEffect}from 'react'
+import React,{useContext,useState,useEffect}from 'react'
 import {db} from '../Configfirebase/Configfirebase'		
 import { collection,query,where,getDocs } from 'firebase/firestore'; 
 import {link,useParams} from 'react-router-dom'
+import { CarritoContext } from "../context/CarritoContext"
 import "boxicons"
+
 
 
 function ListadoProducto() {
 	const {nombre} = useParams()
 	let categoria= decodeURIComponent(nombre);
    	const [empre,setEmpresas ]=useState([])
-	
-  
+	const [searchTerm, setSearchTerm] = useState('');
+     
     const getEmpresas=async() =>
     {
 		
@@ -42,6 +41,25 @@ function ListadoProducto() {
          getEmpresas()
     }, [] )
 	
+	const handleSearch = (event) => {
+		setSearchTerm(event.target.value);
+		
+	  };
+	
+	  const filteredData = empre.filter((item) =>
+		item.nombre_productos.toLowerCase().includes(searchTerm.toLowerCase())
+	  );
+
+	  const { agregarCompra, eliminarCompra } = useContext(CarritoContext)
+
+	  const handleAgregar = (compra) =>{
+		agregarCompra(compra)
+	  }
+	  const handleQuitar = (id) =>{
+		eliminarCompra(id)
+	  }
+	 
+
 //const value=useContext(DataContext)
 //const [listadoproductos]=value.listadoproductos
   return (
@@ -57,17 +75,30 @@ function ListadoProducto() {
 		      	<div className="row">
 
  				<h2 className="text-center">Listado de Productos</h2>
+			   
+			    <div className="clo-lg-12 col-md-12">  
+		         <form>
+		          <input type="text" 
+		           value={searchTerm} 
+		           onChange={handleSearch} 
+		           placeholder="Buscar  Producto ..." 
+		           className="form-control"
+		           reuired/>
+                  </form>
+				</div>
+
 				{
 					empre.map(productos=>(
 					
 							
 						<ProductoItem 
 					     key={productos.id}
-					    id={productos.id}
-					    title={productos.nombre_productos}
-					    price={productos.precio}
-					    image={productos.imagenq}
-					   
+					     id={productos.id}
+					     title={productos.nombre_productos}
+					     price={productos.precio}
+					     image={productos.imagenq}
+						 handleAgregar={() => handleAgregar(productos)}
+						 handleQuitar={() => handleQuitar(productos.id)}
 					   />
 					   ))
 				}

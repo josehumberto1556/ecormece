@@ -91,17 +91,19 @@ const LoginU = () => {
             <form onSubmit={submitHandler}>
 
             <div className="form-outline mb-4">
+            
               <input 
-			  type="email" 
-			  className="form-control form-control-lg" 
-			  placeholder="Email"
-		      name="email" 
-		      id="emailField"
-		      autofocus=""
-		      minlength="3"
-		      maxlength="100" 
-		      required
-			  />
+			          type="email" 
+			          className="form-control form-control-lg" 
+			          placeholder="Email"
+		            name="email" 
+		            id="emailField"
+		            autofocus=""
+		            minlength="3"
+		            maxlength="100" 
+		            required
+			      />
+
               <label className="form-label" for="typeEmailX-2">Email</label>
             </div>
 

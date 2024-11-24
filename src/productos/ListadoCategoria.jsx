@@ -2,6 +2,7 @@ import React, { useState, useEffect } from 'react';
 import {Link}  from 'react-router-dom'
 import { collection, getDocs, query, limit, startAfter,orderBy } from 'firebase/firestore';
 import {app,db} from '../Configfirebase/Configfirebase'
+import {CategoriaItem} from "./CategoriaItem";
 import Navbar  from "../navbar/Navbar"
 import Navbar1 from "../navbar/Navbar1"
 import Productos from "../productos/Productos"
@@ -10,18 +11,17 @@ import Productos3 from "../productos/Productos3"
 import ProductoPopular from "../productos/ProductoPopular"
 import Blog  from "../blog/Blog"
 import Footer  from "../piepagina/Footer"
-import {DataContext} from "../context/DataProvider";
-import {CategoriaItem} from "./CategoriaItem";
-import  Carrito         from  '../Carrito/Carrito'
 import "boxicons"
 import "./productos.css"
 
 function ListadoCategoria() {
 	
+  const [searchTerm, setSearchTerm] = useState('');
   const [products, setProducts] = useState([]);
   const [lastVisible, setLastVisible] = useState(null);
   const [loading, setLoading] = useState(true);
   const [pageSize] = useState(12);
+  
 
   const fetchProducts = async (startAfterDoc =1) => {
     setLoading(true);
@@ -42,6 +42,8 @@ function ListadoCategoria() {
     setLoading(false);
   };
 
+  
+
   useEffect(() => {
     fetchProducts();
   }, []);
@@ -52,6 +54,15 @@ function ListadoCategoria() {
     }
   };
   
+  const handleSearch = (event) => {
+    setSearchTerm(event.target.value);
+	
+  };
+
+  const filteredData = products.filter((item) =>
+    item.nombre_categoria.toLowerCase().includes(searchTerm.toLowerCase())
+  );
+
   return (
   <>
   <div>
@@ -64,10 +75,20 @@ function ListadoCategoria() {
 		      	<div className="row">
 
  				<h2 className="text-center">Listado de Categorias</h2>
-         
+           
+        <div className="clo-lg-12 col-md-12">  
+		       <form>
+		         <input type="text" 
+		          value={searchTerm} 
+		          onChange={handleSearch} 
+		          placeholder="Buscar  Categoria ..." 
+		          className="form-control"
+		          reuired/>
+        </form>	
+        </div>
         {
           
-					products.map(productos=>(
+					filteredData.map(productos=>(
 					   <CategoriaItem 
 					   key={productos.id}
 					   id={productos.id}

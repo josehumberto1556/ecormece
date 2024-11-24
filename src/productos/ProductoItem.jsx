@@ -1,24 +1,33 @@
-import React, { useContext } from "react";
-import  {DataContext}  from  '../context/DataProvider'
-import {Link}      from 'react-router-dom'
+import React, {useState} from "react";
+import {Link}  from 'react-router-dom'
+import "./Producto.css"
 
-
-export const ProductoItem=({id,title,price,image})=>
+export const ProductoItem=({id,title,price,image,handleAgregar, handleQuitar, handleAumentar, handleDisminuir })=>
 {
 		
-    // const value=useContext(DataContext)
-    // const [menu,setMenu] =value.menu;
-    // const addCarrito=value.addCarrito
+    const [added, setAdded] = useState(false) 
+
+	
+    const clickAgregar = () => {
+        handleAgregar()
+        setAdded(true)
+    }
+    const clickQuitar = () => {
+        handleQuitar()
+        setAdded(false)
+    }
+
 
 	return (
 
             <div className="col-12 col-md-4 col-lg-3 mb-5">
-                <Link  to={`/detalleProducto/${id}`}>
-				
+                                				
 					<div className="product-item">
+					<Link  to={`/detalleProducto/${id}`}>	
 						<img 
 						src={image}
 				  		className="img-fluid product-thumbnail"/>
+					</Link>
 						
 						<h3 className="product-title">{title}</h3>
 						  <strong className="product-price">{price}</strong>
@@ -26,12 +35,30 @@ export const ProductoItem=({id,title,price,image})=>
 							 <img src={image}
 							 className="img-fluid"/>
 						    </span>
-						
-						{/* <button className="btn" onClick={()=>addCarrito(id)}>
-						 Agregar
-						</button>  */}
+                     						
+                        <br/>
+						{added
+					      ? <button
+						    type="button"
+							className="boton-err"
+							onClick={clickQuitar}
+                            >
+							
+							Quitar del Carrito
+							</button>
+							: <button
+							  type="button"
+							  className="boton-ag"
+							  onClick={clickAgregar}
+							>
+								Agregar Carrito
+							  </button>
+							}
+
+
 						</div>
-						</Link>
+				
+
 						</div> 
   )
 }		

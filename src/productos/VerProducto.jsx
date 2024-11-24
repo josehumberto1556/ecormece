@@ -1,5 +1,4 @@
 import React, { useContext,useState,useEffect } from "react";
-import  {DataContext}  from  '../context/DataProvider'
 import "./Producto.css"
 import Navbar  from "../navbar/Navbar"
 import Navbar1 from "../navbar/Navbar1"

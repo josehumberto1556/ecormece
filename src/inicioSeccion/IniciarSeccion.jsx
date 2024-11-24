@@ -19,7 +19,7 @@ function IniciarSeccion() {
     const password=e.target.passwordField.value
     try
     {
-       
+          
       await log(email,password);
       MySwal.fire({
                     title: "Bien hecho!",
@@ -27,7 +27,7 @@ function IniciarSeccion() {
                     icon: "success",
                      button: "Felicitaciones!",
                  });
-              navigate("/PanelUsuario"); 
+              navigate("/"); 
     }catch(error){
       
       
@@ -118,7 +118,7 @@ function IniciarSeccion() {
        type="email" 
         placeholder="Email"
         name="email" 
-        id="emailField"
+		    id="emailField"
         autofocus=""
         minlength="3"
         maxlength="100" 
@@ -134,10 +134,11 @@ function IniciarSeccion() {
     id="passwordField"
     className="form-control" 
     placeholder="Password"
+    type="password"
     minlength="6"
     maxlength="20"
     required
-    class="form-control" />
+   />
     <label class="form-label" for="form2Example2">Contraseña</label>
   </div>
 
@@ -162,7 +163,7 @@ function IniciarSeccion() {
   </div>
  
   <div class="d-grid gap-2 col-6 mx-auto">
-   <button  type="button" className="boton4 mb-4">Entrar</button>
+   <button  type="submit" className="boton4 mb-4">Entrar</button>
   </div>
   
   <div class="text-center">

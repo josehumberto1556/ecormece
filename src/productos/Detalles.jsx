@@ -1,6 +1,12 @@
+import { useState } from "react";
 import "./templatemo.css";
-export const Detalles=({nombre,color,descripcion,image,image1,image2,image3,price})=>{
-		
+export const Detalles=({
+	nombre,color,descripcion,image,image1,image2,image3,price})=>
+	{
+
+
+	
+
     return(
         <div class="row">
         <div class="col-lg-5 mt-5">
@@ -109,54 +115,29 @@ export const Detalles=({nombre,color,descripcion,image,image1,image2,image3,pric
 						<li>Excepteur sint</li>
 					</ul>
 
-					<form action="" method="GET">
+					<div>
 						<input type="hidden" name="product-title" value="Activewear" />
-						<div class="row">
-							
-							<div className="col-auto">
-								<ul className="list-inline pb-3">
-									<li class="list-inline-item text-right">
-										Cantidad
-										<input type="hidden" name="product-quanity" id="product-quanity" value="1" />
-									</li>
-									<li className="list-inline-item">
-										<span className="btn btn-success" id="btn-minus" 
-										style={{ background:"linear-gradient(#051126 70%,#203560)",color:"white"}}>
-											-
-										</span>
-									</li>
-									<li class="list-inline-item">
-										<span class="badge bg-secondary"
-										 id="var-value"
-										 style={{ background:"linear-gradient(#051126 70%,#203560)",color:"white"}}
-										 >1</span>
-									</li>
-									<li class="list-inline-item">
-										<span 
-										class="btn btn-success" 
-										id="btn-plus"
-										style={{ background:"linear-gradient(#051126 70%,#203560)",color:"white"}}>+</span>
-									</li>
-								</ul>
-							</div>
-						</div>
+						
 						<div class="row pb-3">
-							<div class="col d-grid">
-								<button type="submit" className="btn  btn-lg" 
-								style={{background:"linear-gradient(#051126 70%,#203560)",color:"white"}} 
-								name="submit"
-								 value="buy">Comprar</button>
+							<div class="col d-grid"> 
+								<a 
+								href="javascript: history.go(-1)"
+								style={{
+									      background:"linear-gradient(#051126 70%,#203560)",
+									      color:"white",
+										  marginLeft:"200px", 
+										  textAlign:"center",
+										  textDecoration:"none",
+										  width:"150px"
+										  
+										}} 
+								>
+								Volver atrás
+								</a>
 							</div>
-							<div class="col d-grid">
-								<button 
-								type="submit" 
-								className="btn btn-success btn-lg"
-								 name="submit" 
-								 value="addtocard" 
-								style={{ background:"linear-gradient(#051126 70%,#203560)",color:"white"}}>Añadir al Carrito</button>
-							</div>
+					
 						</div>
-					</form>
+					</div>
 
 				</div>
 			</div>

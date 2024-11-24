@@ -5,6 +5,7 @@ import {
 } from "react-router-dom";
 
 import Inicio from "./inicio/Inicio"
+import Inicio1 from "./inicio/Inicio1"
 import ListadoProducto from "./productos/ListadoProducto"
 import Nosotros from "./nosotros/Nosotros"
 import Servicios  from "./servicios/Servicios"
@@ -50,21 +51,21 @@ import  ListadoSub         from  './cpanel/modulo_sub/ListadoSub'
 
 import { PanelUsuario }     from "./inicioSeccion/CpanelUsuario";
 
-//import  {DataProvider}  from  './context/DataProvider'
 import {UsuarioContextProvider} from "./context/UsuarioContext";
-import {DataProvider} from "./context/DataProvider";
-
+import { CarritoProvider } from "./context/CarritoProvider"
+import { CarritoPage } from "./pagescarrito/CarritoPage";
 
 function App() {
   return (
    <UsuarioContextProvider>
-    
-	
+    <CarritoProvider>
+
    
 	<Router>
     
         <Routes>
 	     <Route path="/"                        exact   element={<Inicio/>} />
+		 <Route path="/Inicio"                  exact   element={<Inicio1/>} />
 		 <Route path="/ListadoCategorias"       exact   element={<ListadoCategoria/>}/>
 		 <Route path="/Productos/:nombre"       exact   element={<ListadoProducto/>} />
          <Route path="/detalleProducto/:id"     exact   element={<Detalleproducto/>} />
@@ -245,11 +246,25 @@ function App() {
 				  } 
 		 />		
 
-		
+
+          
+
+           <Route
+		    path="/CarritoProductos/"
+		    element={
+			        
+		              <CarritoPage/>  
+		 
+		            
+				  } 
+		   />
+
+
 		</Routes> 
 		 
 	</Router>
-	
+
+	</CarritoProvider>
 	
   </UsuarioContextProvider>	
   );
