@@ -11,7 +11,9 @@ function Navbar1() {
 						<div className="col-lg-5">
 							<div className="intro-excerpt bajartexto">
 								<h1>Productos Modernos <span clsas="d-block">Los mejores precios</span></h1>
-								<p className="mb-4">Donec vitae odio quis nisl dapibus malesuada. Nullam ac aliquet velit. Aliquam vulputate velit imperdiet dolor tempor tristique.</p>
+								<p className="mb-4">
+								Unidos por Argentina. ¡Consume responsable!
+								</p>
 							</div>
 						</div>
 						<div className="col-lg-7">

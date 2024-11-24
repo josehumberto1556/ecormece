@@ -68,14 +68,18 @@ function Navbar() {
 						</Link>
 						</li>
 						
-						<li>
+						{/* <li>
 						  <Link to='/CarritoProductos' className="nav-link">
-						    <img src={Carrito}/>{listaCompras.length}
+						    <img src={Carrito}/>
+							{listaCompras.length}
 						   </Link>
-						</li>
-					{/*	 <li className="nav-item active" onClick={toogleMenu}  style={letra}>
-                              <span className="item__total">{carrito.length}</span>
-  </li>*/}
+						</li> */}
+						 <li className="nav-item active">
+						    <Link to='/CarritoProductos' className="nav-link">
+							  <img src={Carrito}/>
+                              <span className="item__total">{listaCompras.length}</span>
+						    </Link>
+                        </li>
                      
 					</ul>
 				</div>

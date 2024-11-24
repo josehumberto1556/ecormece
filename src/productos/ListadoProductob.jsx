@@ -16,7 +16,7 @@ import "boxicons"
 
 
 
-function VerProducto() {
+function ListadoProductob() {
 	const {nombre} = useParams()
 	let categoria= decodeURIComponent(nombre);
    	const [empre,setEmpresas ]=useState([])
@@ -28,7 +28,7 @@ function VerProducto() {
        if(categoria)
 	   { 
          const col= collection(db,'m_productos');
-		 const q=query(col,where("nombre_productos","==",categoria));
+		 const q=query(col,where("categoria","==",categoria));
 		 const datos=await getDocs(q);
 	 	 //data.forEach(user=>{console.log(user.data())})
 		setEmpresas(datos.docs.map((doc => ({ ...doc.data(), id: doc.id }))))				   
@@ -112,4 +112,4 @@ function VerProducto() {
   );
 }
 
-export default VerProducto;
+export default ListadoProductob;

@@ -54,7 +54,7 @@ import { PanelUsuario }     from "./inicioSeccion/CpanelUsuario";
 import {UsuarioContextProvider} from "./context/UsuarioContext";
 import { CarritoProvider } from "./context/CarritoProvider"
 import { CarritoPage } from "./pagescarrito/CarritoPage";
-
+ 
 function App() {
   return (
    <UsuarioContextProvider>
@@ -68,11 +68,12 @@ function App() {
 		 <Route path="/Inicio"                  exact   element={<Inicio1/>} />
 		 <Route path="/ListadoCategorias"       exact   element={<ListadoCategoria/>}/>
 		 <Route path="/Productos/:nombre"       exact   element={<ListadoProducto/>} />
+
          <Route path="/detalleProducto/:id"     exact   element={<Detalleproducto/>} />
 		 <Route path="/Nosotros"                exact   element={<Nosotros/>} />
          <Route path="/OfertasEmpleo"           exact   element={<Servicios/>} />
          <Route path="/Veroferta/:id"           exact   element={<Veroferta/>}/>
-		 <Route path="/VerProducto/:id"         exact   element={<VerProducto/>} />
+		 <Route path="/VerProducto/:nombre"     exact   element={<VerProducto/>} />
          <Route path="/Contacto"                exact   element={<Contacto/>} />
          <Route path="/TodosBlog"               exact   element={<TodosBlog/>} />
 		 <Route path="/IniciarSeccion"          exact   element={<IniciarSeccion/>} />
