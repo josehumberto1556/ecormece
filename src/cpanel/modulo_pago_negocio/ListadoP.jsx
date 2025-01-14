@@ -88,10 +88,11 @@ function ListadoNeg() {
     },
     
 
+
   // {
 	// name:"Modificar",
 	// cell:(row)=><Link 
-	// to={`/ModuloAdministrador/modulo_categorias/EditarCategoria/${row.id}`} 
+	// to={`/ModuloAdministrador/modulo_categoriasg/EditarCategoria/${row.id}`} 
 	// className="btn btn-light">Editar</Link>
   // },
   //  {
