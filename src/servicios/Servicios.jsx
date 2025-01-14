@@ -4,7 +4,7 @@ import {collection,
         getDocs
 		} from 'firebase/firestore'
 import {app,db} from '../Configfirebase/Configfirebase'
-import Navbar  from "../navbar/Navbar"
+import { Menu } from "../navbar/Menu"
 import Navbar1 from "../navbar/Navbar1"
 import ProductoPopular from "../productos/ProductoPopular"
 import Footer  from "../piepagina/Footer"
@@ -45,7 +45,7 @@ function Servicios() {
 	
   return (
   <>
-   <Navbar/>
+   <Menu/>
    <Navbar1/>
 			
 

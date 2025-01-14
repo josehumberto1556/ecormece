@@ -124,6 +124,19 @@ const Aside = () => {
           }
 		</li>
 		 
+        <li className="nav-item">
+          
+		     <Link 
+			   className="nav-link" 
+			   style={{color:"white"}}
+		       to="/ModuloAdministrador/PagonNegocios">              
+		         Pagos de negocio
+          </Link>
+        
+		</li>
+			
+
+
       </ul>
     
    

@@ -1,0 +1,36 @@
+.container1 {
+    background-color: #fff;
+    padding: 4rem;
+    border-radius: 10px;
+    box-shadow: 0 4px 6px rgba(0, 0, 0, 0.1);
+  }
+  
+  /* Personaliza los títulos */
+  h2 {
+    color: #333;
+    font-weight: bold;
+  }
+   
+  /* Personaliza el texto */
+   p {
+    color: #6c757d;
+    line-height: 1.6;
+  }
+  
+  /* Personaliza los enlaces */
+   a {
+    color: #007bff;
+    text-decoration: none;
+  }
+   
+  /* Personaliza las listas */
+   .list-inline {
+    padding-left: 0;
+    list-style: none;
+  }
+  .list-inline-item {
+    margin-right: 1rem;
+  }
+  .list-inline-item a {
+    font-size: 1.5rem;
+  } 

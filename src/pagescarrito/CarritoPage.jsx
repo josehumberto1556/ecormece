@@ -44,8 +44,9 @@ export const CarritoPage = () => {
 
                     <tbody>
                       {listaCompras.map(item => (
-                                               
-                            <tr>
+                              
+                              
+                            <tr key={item.id}>
                             <td className="product-thumbnail">
                               <img src={item.imagenq} alt="Image"/>
                             </td>
@@ -89,7 +90,11 @@ export const CarritoPage = () => {
           </div>
         
           
-          <Cupon t={calcularTotal()}></Cupon>
+          <Cupon 
+           t={calcularTotal()}
+           metodo={listaCompras}
+           >
+          </Cupon>
 
         </div> 
         </div>   

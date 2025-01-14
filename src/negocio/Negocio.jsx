@@ -2,8 +2,8 @@ import React, { useState, useEffect } from 'react';
 import {Link}  from 'react-router-dom'
 import { collection, getDocs, query, limit, startAfter,orderBy } from 'firebase/firestore';
 import {app,db} from '../Configfirebase/Configfirebase'
-import {CategoriaItem} from "./CategoriaItem";
-import { Menu } from "../navbar/Menu"
+import {Negociotem} from "./Negocioitem"
+import { Menu } from '../navbar/Menu'
 import Navbar1 from "../navbar/Navbar1"
 import Productos from "../productos/Productos"
 import Productos2 from "../productos/Productos2"
@@ -12,9 +12,9 @@ import ProductoPopular from "../productos/ProductoPopular"
 import Blog  from "../blog/Blog"
 import Footer  from "../piepagina/Footer"
 import "boxicons"
-import "./productos.css"
 
-function ListadoCategoria() {
+
+function Negocios() {
 	
   const [searchTerm, setSearchTerm] = useState('');
   const [products, setProducts] = useState([]);
@@ -25,10 +25,10 @@ function ListadoCategoria() {
 
   const fetchProducts = async (startAfterDoc =1) => {
     setLoading(true);
-    const productsRef = collection(db, 'categoria');
+    const productsRef = collection(db, 'negocios');
     const productsQuery = query(
       productsRef,
-      orderBy("nombre_categoria","asc"), 
+      orderBy("nombre_negocio","asc"), 
       limit(pageSize),
       startAfterDoc ? startAfter(startAfterDoc) : 0
     );
@@ -60,7 +60,7 @@ function ListadoCategoria() {
   };
 
   const filteredData = products.filter((item) =>
-    item.nombre_categoria.toLowerCase().includes(searchTerm.toLowerCase())
+    item.nombre_negocio.toLowerCase().includes(searchTerm.toLowerCase())
   );
 
   return (
@@ -74,14 +74,14 @@ function ListadoCategoria() {
 		    <div className="container">
 		      	<div className="row">
 
- 				<h2 className="text-center">Listado de Categorias</h2>
+ 				<h2 className="text-center">Listado de negocios</h2>
            
         <div className="clo-lg-12 col-md-12">  
 		       <form>
 		         <input type="text" 
 		          value={searchTerm} 
 		          onChange={handleSearch} 
-		          placeholder="Buscar  Categoria ..." 
+		          placeholder="Buscar  Negocios ..." 
 		          className="form-control"
 		          reuired/>
         </form>	
@@ -89,11 +89,11 @@ function ListadoCategoria() {
         {
           
 					filteredData.map(productos=>(
-					   <CategoriaItem 
+					   <Negociotem 
 					   key={productos.id}
 					   id={productos.id}
-					   nombre={productos.nombre_categoria}
-					   imagen={productos.imagenq}
+					   nombre={productos.nombre_negocio}
+					   foto={productos.foto}
 					   
 					   />
 					   ))
@@ -115,4 +115,4 @@ function ListadoCategoria() {
   );
 }
 
-export default ListadoCategoria;
+export default Negocios;

@@ -1,4 +1,5 @@
 import React,{useState,useEffect}from 'react'
+import { Menu } from '../navbar/Menu'
 import {Link,useNavigate}  from 'react-router-dom'
 import { collection, addDoc } from 'firebase/firestore'
 import {db,app} from '../Configfirebase/Configfirebase'	
@@ -9,6 +10,7 @@ import { getStorage,
 import Swal  from 'sweetalert2'
 import withReactContent from 'sweetalert2-react-content'		 
 import Navbar  from "../navbar/Navbar"
+import NavbarDos  from "../navbar/Navbar2"
 import Navbar1 from "../navbar/Navbar1"
 import Productos from "../productos/Productos"
 import Productos2 from "../productos/Productos2"
@@ -28,7 +30,6 @@ import "./Contacto.css"
 const MySwal = withReactContent(Swal)
 
 function Contacto() {
-
 
   const [ codigo_empresa,setCodigoempresa ] = useState('')
   const [ email_empresa,setEmailempresa ] = useState('')
@@ -56,7 +57,7 @@ function Contacto() {
 
   return (
   <>
-   <Navbar/>
+   <Menu/>
 	 <Navbar1/>
   
 			

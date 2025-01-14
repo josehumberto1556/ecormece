@@ -27,7 +27,7 @@ function IniciarSeccion() {
                     icon: "success",
                      button: "Felicitaciones!",
                  });
-              navigate("/"); 
+              navigate("/Inicio"); 
     }catch(error){
       
       

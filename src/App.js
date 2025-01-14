@@ -51,10 +51,18 @@ import  ListadoSub         from  './cpanel/modulo_sub/ListadoSub'
 
 import { PanelUsuario }     from "./inicioSeccion/CpanelUsuario";
 
+import  ListadoNeg          from  './cpanel/modulo_pago_negocio/ListadoP'
+
+
+
 import {UsuarioContextProvider} from "./context/UsuarioContext";
 import { CarritoProvider } from "./context/CarritoProvider"
 import { CarritoPage } from "./pagescarrito/CarritoPage";
  
+import Negocios from "./negocio/Negocio"
+import { Vernegocio } from "./negocio/Vernegocio";
+import { Descripcionnegocio } from "./negocio/Descripcionnegocio";
+
 function App() {
   return (
    <UsuarioContextProvider>
@@ -259,6 +267,50 @@ function App() {
 		            
 				  } 
 		   />
+
+          
+            <Route
+		    path="/Negocios"
+		    element={
+			        
+		              <Negocios/>  
+		 
+		            
+				  } 
+		   />
+
+           <Route
+		    path="/Vernegocio/:nombre"
+		    element={
+			        
+		              <Vernegocio/>  
+		 
+		            
+				  } 
+		   />
+        
+
+		<Route
+		    path="descripcionNegocio/:id"
+		    element={
+			        
+				<Descripcionnegocio/>  
+		 
+		            
+				  } 
+		   />
+       
+	   <Route
+		    path="ModuloAdministrador/PagonNegocios"
+		    element={
+			        
+				<ListadoNeg/>  
+		 
+		            
+				  } 
+		   />
+       
+
 
 
 		</Routes> 

@@ -2,7 +2,7 @@ import React,{useState,useEffect}from 'react'
 import {app,db} from '../Configfirebase/Configfirebase'		
 import {Link,useParams} from 'react-router-dom'
 import { getDoc,doc,collection,getDocs, } from "firebase/firestore"
-import Navbar  from "../navbar/Navbar"
+import { Menu } from "../navbar/Menu"
 import Navbar1 from "../navbar/Navbar1"
 import ProductoPopular from "../productos/ProductoPopular"
 import Footer  from "../piepagina/Footer"
@@ -47,7 +47,7 @@ function Veroferta() {
     
    return(
    <>
-    <Navbar/>
+    <Menu/>
     <Navbar1/>
              <div className="section" style={{marginTop:"80px"}}>
    <div className="container article">

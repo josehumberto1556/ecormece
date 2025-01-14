@@ -1,4 +1,4 @@
-import Navbar  from "../navbar/Navbar"
+import { Menu } from "../navbar/Menu"
 import Navbar1 from "../navbar/Navbar1"
 import Productos from "../productos/Productos"
 import Productos2 from "../productos/Productos2"
@@ -14,15 +14,14 @@ function Inicio1() {
 
 	return (
   <>
-  	
-	 <Navbar/>
-	 <Navbar1/>
-	 <Productos/>
-	 <Productos2/>
-	 <Productos3/>
-	 {/*<ProductoPopular/>*/}
-	 <Blog/>
-	 <Footer/>
+  	   <Menu/>
+	   <Navbar1/>
+	   <Productos/>
+	   <Productos2/>
+	   <Productos3/>
+	   {/*<ProductoPopular/>*/}
+	   <Blog/>
+	   <Footer/>
   </>
   );
 }

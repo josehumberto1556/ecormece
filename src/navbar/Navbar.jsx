@@ -1,21 +1,14 @@
 import React,{useState,useContext} from "react";
-//import  {DataContext}   from '../context/DataProvider'
 import {Link}   from "react-router-dom";
-//import  {DataContext}   from '../context/DataProv/ider'
 import "./Navbar.css"
-import  Usu from "../images/user.svg"
 import Carrito from "../images/cart.svg"
+import  Usu from "../images/user.svg"
+
 import { CarritoContext } from "../context/CarritoContext"
 
-function Navbar() {
-
- /* const value = useContext(DataContext);
-  const [carrito] = value.carrito;
-  const [menu,setMenu] =value.menu;
-  const toogleMenu = () =>{
-   setMenu(!menu)
-  }
-*/
+function Navbar()
+{
+	 
   const letra = {
 	 color:"#ffffff"
 	
@@ -68,16 +61,9 @@ function Navbar() {
 						</Link>
 						</li>
 						
-						{/* <li>
-						  <Link to='/CarritoProductos' className="nav-link">
-						    <img src={Carrito}/>
-							{listaCompras.length}
-						   </Link>
-						</li> */}
 						 <li className="nav-item active">
-						    <Link to='/CarritoProductos' className="nav-link">
+						    <Link  className="nav-link">
 							  <img src={Carrito}/>
-                              <span className="item__total">{listaCompras.length}</span>
 						    </Link>
                         </li>
                      

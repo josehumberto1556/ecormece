@@ -1,4 +1,4 @@
-import Navbar  from "../navbar/Navbar"
+import { Menu } from "../navbar/Menu"
 import Navbar1 from "../navbar/Navbar1"
 import Productos from "../productos/Productos"
 import Productos2 from "../productos/Productos2"
@@ -64,7 +64,7 @@ function ListadoProducto() {
 //const [listadoproductos]=value.listadoproductos
   return (
   <>
-   <Navbar/>
+   <Menu/>
    <Navbar1/>
    
 

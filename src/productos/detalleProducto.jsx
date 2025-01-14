@@ -5,7 +5,7 @@ import {db,app} from '../Configfirebase/Configfirebase'
 import "./Producto.css"
 import {ProductoItem} from "./ProductoItem";
 import {DetalleItem}  from "./DetalleItem"
-import Navbar  from "../navbar/Navbar"
+import { Menu } from "../navbar/Menu"
 import Navbar1 from "../navbar/Navbar1"
 import { CarritoContext } from "../context/CarritoContext"
 import Footer  from "../piepagina/Footer"
@@ -58,8 +58,8 @@ const handleQuitar = (id) =>{
 	
 	return (
 	<>
-	          <Navbar/>
-             <Navbar1/>
+	        <Menu/>
+            <Navbar1/>
 	
 			<div className="untree_co-section product-section before-footer-section">
 
