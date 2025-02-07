@@ -12,7 +12,7 @@ export const Negociotem1=({id,nombre,foto})=>
            
               
                        <div className="product-item">
-                       <Link  to={`/Vernegocio/${nombre}`}>
+                       <Link  to={`/Vernegocios/${nombre}`}>
                             <img src={foto}
                             className="img-fluid product-thumbnail"/>
                            </Link>   
@@ -22,7 +22,7 @@ export const Negociotem1=({id,nombre,foto})=>
                                 src={foto}
                                  className="img-fluid"/>
                               </span>
-                              <Link to={`/descripcionNegocio/:${id}`}>Descripciön del negocio</Link>
+                              <Link to={`/descripcionNegocios/:${id}`}>Descripciön del negocio</Link>
                         </div>
         
        </div>    		

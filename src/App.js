@@ -70,7 +70,7 @@ import Negocios1 from "./negocio/Negocio1"
 import { Vernegocio } from "./negocio/Vernegocio";
 import { Vernegocio1 } from "./negocio/Vernegocio1";
 import { Descripcionnegocio } from "./negocio/Descripcionnegocio";
-
+import { Descripcionnegocio1 } from "./negocio/Descripcionnegocio1";
 import { Menu } from "./navbar/Menu";
 
 import { Inicio2 } from "./inicio/Inicio2";
@@ -337,6 +337,16 @@ function App() {
         
 
 		<Route
+		    path="/Vernegocios/:nombre"
+		    element={
+			        
+		              <Vernegocio1/>  
+		 
+		            
+				  } 
+		   />
+
+		<Route
 		    path="descripcionNegocio/:id"
 		    element={
 			        
@@ -345,7 +355,17 @@ function App() {
 		            
 				  } 
 		   />
-       
+        <Route
+		    path="descripcionNegocios/:id"
+		    element={
+			        
+				<Descripcionnegocio1/>  
+		 
+		            
+				  } 
+		   />
+
+
 	   <Route
 		    path="ModuloAdministrador/PagonNegocios"
 		    element={

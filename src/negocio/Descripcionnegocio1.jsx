@@ -1,16 +1,16 @@
-import Navbar from "../navbar/Navbar"
+import NavbarDos from "../navbar/Navbar2"
 import Navbar1 from "../navbar/Navbar1"
 import Footer  from "../piepagina/Footer"
 import { Neg } from "./hooks/negociohook"
 import "./negocio.css"
 
-export const Descripcionnegocio=() =>{
+export const Descripcionnegocio1=() =>{
 
 const {negocio, cargando, error}=Neg()
 
   return (
     <>
- <Navbar/>
+ <NavbarDos/>
  <Navbar1/>
    
  <div className="container container1">
