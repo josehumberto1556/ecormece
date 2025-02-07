@@ -2,8 +2,8 @@ import React, { useState, useEffect } from 'react';
 import {Link}  from 'react-router-dom'
 import { collection, getDocs, query, limit, startAfter,orderBy } from 'firebase/firestore';
 import {app,db} from '../Configfirebase/Configfirebase'
-import {Negociotem} from "./Negocioitem"
-import Navbar from "../navbar/Navbar"
+import {Negociotem1} from "./Negocioitem1"
+import NavbarDos from "../navbar/Navbar2"
 import Navbar1 from "../navbar/Navbar1"
 import Productos from "../productos/Productos"
 import Productos2 from "../productos/Productos2"
@@ -14,7 +14,7 @@ import Footer  from "../piepagina/Footer"
 import "boxicons"
 
 
-function Negocios() {
+function Negocios1() {
 	
   const [searchTerm, setSearchTerm] = useState('');
   const [products, setProducts] = useState([]);
@@ -66,7 +66,7 @@ function Negocios() {
   return (
   <>
   <div>
-  <Navbar/>
+  <NavbarDos/>
    <Navbar1/>
 	 
 			
@@ -89,7 +89,7 @@ function Negocios() {
         {
           
 					filteredData.map(productos=>(
-					   <Negociotem 
+					   <Negociotem1 
 					   key={productos.id}
 					   id={productos.id}
 					   nombre={productos.nombre_negocio}
@@ -115,4 +115,4 @@ function Negocios() {
   );
 }
 
-export default Negocios;
+export default Negocios1;

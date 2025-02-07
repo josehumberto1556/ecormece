@@ -4,13 +4,13 @@ import {collection,
         getDocs
 		} from 'firebase/firestore'
 import {app,db} from '../Configfirebase/Configfirebase'
-import Navbar from "../navbar/Navbar"
+import NavbarDos from "../navbar/Navbar2"
 import Navbar1 from "../navbar/Navbar1"
 import ProductoPopular from "../productos/ProductoPopular"
 import Footer  from "../piepagina/Footer"
 import "./Servicios.css"
 
-function Servicios() {
+function Servicios1() {
 	
 	
 	
@@ -45,7 +45,7 @@ function Servicios() {
 	
   return (
   <>
-  <Navbar/>
+  <NavbarDos/>
    <Navbar1/>
 			
 
@@ -85,7 +85,7 @@ function Servicios() {
                <div className="text-center">
 			  {item.descripcionempleo}<br/>
 			   <Link 
-			   to={`/Veroferta/${item.id}`} 
+			   to={`/Verofertas/${item.id}`} 
 				style={{color:'white'}}
 	            className="boton">
                        Leer  m&aacute;s
@@ -111,4 +111,4 @@ function Servicios() {
   );
 }
 
-export default Servicios;
+export default Servicios1;

@@ -1,7 +1,6 @@
 import React,{useState,useContext} from "react";
 import {Link}   from "react-router-dom";
 import "./Navbar.css"
-import Carrito from "../images/cart.svg"
 import  Usu from "../images/user.svg"
 
 import { CarritoContext } from "../context/CarritoContext"
@@ -49,6 +48,11 @@ function Navbar()
 						<li className="nav-item active">
 							<Link to="/Contacto"  className="nav-link">Contacto</Link>
 						</li>
+
+						
+						<li className="nav-item active">
+						    <Link to="/Negocios"  className="nav-link">Negocio</Link>
+						</li>
  
                        
 						
@@ -60,12 +64,6 @@ function Navbar()
 						<img src={Usu}/>
 						</Link>
 						</li>
-						
-						 <li className="nav-item active">
-						    <Link  className="nav-link">
-							  <img src={Carrito}/>
-						    </Link>
-                        </li>
                      
 					</ul>
 				</div>

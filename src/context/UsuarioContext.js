@@ -14,8 +14,9 @@ import {
 } from 'firebase/auth';
 
 import { 
+         collection,
          doc,
-		 getDoc
+ 		     getDoc,
 	   } from 'firebase/firestore'
 
 import { auth,db } from "../Configfirebase/Configfirebase";
@@ -27,7 +28,7 @@ export const UsuarioContextProvider=({children})=>
 {
 	
 	const [user, setUser] = useState({});
-    
+
   function crearUsuario(email, password) {
     return createUserWithEmailAndPassword(auth, email, password);
   }
@@ -48,32 +49,20 @@ export const UsuarioContextProvider=({children})=>
   }
   
  
-  
-  async function getRol(uid)
-   {
-	   const docuRef=doc(db,`usuarios/${uid}`)
-	   const docucifrada=await getDoc(docuRef)
-	   const infoFinal=docucifrada.data().imagen
-       return infoFinal
-   }
 
-    function acceso(usuarioFirebase)
+
+  function acceso(usuarioFirebase)
 	{
-	  // getRol(usuarioFirebase.uid).then((imagen)=>{
+
 		
-            const userData={
-				             uid:usuarioFirebase.uid,
-							 email:usuarioFirebase.email
-							// rol:imagen
-							 
-						   }		
-	             setUser(userData)
-				 console.log("el user",userData)
-		//})
-	   
-	}
+    const userData={
+ 				               uid:usuarioFirebase.uid,
+							         email:usuarioFirebase.email
+											}		
+	    setUser(userData)
+			 console.log("el user",userData)
+ }
 	
-  
   useEffect(() => {
     const unsubscribe = onAuthStateChanged(auth, (usuarioFirebase) => {
       console.log("Auth", usuarioFirebase);
@@ -85,9 +74,12 @@ export const UsuarioContextProvider=({children})=>
       unsubscribe();
     };
   }, []);
-	return(
+	
+  
+  
+  return(
 	   <usuarioContext.Provider
-	    value={{ user, log,logOut,crearUsuario,recuperarClave }}
+	    value={{ user,log,logOut,crearUsuario,recuperarClave }}
 		>
 		{children}
 		</usuarioContext.Provider>

@@ -7,15 +7,16 @@ import Productos3 from "../productos/Productos3"
 import ProductoPopular from "../productos/ProductoPopular"
 import Blog  from "../blog/Blog"
 import Footer  from "../piepagina/Footer"
+import { NavbarTres } from "../navbar/Navbar3"
 import { useUserAuth } from "../context/UsuarioContext";
 
-function Inicio1() {
+export const  Inicio2=()=> {
 
 
 
 	return (
   <>
-  	   <NavbarDos/>
+  	   <NavbarTres/>
 	   <Navbar1/>
 	   <Productos/>
 	   <Productos2/>
@@ -27,4 +28,4 @@ function Inicio1() {
   );
 }
 
-export default Inicio1;
+

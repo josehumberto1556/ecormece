@@ -1,23 +1,17 @@
-import { Menu } from "../navbar/Menu"
-import Navbar from "../navbar/Navbar"
+import NavbarDos  from "../navbar/Navbar2"
 import Navbar1 from "../navbar/Navbar1"
-import Productos from "../productos/Productos"
-import Productos2 from "../productos/Productos2"
-import Productos3 from "../productos/Productos3"
-import ProductoPopular from "../productos/ProductoPopular"
-import Blog  from "../blog/Blog"
 import Footer  from "../piepagina/Footer"
-import {ProductoItem} from "./ProductoItem";
 import React,{useContext,useState,useEffect}from 'react'
 import {db} from '../Configfirebase/Configfirebase'		
 import { collection,query,where,getDocs } from 'firebase/firestore'; 
 import {link,useParams} from 'react-router-dom'
 import { CarritoContext } from "../context/CarritoContext"
+import { Detallesnegocio1} from "./Detallesnegocio1"
 import "boxicons"
 
 
 
-function ListadoProducto() {
+export const Vernegocio1=()=> {
 	const {nombre} = useParams()
 	let categoria= decodeURIComponent(nombre);
    	const [empre,setEmpresas ]=useState([])
@@ -25,12 +19,12 @@ function ListadoProducto() {
      
     const getEmpresas=async() =>
     {
-		
        if(categoria)
 	   { 
          const col= collection(db,'m_productos');
-		 const q=query(col,where("categoria","==",categoria));
+		 const q=query(col,where("nombre_negocio","==",categoria));
 		 const datos=await getDocs(q);
+  
 	 	 //data.forEach(user=>{console.log(user.data())})
 		setEmpresas(datos.docs.map((doc => ({ ...doc.data(), id: doc.id }))))				   
 	    
@@ -65,7 +59,7 @@ function ListadoProducto() {
 //const [listadoproductos]=value.listadoproductos
   return (
   <>
-   <Navbar/>
+   <NavbarDos/>
    <Navbar1/>
    
 
@@ -75,24 +69,22 @@ function ListadoProducto() {
 		    <div className="container">
 		      	<div className="row">
 
- 				<h2 className="text-center">Listado de Productos</h2>
+ 				<h2 className="text-center">Listado de Productos {categoria}</h2>
 			   
 			    <div className="clo-lg-12 col-md-12">  
 		         <form>
 		          <input type="text" 
-		           value={searchTerm} 
-		           onChange={handleSearch} 
-		           placeholder="Buscar  Producto ..." 
+		          	          	           placeholder="Buscar  Producto ..." 
 		           className="form-control"
 		           reuired/>
                   </form>
 				</div>
 
-				{
+				 {
 					empre.map(productos=>(
 					
 							
-						<ProductoItem 
+						<Detallesnegocio1
 					     key={productos.id}
 					     id={productos.id}
 					     title={productos.nombre_productos}
@@ -102,6 +94,7 @@ function ListadoProducto() {
 						 handleQuitar={() => handleQuitar(productos.id)}
 					   />
 					   ))
+                    
 				}
 				</div>
 		    </div>
@@ -113,4 +106,4 @@ function ListadoProducto() {
   );
 }
 
-export default ListadoProducto;
+

@@ -3,7 +3,7 @@ import {Link}  from 'react-router-dom'
 import { collection, getDocs, query, limit, startAfter,orderBy } from 'firebase/firestore';
 import {app,db} from '../Configfirebase/Configfirebase'
 import {CategoriaItem} from "./CategoriaItem";
-import { Menu } from "../navbar/Menu"
+import Navbar from "../navbar/Navbar"
 import Navbar1 from "../navbar/Navbar1"
 import Productos from "../productos/Productos"
 import Productos2 from "../productos/Productos2"
@@ -66,7 +66,7 @@ function ListadoCategoria() {
   return (
   <>
   <div>
-   <Menu/>
+   <Navbar/>
    <Navbar1/>
 	 
 			

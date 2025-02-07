@@ -2,12 +2,12 @@ import React,{useState,useEffect}from 'react'
 import {app,db} from '../Configfirebase/Configfirebase'		
 import {Link,useParams} from 'react-router-dom'
 import { getDoc,doc,collection,getDocs, } from "firebase/firestore"
-import Navbar from "../navbar/Navbar"
+import NavbarDos from "../navbar/Navbar2"
 import Navbar1 from "../navbar/Navbar1"
 import ProductoPopular from "../productos/ProductoPopular"
 import Footer  from "../piepagina/Footer"
 
-function Veroferta() {
+function Veroferta1() {
 	
     const {id} = useParams()
     
@@ -47,7 +47,7 @@ function Veroferta() {
     
    return(
    <>
-     <Navbar/>
+     <NavbarDos/>
     <Navbar1/>
              <div className="section" style={{marginTop:"80px"}}>
    <div className="container article">
@@ -111,4 +111,4 @@ function Veroferta() {
    )
 }
 
-export default Veroferta;	
+export default Veroferta1;	

@@ -1,13 +1,13 @@
 import { Menu } from "../navbar/Menu"
-import Navbar from "../navbar/Navbar"
+import NavbarDos from "../navbar/Navbar2"
 import Navbar1 from "../navbar/Navbar1"
-import Productos from "../productos/Productos"
-import Productos2 from "../productos/Productos2"
-import Productos3 from "../productos/Productos3"
-import ProductoPopular from "../productos/ProductoPopular"
+import Productos from "./Productos"
+import Productos2 from "./Productos2"
+import Productos3 from "./Productos3"
+import ProductoPopular from "./ProductoPopular"
 import Blog  from "../blog/Blog"
 import Footer  from "../piepagina/Footer"
-import {ProductoItem} from "./ProductoItem";
+import {ProductoItem1} from "./ProductoItem1";
 import React,{useContext,useState,useEffect}from 'react'
 import {db} from '../Configfirebase/Configfirebase'		
 import { collection,query,where,getDocs } from 'firebase/firestore'; 
@@ -17,7 +17,7 @@ import "boxicons"
 
 
 
-function ListadoProducto() {
+function ListadoProducto1() {
 	const {nombre} = useParams()
 	let categoria= decodeURIComponent(nombre);
    	const [empre,setEmpresas ]=useState([])
@@ -65,7 +65,7 @@ function ListadoProducto() {
 //const [listadoproductos]=value.listadoproductos
   return (
   <>
-   <Navbar/>
+   <NavbarDos/>
    <Navbar1/>
    
 
@@ -92,7 +92,7 @@ function ListadoProducto() {
 					empre.map(productos=>(
 					
 							
-						<ProductoItem 
+						<ProductoItem1 
 					     key={productos.id}
 					     id={productos.id}
 					     title={productos.nombre_productos}
@@ -113,4 +113,4 @@ function ListadoProducto() {
   );
 }
 
-export default ListadoProducto;
+export default ListadoProducto1;

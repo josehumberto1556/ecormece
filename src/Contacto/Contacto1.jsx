@@ -8,7 +8,7 @@ import { getStorage,
 		 getDownloadURL } from 'firebase/storage'
 import Swal  from 'sweetalert2'
 import withReactContent from 'sweetalert2-react-content'		 
-import Navbar  from "../navbar/Navbar"
+import NavbarDos  from "../navbar/Navbar2"
 import Navbar1  from "../navbar/Navbar1"
 import Productos from "../productos/Productos"
 import Productos2 from "../productos/Productos2"
@@ -27,7 +27,7 @@ import "./Contacto.css"
 
 const MySwal = withReactContent(Swal)
 
-function Contacto() {
+function Contacto1() {
 
   const [ codigo_empresa,setCodigoempresa ] = useState('')
   const [ email_empresa,setEmailempresa ] = useState('')
@@ -55,7 +55,7 @@ function Contacto() {
 
   return (
   <>
-   <Navbar/>
+   <NavbarDos/>
 	 <Navbar1/>
   
 			
@@ -144,4 +144,4 @@ function Contacto() {
   );
 }
 
-export default Contacto;
+export default Contacto1;

@@ -6,13 +6,13 @@ import "./Producto.css"
 import {ProductoItem} from "./ProductoItem";
 import {DetalleItem}  from "./DetalleItem"
 import { Menu } from "../navbar/Menu"
-import Navbar from "../navbar/Navbar"
+import NavbarDos from "../navbar/Navbar2"
 import Navbar1 from "../navbar/Navbar1"
 import { CarritoContext } from "../context/CarritoContext"
 import Footer  from "../piepagina/Footer"
 
 
-function Detalleproducto() 
+function Detalleproducto1() 
 {
    const {id}=useParams()
    const [ nombrep,setNombrep ]= useState('');
@@ -59,7 +59,7 @@ const handleQuitar = (id) =>{
 	
 	return (
 	<>
-	        <Navbar/>
+	        <NavbarDos/>
             <Navbar1/>
 	
 			<div className="untree_co-section product-section before-footer-section">
@@ -93,5 +93,5 @@ const handleQuitar = (id) =>{
 }		
 
 			
-export default Detalleproducto
+export default Detalleproducto1
 

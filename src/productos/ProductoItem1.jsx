@@ -2,7 +2,7 @@ import React, {useState} from "react";
 import {Link}  from 'react-router-dom'
 import "./Producto.css"
 
-export const ProductoItem=({id,title,price,image,handleAgregar, handleQuitar, handleAumentar, handleDisminuir })=>
+export const ProductoItem1=({id,title,price,image,handleAgregar, handleQuitar, handleAumentar, handleDisminuir })=>
 {
 		
     const [added, setAdded] = useState(false) 
@@ -23,7 +23,7 @@ export const ProductoItem=({id,title,price,image,handleAgregar, handleQuitar, ha
             <div className="col-12 col-md-4 col-lg-3 mb-5">
                                 				
 					<div className="product-item">
-					<Link  to={`/detalleProducto/${id}`}>	
+					<Link  to={`/detallesDelProducto/${id}`}>	
 						<img 
 						src={image}
 				  		className="img-fluid product-thumbnail"/>

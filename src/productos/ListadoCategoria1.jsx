@@ -2,19 +2,19 @@ import React, { useState, useEffect } from 'react';
 import {Link}  from 'react-router-dom'
 import { collection, getDocs, query, limit, startAfter,orderBy } from 'firebase/firestore';
 import {app,db} from '../Configfirebase/Configfirebase'
-import {Negociotem} from "./Negocioitem"
-import Navbar from "../navbar/Navbar"
+import {CategoriaItem1} from "./CategoriaItem1";
+import NavbarDos from "../navbar/Navbar2"
 import Navbar1 from "../navbar/Navbar1"
-import Productos from "../productos/Productos"
-import Productos2 from "../productos/Productos2"
-import Productos3 from "../productos/Productos3"
-import ProductoPopular from "../productos/ProductoPopular"
+import Productos from "./Productos"
+import Productos2 from "./Productos2"
+import Productos3 from "./Productos3"
+import ProductoPopular from "./ProductoPopular"
 import Blog  from "../blog/Blog"
 import Footer  from "../piepagina/Footer"
 import "boxicons"
+import "./productos.css"
 
-
-function Negocios() {
+function ListadoCategoria1() {
 	
   const [searchTerm, setSearchTerm] = useState('');
   const [products, setProducts] = useState([]);
@@ -25,10 +25,10 @@ function Negocios() {
 
   const fetchProducts = async (startAfterDoc =1) => {
     setLoading(true);
-    const productsRef = collection(db, 'negocios');
+    const productsRef = collection(db, 'categoria');
     const productsQuery = query(
       productsRef,
-      orderBy("nombre_negocio","asc"), 
+      orderBy("nombre_categoria","asc"), 
       limit(pageSize),
       startAfterDoc ? startAfter(startAfterDoc) : 0
     );
@@ -60,13 +60,13 @@ function Negocios() {
   };
 
   const filteredData = products.filter((item) =>
-    item.nombre_negocio.toLowerCase().includes(searchTerm.toLowerCase())
+    item.nombre_categoria.toLowerCase().includes(searchTerm.toLowerCase())
   );
 
   return (
   <>
   <div>
-  <Navbar/>
+  <NavbarDos/>
    <Navbar1/>
 	 
 			
@@ -74,14 +74,14 @@ function Negocios() {
 		    <div className="container">
 		      	<div className="row">
 
- 				<h2 className="text-center">Listado de negocios</h2>
+ 				<h2 className="text-center">Listado de Categorias</h2>
            
         <div className="clo-lg-12 col-md-12">  
 		       <form>
 		         <input type="text" 
 		          value={searchTerm} 
 		          onChange={handleSearch} 
-		          placeholder="Buscar  Negocios ..." 
+		          placeholder="Buscar  Categoria ..." 
 		          className="form-control"
 		          reuired/>
         </form>	
@@ -89,11 +89,11 @@ function Negocios() {
         {
           
 					filteredData.map(productos=>(
-					   <Negociotem 
+					   <CategoriaItem1 
 					   key={productos.id}
 					   id={productos.id}
-					   nombre={productos.nombre_negocio}
-					   foto={productos.foto}
+					   nombre={productos.nombre_categoria}
+					   imagen={productos.imagenq}
 					   
 					   />
 					   ))
@@ -115,4 +115,4 @@ function Negocios() {
   );
 }
 
-export default Negocios;
+export default ListadoCategoria1;

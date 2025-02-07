@@ -7,18 +7,24 @@ import {
 import Inicio from "./inicio/Inicio"
 import Inicio1 from "./inicio/Inicio1"
 import ListadoProducto from "./productos/ListadoProducto"
+import ListadoProducto1 from "./productos/ListadoProducto1"
 import Nosotros from "./nosotros/Nosotros"
 import Servicios  from "./servicios/Servicios"
+import Servicios1  from "./servicios/Servicios1"
 import Veroferta from "./servicios/Veroferta";
+import Veroferta1 from "./servicios/Veroferta1";
 import Contacto  from "./Contacto/Contacto"
+import Contacto1  from "./Contacto/Contacto1"
 import ListadoCategoria  from "./productos/ListadoCategoria";
+import ListadoCategoria1  from "./productos/ListadoCategoria1";
 import Detalleproducto from "./productos/detalleProducto" 
+import Detalleproducto1 from "./productos/detalleProducto1" 
 import VerProducto from "./productos/VerProducto" 
 import TodosBlog from "./blog/TodosBlog" 
 
 
 import IniciarSeccion    from "./inicioSeccion/IniciarSeccion"
-import RegistrarUsuario  from "./inicioSeccion/RegistrarUsuario"
+import {RegistrarUsuario}  from "./inicioSeccion/RegistrarUsuario"
 import Recuperar         from "./inicioSeccion/Recuperar"
 
 import LoginU              from  './cpanel/login/Login'
@@ -60,8 +66,14 @@ import { CarritoProvider } from "./context/CarritoProvider"
 import { CarritoPage } from "./pagescarrito/CarritoPage";
  
 import Negocios from "./negocio/Negocio"
+import Negocios1 from "./negocio/Negocio1"
 import { Vernegocio } from "./negocio/Vernegocio";
+import { Vernegocio1 } from "./negocio/Vernegocio1";
 import { Descripcionnegocio } from "./negocio/Descripcionnegocio";
+
+import { Menu } from "./navbar/Menu";
+
+import { Inicio2 } from "./inicio/Inicio2";
 
 function App() {
   return (
@@ -75,20 +87,45 @@ function App() {
 	     <Route path="/"                        exact   element={<Inicio/>} />
 		 <Route path="/Inicio"                  exact   element={<Inicio1/>} />
 		 <Route path="/ListadoCategorias"       exact   element={<ListadoCategoria/>}/>
+		 <Route path="/ListadosDeCategorias"    exact   element={<ListadoCategoria1/>}/>
 		 <Route path="/Productos/:nombre"       exact   element={<ListadoProducto/>} />
+         <Route path="/Producto/:nombre"        exact   element={<ListadoProducto1/>} />
 
          <Route path="/detalleProducto/:id"     exact   element={<Detalleproducto/>} />
+		 <Route path="/detallesDelProducto/:id" exact   element={<Detalleproducto1/>} />
 		 <Route path="/Nosotros"                exact   element={<Nosotros/>} />
          <Route path="/OfertasEmpleo"           exact   element={<Servicios/>} />
+		 <Route path="/OfertasDeEmpleo"         exact   element={<Servicios1/>} />
          <Route path="/Veroferta/:id"           exact   element={<Veroferta/>}/>
+		 <Route path="/Verofertas/:id"          exact   element={<Veroferta1/>}/>
 		 <Route path="/VerProducto/:nombre"     exact   element={<VerProducto/>} />
          <Route path="/Contacto"                exact   element={<Contacto/>} />
+		 <Route path="/Contactos"               exact   element={<Contacto1/>} />
          <Route path="/TodosBlog"               exact   element={<TodosBlog/>} />
 		 <Route path="/IniciarSeccion"          exact   element={<IniciarSeccion/>} />
 		 <Route path="/RegistrarUsuario"        exact   element={<RegistrarUsuario/>}/>
 	     <Route path="/RecuperarAcceso"         exact   element={<Recuperar/>}/>
 		 
+		 <Route 
+		path="/Comprador" 
+		 element={
+			<ProtectedRoute>
+			    <Inicio2/>
+			</ProtectedRoute> 	
+				} 
+            />
+
+		 <Route 
+		path="/Menu" 
+		 element={
+			<ProtectedRoute>
+			    <Menu/>
+			</ProtectedRoute> 	
+				} 
+		 />
 		 
+		
+
 		 <Route path="/PanelUsuario" exact
 		  element={<PanelUsuario/>}/>
 		 
@@ -274,6 +311,15 @@ function App() {
 		    element={
 			        
 		              <Negocios/>  
+		 
+		            
+				  } 
+		   />
+		   <Route
+		    path="/Negocio"
+		    element={
+			        
+		              <Negocios1/>  
 		 
 		            
 				  } 
