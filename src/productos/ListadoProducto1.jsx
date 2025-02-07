@@ -7,7 +7,7 @@ import Productos3 from "./Productos3"
 import ProductoPopular from "./ProductoPopular"
 import Blog  from "../blog/Blog"
 import Footer  from "../piepagina/Footer"
-import {ProductoItem1} from "./ProductoItem1";
+import {ProductoItem2} from "./ProductoItem2";
 import React,{useContext,useState,useEffect}from 'react'
 import {db} from '../Configfirebase/Configfirebase'		
 import { collection,query,where,getDocs } from 'firebase/firestore'; 
@@ -92,7 +92,7 @@ function ListadoProducto1() {
 					empre.map(productos=>(
 					
 							
-						<ProductoItem1 
+						<ProductoItem2 
 					     key={productos.id}
 					     id={productos.id}
 					     title={productos.nombre_productos}
