@@ -1,0 +1,33 @@
+a:hover{
+  color:white;
+}
+.botonproducto
+{
+  background:linear-gradient(#051126 70%,#203560) ;
+  color:white;
+  margin-left:200px;  
+  text-align: center;
+  text-decoration: none;
+  width: 100px;
+}
+
+button.boton-cargar {
+  background:linear-gradient(#051126 70%,#203560) ;
+  color:white;
+  display: block;
+  margin: 0 auto;
+  width:200px;
+}
+
+@media (max-width: 480px) {
+    .botonproducto
+    {
+     background:linear-gradient(#051126 70%,#203560) ;
+      color:white;
+      margin-left:100px;  
+      text-align:center;
+      text-decoration:none;
+      width: 100px;
+    }
+
+  }

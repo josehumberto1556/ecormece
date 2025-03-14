@@ -28,9 +28,11 @@ import {RegistrarUsuario}  from "./inicioSeccion/RegistrarUsuario"
 import Recuperar         from "./inicioSeccion/Recuperar"
 
 import LoginU              from  './cpanel/login/Login'
+import LoginUsuario        from  './cpanel/login_usuario/Login_usuario'
 import RecuperarClave      from  './cpanel/login/RecuperarClave'
 import  ProtectedRoute     from  './cpanel/login/ProtectedRoute' 
-import ModuloAdministrador  from "./cpanel/ModuloAdministrador"
+import ModuloAdministrador from "./cpanel/ModuloAdministrador"
+import Administrador       from "./cpanel/Administrador"
 
 import  Usuarios           from  './cpanel/modulo_usuarios/usuarios'
 import  Registrar          from  './cpanel/modulo_usuarios/Registrar'
@@ -46,10 +48,15 @@ import  RegistrarP         from  './cpanel/modulo_categorias/Registrar'
 import  EditarP            from  './cpanel/modulo_categorias/Editar' 
 
 import  ListadoPr          from  './cpanel/modulo_productos/ListadoPr'
+import  ListadoPr1         from  './cpanel/modulo_productos1/ListadoPr1'
 import  RegistrarPr        from  './cpanel/modulo_productos/Registrar'
+import  RegistrarPr1       from  './cpanel/modulo_productos1/Registrar1'
 import  EditarPr           from  './cpanel/modulo_productos/Editar'
+import  EditarN1           from  './cpanel/modulo_productos1/Editar1'
 import  AgregarImagenes    from  './cpanel/modulo_productos/AgregarImagenes'
-
+import  AgregarImagenes1   from  './cpanel/modulo_productos1/AgregarImagenes1'
+import  VerImagenes       from  './cpanel/modulo_productos/VerImagenes'
+import  VerImagenes1       from  './cpanel/modulo_productos1/VerImagenes1'
 
 import  ListadoC           from  './cpanel/modulo_contacto/Listado'
 
@@ -60,6 +67,7 @@ import { PanelUsuario }     from "./inicioSeccion/CpanelUsuario";
 import  ListadoNeg          from  './cpanel/modulo_pago_negocio/ListadoP'
 
 
+import  ListadoNeg1          from  './cpanel/modulo_pago_negocio1/ListadoP1'
 
 import {UsuarioContextProvider} from "./context/UsuarioContext";
 import { CarritoProvider } from "./context/CarritoProvider"
@@ -74,6 +82,10 @@ import { Descripcionnegocio1 } from "./negocio/Descripcionnegocio1";
 import { Menu } from "./navbar/Menu";
 
 import { Inicio2 } from "./inicio/Inicio2";
+
+import { Buscarfecha } from "./cpanel/modulo_pago_negocio/Buscarfecha";
+
+import { Buscarfecha1 } from "./cpanel/modulo_pago_negocio1/Buscarfecha1";
 
 function App() {
   return (
@@ -129,15 +141,23 @@ function App() {
 		 <Route path="/PanelUsuario" exact
 		  element={<PanelUsuario/>}/>
 		 
-		 	 <Route path="/CuentaUsuario"         
+		  <Route path="/CuentaUsuario"         
 		 element={<LoginU/>} 
 		 />
           
           <Route path="/RecuperarClave"         
 		 element={<RecuperarClave/>} 
 		 />
+
+
+        <Route path="/CuentasDeUsuarios"         
+		 element={<LoginUsuario />} 
+		 />
 		  
-		 
+		  <Route path="/Administrador"  
+		 element={<Administrador/>} />
+
+
 		 <Route path="/ModuloAdministrador"  
 		 element={<ModuloAdministrador/>} />
 
@@ -260,7 +280,58 @@ function App() {
 				  } 
 		 />
 
+         <Route
+		 path="/ModuloAdministrador/Producto"
+		  element={
+			        <ProtectedRoute>
+		              <ListadoPr1/>  
 		 
+		  </ProtectedRoute>
+				  } 
+		 />
+
+        <Route
+		 path="/ModuloAdministrador/Productos/RegistarProducto"
+		  element={
+			        <ProtectedRoute>
+		              <RegistrarPr1/>  
+		 
+		  </ProtectedRoute>
+				  } 
+		 />
+
+       <Route
+		 path="/ModuloAdministrador/Productos/EditarProducto/:id"
+		  element={
+			        <ProtectedRoute>
+		              <EditarN1/>  
+		 
+		  </ProtectedRoute>
+				  } 
+		 />
+      
+	  <Route
+		 path="/ModuloAdministrador/Productos/AgregarlasImagenes/:id"
+		  element={
+			        <ProtectedRoute>
+		              <AgregarImagenes1/>  
+		 
+		            </ProtectedRoute>
+				  } 
+		 />	
+
+
+       <Route
+		 path="/ModuloAdministrador/Productos/VerlasImagenes/:id"
+		  element={
+			        <ProtectedRoute>
+		              <VerImagenes1/>  
+		 
+		            </ProtectedRoute>
+				  } 
+		 />		
+
+
 		 <Route
 		 path="/ModuloAdministrador/Productos/RegistarProductos"
 		  element={
@@ -287,6 +358,16 @@ function App() {
 		  element={
 			        <ProtectedRoute>
 		              <AgregarImagenes/>  
+		 
+		            </ProtectedRoute>
+				  } 
+		 />	
+
+		  <Route
+		 path="/ModuloAdministrador/Productos/VerImagenes/:id"
+		  element={
+			        <ProtectedRoute>
+		              <VerImagenes/>  
 		 
 		            </ProtectedRoute>
 				  } 
@@ -365,9 +446,30 @@ function App() {
 				  } 
 		   />
 
+       
+	   <Route
+		    path="ModuloAdministrador/modulo_pagos_de_negocio/Buscarfecha"
+		    element={
+			        
+				<Buscarfecha1/>  
+		 
+		            
+				  } 
+		   />
+
+        <Route
+		    path="ModuloAdministrador/PagosDeNegocios"
+		    element={
+			        
+				<ListadoNeg1/>  
+		 
+		            
+				  } 
+		   />
+       
 
 	   <Route
-		    path="ModuloAdministrador/PagonNegocios"
+		    path="ModuloAdministrador/PagosNegocios"
 		    element={
 			        
 				<ListadoNeg/>  
@@ -376,6 +478,15 @@ function App() {
 				  } 
 		   />
        
+	   <Route
+		    path="ModuloAdministrador/modulo_pago_negocio/Buscarfecha"
+		    element={
+			        
+				<Buscarfecha/>  
+		 
+		            
+				  } 
+		   />
 
 
 

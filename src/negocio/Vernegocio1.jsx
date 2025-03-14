@@ -53,19 +53,12 @@ export const Vernegocio1=()=> {
 	  const handleQuitar = (id) =>{
 		eliminarCompra(id)
 	  }
-	 
 
-//const value=useContext(DataContext)
-//const [listadoproductos]=value.listadoproductos
   return (
   <>
    <NavbarDos/>
    <Navbar1/>
-   
-
-			{//<Carrito/>
-			}
-			<div className="untree_co-section product-section before-footer-section">
+   			<div className="untree_co-section product-section before-footer-section">
 		    <div className="container">
 		      	<div className="row">
 

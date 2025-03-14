@@ -9,8 +9,8 @@ import Productos from "../productos/Productos"
 import Productos2 from "../productos/Productos2"
 import Productos3 from "../productos/Productos3"
 import ProductoPopular from "../productos/ProductoPopular"
-import Blog  from "../blog/Blog"
 import Footer  from "../piepagina/Footer"
+import "./negocio.css"
 import "boxicons"
 
 
@@ -85,6 +85,7 @@ function Negocios() {
 		          className="form-control"
 		          reuired/>
         </form>	
+        <br/><br/>
         </div>
         {
           
@@ -100,11 +101,11 @@ function Negocios() {
           }
         
        
-				{!loading && lastVisible && (
-        <button onClick={handleLoadMore} className="boton">Cargar más</button>
-      )}
+			
         </div>
-
+        {!loading && lastVisible && (
+        <button onClick={handleLoadMore} className="boton5">Cargar más</button>
+      )}
 		    </div>
 		</div>
 

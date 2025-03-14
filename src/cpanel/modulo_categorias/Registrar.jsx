@@ -1,11 +1,12 @@
 import React,{useState,useEffect}from 'react'
 import {Link,useNavigate}  from 'react-router-dom'
-import { collection, addDoc } from 'firebase/firestore'
 import {db,app} from '../../Configfirebase/Configfirebase'	
-import { getStorage,
-         ref, 
-		 uploadBytes,
-		 getDownloadURL } from 'firebase/storage'	
+import { collection, addDoc } from 'firebase/firestore'
+import { 
+        getStorage,
+        ref, 
+		    uploadBytes,
+		    getDownloadURL } from 'firebase/storage'	
 import Swal  from 'sweetalert2'
 import withReactContent from 'sweetalert2-react-content'
 import Header  from '../header'
@@ -24,41 +25,107 @@ function RegistrarP() {
   const [listado,setListado]=useState([])
   const [ codigo_empresa,setcodigoempresa ] = useState('')
   const [ nombre_empresa,setNombreempresa ] = useState('')
+  const [ i,setI ] = useState(null)	
+  const [error, setError] = useState("");
+  const [uploading, setUploading] = useState(false);
   const navigate = useNavigate()
+  let urlDescarga
+  const allowedTypes = ["image/jpeg", "image/png"];
+  const maxSize = 5 * 1024 * 1024; // 5 MB en bytes
 
   const empresaCollection = collection(db,"categoria")
  
-  /* let urlDescarga
-
   async function subirArchivo(e)
-   {
-	   //detectar archivo
+  {
 	   const archivoLocal=e.target.files[0];
-	   console.log(archivoLocal)
-	   //cargar a firebasestore
-	   const archivoRef=ref(storage,`provincias/${archivoLocal.name}`)
-	   const uplo=await uploadBytes(archivoRef,archivoLocal)
-	    urlDescarga=await getDownloadURL(archivoRef)
-	   console.log(uplo)
-	   console.log(urlDescarga)
-   }*/
+     if (archivoLocal)
+     {
+       // Validar el tipo de archivo
+       if (!archivoLocal.type.startsWith("image/")) 
+        {
+             setError("Por favor, selecciona un archivo de imagen válido.")
+             return;
+          }
+
+         const allowedTypes = ['image/jpeg', 'image/png', 'image/webp'];
+         if (!allowedTypes.includes(archivoLocal.type)) 
+         {
+             setError("Solo se permiten imágenes JPG, PNG y WebP.");
+             return;
+         }
+
+    }
+
+     // Validar el tamaño del archivo
+     if (archivoLocal.size > maxSize) {
+      setI(null);
+      setError("El archivo es demasiado grande. El tamaño máximo permitido es 5 MB.");
+      return;
+    }
+   
+      setI(archivoLocal);
+      setError("");
+   }
+
+   const checkIfImageExists = async (imageName) => {
+    try {
+      const imageRef = ref(storage, `categoria/${imageName}`); // Reemplaza 'images' con tu ruta de almacenamiento
+      await getDownloadURL(imageRef);
+      return true; // La imagen existe
+    } catch (error) {
+      if (error.code === "storage/object-not-found") {
+        return false; // La imagen no existe
+      } else {
+        console.error("Error al verificar la imagen:", error);
+        return false; // Ocurrió un error
+      }
+    }
+  };
 
   const store = async (e) => {
+   
     e.preventDefault()
-    await addDoc( empresaCollection, { nombre_categoria:codigo_empresa//, 
-	                                   //bandera:urlDescarga
-		} )
-		MySwal.fire({
+   
+    if (!i) {
+      setError("Por favor, selecciona un archivo de imagen.");
+      return;
+    }
+
+    
+    
+     setError("");
+    
+     const imageName = i.name; // O genera un nombre único
+     const imageExists = await checkIfImageExists(imageName);
+ 
+     if (imageExists) {
+      setError("La imagen ya existe");
+       return;
+     }
+   
+     try 
+     {
+ 
+        const archivoRef=ref(storage,`categoria/${imageName}`)
+        const uplo=await uploadBytes(archivoRef,i)
+        urlDescarga=await getDownloadURL(archivoRef)
+        await addDoc( empresaCollection, { nombre_categoria:codigo_empresa, 
+                                           imagenq:urlDescarga
+		                  } )
+		     MySwal.fire({
                       title: "Bien hecho!",
                       text: "Registro con exito!",
                       icon: "success",
                        button: "Felicitaciones!",
                    });
-        navigate('/ModuloAdministrador/modulo_categorias/ModuloCategorias')
+         navigate('/ModuloAdministrador/modulo_categorias/ModuloCategorias')
+     }catch(error){
+      console.log(error)
+     }   
     
   }
 
-
+  
   
 
   return (
@@ -90,31 +157,38 @@ function RegistrarP() {
                  <form className="forms-sample" onSubmit={store} >
 
 				 <div className="form-group">
-                        <label for="Categoriar">Nombre Categoria</label>
-                        <input
-                            type="text"
-                            className='form-control'
-						    placeholder="Nombre  Provincia ..."
+            <label for="Categoriar">Nombre Categoria</label>
+            <input
+             type="text"
+             className='form-control'
+						 placeholder="Nombre  Categoria ..."
 							minlength="3"
 							maxlength="20"
-                            required
+              required
 							value={codigo_empresa}
-                            onChange={ (e) => setcodigoempresa(e.target.value)}  
-							
-                        />
+              onChange={ (e) => setcodigoempresa(e.target.value)}  
+						 />
                     </div>                  
 				 
-				 {/*<div className="form-group">
-                        <label for="Categoriar">Foto Bandera</label>
+                    <div className="form-group">
+                        <label for="Categoriar">Imagen</label>
                         <input
                             type="file"
                             className='form-control'
-                            required
-							onChange={subirArchivo} 
+                            onChange={subirArchivo} 
+                             accept="image/*"
                         />
-                    </div>  
-				 */}
-				
+                    </div>
+
+                    {error &&     
+                     <div 
+                     className="alert alert-danger alert-dismissible fade show text-center"
+                     role="alert">
+                     <strong>Error!</strong> {error}
+                      <button type="button" className="btn-close" data-bs-dismiss="alert" aria-label="Close"></button>
+                      </div>
+                    }
+
                      <div align="Center">
                     <button type='submit' className='btn btn-primary mr-2'>Guardar</button>
 					<Link to="/ModuloAdministrador/modulo_categorias/ModuloCategorias" className='btn btn-primary mr-2'>Regresar</Link>

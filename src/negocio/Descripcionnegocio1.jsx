@@ -54,6 +54,7 @@ const {negocio, cargando, error}=Neg()
 
    
     </div>
+   <p><br/><br/></p>
 <Footer/>
     </>
   )

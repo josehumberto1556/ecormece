@@ -7,7 +7,7 @@ import { getStorage,
 		 uploadBytes,
 		 getDownloadURL } from 'firebase/storage'
 import Header  from '../header'
-import Aside   from '../Aside'
+import Aside1  from '../Aside1'
 import Footer  from '../Footer'
 import './formulario.css'
 import Swal  from 'sweetalert2'
@@ -17,7 +17,7 @@ import withReactContent from 'sweetalert2-react-content'
 const storage=getStorage(app)
 const MySwal = withReactContent(Swal)
 
-function EditarN() {
+function EditarN1() {
 	
   const [ nombre_novedades,setcodigoempresa ] = useState('')
   const [ descripcion,setDescripcion ] = useState('')	
@@ -139,7 +139,7 @@ function EditarN() {
   
   return (
        <div className="hold-transition sidebar-mini layout-fixed">
-		 <Aside/>
+		 <Aside1/>
 		 <div className="wrapper">
        
         <div className="main-panel" style={{marginTop:"80px"}}>
@@ -262,7 +262,7 @@ function EditarN() {
 
                      <div align="Center">
                     <button type='submit' className='btn btn-primary mr-2'>Guardar</button>
-					<Link to="/ModuloAdministrador/Productos" className='btn btn-primary mr-2'>Regresar</Link>
+					<Link to="/ModuloAdministrador/Producto" className='btn btn-primary mr-2'>Regresar</Link>
                 </div> 
 				  
 				  
@@ -283,4 +283,4 @@ function EditarN() {
   
 }
 
-export default EditarN
+export default EditarN1

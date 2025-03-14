@@ -6,7 +6,7 @@ import Header  from '../header'
 import Aside   from '../Aside'
 import Footer  from '../Footer'
 import  './formulario.css'
-
+import CryptoJS from 'crypto-js'
 import { getStorage,
          ref, 
 		 uploadBytes,
@@ -71,10 +71,11 @@ function Editar() {
           const n=imageni
 		  const archivoRef=ref(storage,`imagenesusuarios/${n}`)
 	      const uplo=await uploadBytes(archivoRef,n)
-	      urlDescarga=await getDownloadURL(archivoRef)          
+	      urlDescarga=await getDownloadURL(archivoRef)
+          const hash = CryptoJS.MD5(clave_usuario).toString();          
 		  const data = { nombre_usuario:nombre_usuario, 
 	                     email_usuario:email_usuario,
-					     clave_usuario:clave_usuario,
+					     clave_usuario:hash,
 					     imagen:n
 				        }
 						
@@ -91,9 +92,10 @@ function Editar() {
 		    const archivoRef=ref(storage,`imagenesusuarios/${n.name}`)
 	        const uplo=await uploadBytes(archivoRef,n)
 	        urlDescarga=await getDownloadURL(archivoRef) 
+            const hash = CryptoJS.MD5(clave_usuario).toString();  
    		    const data = { nombre_usuario:nombre_usuario, 
 	                       email_usuario:email_usuario,
-					       clave_usuario:clave_usuario,
+					       clave_usuario:hash,
 					       imagen:urlDescarga
 				         }
 						 

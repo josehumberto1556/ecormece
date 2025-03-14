@@ -5,23 +5,24 @@ import {collection,
 		getDoc,
 		deleteDoc,
 		doc} from 'firebase/firestore'
+    import { ref, deleteObject,getStorage, } from 'firebase/storage';
 import {app,db} from '../../Configfirebase/Configfirebase'		
 import DataTable from 'react-data-table-component'
 import Swal  from 'sweetalert2'
 import withReactContent from 'sweetalert2-react-content'
-import Aside   from '../Aside'
+import Aside1   from '../Aside1'
 import Footer  from '../Footer'
 
 const MySwal = withReactContent(Swal)
-
-function Usuarios() {
+const storage=getStorage(app)
+function ListadoPr1() {
 	
   ///1.configuramos los hooks
   const [search,setSearch ]=useState([])
   const [empre,setEmpresas ]=useState([])
   const [filtereCountries,setfiltereCountries]=useState([])
 
-  const  empresaCollection=collection(db,"usuarios")
+  const  empresaCollection=collection(db,"m_productos")
   const getEmpresas=async ()   => {
   const data=await getDocs(empresaCollection)
    //console.log(data.docs)
@@ -33,12 +34,17 @@ function Usuarios() {
    )
      }
 
-  const deleteempresa = async (id) => {
-   const empresaDoc = doc(db, "usuarios", id)
-   await deleteDoc(empresaDoc)
+  const deleteempresa = async (id,imageurl) => {
+  const empresaDoc = doc(db, "m_productos", id)
+  const ima=`${imageurl}`
+  const imageRef = ref(storage,ima);
+ //Eiminar el archivo
+ await deleteDoc(empresaDoc)
+ await deleteObject(imageRef);
+
     getEmpresas()
   }	 
-  const confirmDelete = (id) => {
+  const confirmDelete = (id,imageurl) => {
     MySwal.fire({
       title: '¿Esta Seguro de Eliminar esta Registro?',
       text: "",
@@ -50,7 +56,7 @@ function Usuarios() {
     }).then((result) => {
       if (result.isConfirmed) { 
         //llamamos a la fcion para eliminar   
-        deleteempresa(id)               
+        deleteempresa(id,imageurl)               
         Swal.fire(
           'Eliminado!',
           'Registro Eliminado.',
@@ -63,36 +69,67 @@ function Usuarios() {
   const columns= [
   
   {
-	name:"Nombre Usuario",
-	selector:(row)=>row.nombre_usuario
+	name:"Nombre producto",
+	selector:(row)=>row.nombre_productos
   },
   
   {
-	name:"Correo electronico",
-	selector:(row)=>row.email_usuario
+	name:"Descripción",
+	selector:(row)=>row.descripcion
   },
   
   {
-	name:"Clave usuario",
-	selector:(row)=>row.clave_usuario
+	name:"Cantidad",
+	selector:(row)=>row.cantidad
   },
   
+  {
+	name:"Precio",
+	selector:(row)=>row.precio
+	
+  },
+  
+  {
+	name:"Categoria",
+	selector:(row)=>row.categoria
+	
+  },
    
   {
 	name:"Imagen",
-	selector:(row)=><img src={row.imagen} width="100" height="100"/>,
+	selector:(row)=><img src={row.imagenq} width="100" height="100"/>,
 	sortable:true
+  },
+  
+  {
+	name:"Agregar Imagenes",
+	cell:(row)=><Link 
+	to={`/ModuloAdministrador/Productos/AgregarlasImagenes/${row.id}`} 
+	className="btn btn-light">Agregar Imagenes</Link>
+  },
+  
+    
+  {
+	name:"Ver Imagenes",
+	cell:(row)=><Link 
+	to={`/ModuloAdministrador/Productos/VerlasImagenes/${row.id}`} 
+	className="btn btn-light">Ver Imagenes</Link>
   },
   
   {
 	name:"Modificar",
 	cell:(row)=><Link 
-	to={`/ModuloAdministrador/modulo_usuarios/EditarUsuarios/${row.id}`} 
+	to={`/ModuloAdministrador/Productos/EditarProducto/${row.id}`} 
 	className="btn btn-light">Editar</Link>
   },
    {
 	 name:"Eliminar",
-     cell:(row)=><button onClick={ () => { confirmDelete(row.id) } } className="btn btn-danger">Eliminar</button>
+     cell:(row)=><button onClick={ () => { confirmDelete(row.id,row.imagenq)} } className="btn btn-danger">Eliminar</button>
+
+   },
+    {
+	 name:"Actualizar Stock",
+     cell:(row)=><button onClick={ () => { confirmDelete(row.id) } } className="btn btn-danger">Actualizar stock</button>
 
    }
   
@@ -102,18 +139,21 @@ function Usuarios() {
     getEmpresas()
   }, [] )
   
-  useEffect( () => {
-     const result=empre.filter((country)=>{
-    return country.nombre_usuario.substring(0, 20).toLowerCase().match(search.toLowerCase())
-  })
-  setfiltereCountries(result)
-   }, [search] )    
+   useEffect( () => {
+    const result=empre.filter((country)=>{
+	  return country.nombre_productos.substring(0, 20).toLowerCase().match(search.toLowerCase())
+	})
+	setfiltereCountries(result)
+  }, [search] ) 
+	
+  
+    
 	
 	
   return (
     <>
 	
-	    <Aside/>
+	    <Aside1/>
   <div 
  className="hold-transition sidebar-mini layout-fixed"
    style={{marginTop:"150px",marginBottom:"-30px"}}>
@@ -122,8 +162,8 @@ function Usuarios() {
 		    <div className="col-lg-12 grid-margin stretch-card">
 			  <div className="card">
 			    <div className="card-body">
-				<h4 className="card-title">Listado de Usuarios</h4>
-				<DataTable 
+				<h4 className="card-title">Listado de  Productos</h4>
+				  	<DataTable 
 				columns={columns} 
 				data={filtereCountries} 
 				fixedHeader 
@@ -131,17 +171,17 @@ function Usuarios() {
 				fixedHeaderScrollHeight="450px"
 				selecttablesRow
 				selecttablesRowHighlight
-				actions={<Link to="/ModuloAdministrador/modulo_usuarios/RegistrarUsuarios" 
-				className='btn btn-secondary mt-2 mb-2'>Nuevo Registros</Link>    }
+				actions={<Link to="/ModuloAdministrador/Productos/RegistarProducto" 
+				className='btn btn-secondary mt-2 mb-2'>Nuevo Registro</Link>    }
 				highlightOnHover
 				subHeader
 				subHeaderComponent={<input 
-                            type="text" 
-                            placeholder="Buscar Usuario ..." 
-                            className="w25 form-control" 
-                            value={search}
-                            onChange={(e)=>setSearch(e.target.value)}/>
-									         }
+				                    type="text" 
+									placeholder="Buscar Producto ..." 
+									className="w25 form-control" 
+									value={search}
+									onChange={(e)=>setSearch(e.target.value)}/>
+									}
 				/>
 		          
 		       </div>
@@ -157,4 +197,6 @@ function Usuarios() {
   )
 }
 
-export default Usuarios
+export default ListadoPr1
+
+

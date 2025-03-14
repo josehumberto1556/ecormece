@@ -1,4 +1,5 @@
 import { useState } from "react";
+import "./detalles_boton.css"
 import "./templatemo.css";
 export const Detalles=({
 	nombre,color,descripcion,image,image1,image2,image3,price})=>
@@ -119,18 +120,11 @@ export const Detalles=({
 						<input type="hidden" name="product-title" value="Activewear" />
 						
 						<div class="row pb-3">
-							<div class="col d-grid"> 
+							<div className="col d-grid"> 
 								<a 
+								className="botonproducto"
 								href="javascript: history.go(-1)"
-								style={{
-									      background:"linear-gradient(#051126 70%,#203560)",
-									      color:"white",
-										  marginLeft:"200px", 
-										  textAlign:"center",
-										  textDecoration:"none",
-										  width:"150px"
-										  
-										}} 
+								
 								>
 								Volver atrás
 								</a>

@@ -25,7 +25,8 @@ function EditarN() {
   const [ imagen,setImagen ] = useState('')
   const [ video,setVideo ] = useState('')
   const [ i,setI ] = useState(null)
-  
+  const [error, setError] = useState("");
+  const maxSize = 5 * 1024 * 1024; // 5 MB en bytes 
     const {id} = useParams()
     
 	const getEmpresaById = async (id) => {
@@ -57,7 +58,37 @@ function EditarN() {
    {
 	   //detectar archivo
 	    const archivoLocal=e.target.files[0]
-	   setI(archivoLocal);
+        if (archivoLocal)
+            {
+              // Validar el tipo de archivo
+              if (!archivoLocal.type.startsWith("image/")) 
+               {
+                    setError("Por favor, selecciona un archivo de imagen válido.")
+                    return;
+                 }
+       
+                const allowedTypes = ['image/jpeg', 'image/png', 'image/webp'];
+                if (!allowedTypes.includes(archivoLocal.type)) 
+                {
+                    setError("Solo se permiten imágenes JPG, PNG y WebP.");
+                    return;
+                }
+       
+       
+           }
+       
+       
+       
+       
+            // Validar el tamaño del archivo
+            if (archivoLocal.size > maxSize) {
+             setI(null);
+             setError("El archivo es demasiado grande. El tamaño máximo permitido es 5 MB.");
+             return;
+           }
+          
+             setI(archivoLocal);
+             setError("");
    }
 
 	
@@ -183,15 +214,14 @@ function EditarN() {
 					
 					
 					 <div className="form-group">
-                        <label for="Categoriar">Url Video</label>
-                        <textarea
-                            
-                            className='form-control'
-						    placeholder="Url  Video..."
-						    value={video}
-                            onChange={ (e) => setVideo(e.target.value)}
-                            required
-                        />
+             <label for="Categoriar">Url Video</label>
+              <textarea
+               className='form-control'
+						   placeholder="Url  Video..."
+						   value={video}
+               onChange={ (e) => setVideo(e.target.value)}
+               
+               />
                     </div> 
 					
 						 <div className="form-group">
@@ -205,9 +235,15 @@ function EditarN() {
                             type="file"
                             className='form-control'
                             onChange={subirArchivo} 
+                             accept="image/*"
                         />
                     </div>
-					
+                    {error &&     
+             <div className="alert alert-danger alert-dismissible fade show text-center" role="alert">
+             <strong>Error!</strong> {error}
+             <button type="button" className="btn-close" data-bs-dismiss="alert" aria-label="Close"></button>
+           </div>
+              }	
                      <div align="Center">
                     <button type='submit' className='btn btn-primary mr-2'>Guardar</button>
 					<Link to="/ModuloAdministrador/modulo_novedades/ModuloNovedades" className='btn btn-primary mr-2'>Regresar</Link>

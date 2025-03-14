@@ -5,6 +5,7 @@ import {collection,
 		getDoc,
 		deleteDoc,
 		doc} from 'firebase/firestore'
+    import { ref, deleteObject,getStorage, } from 'firebase/storage';
 import {app,db} from '../../Configfirebase/Configfirebase'		
 import DataTable from 'react-data-table-component'
 import Swal  from 'sweetalert2'
@@ -13,7 +14,7 @@ import Aside   from '../Aside'
 import Footer  from '../Footer'
 
 const MySwal = withReactContent(Swal)
-
+const storage=getStorage(app)
 function ListadoPr() {
 	
   ///1.configuramos los hooks
@@ -33,12 +34,17 @@ function ListadoPr() {
    )
      }
 
-  const deleteempresa = async (id) => {
-   const empresaDoc = doc(db, "m_productos", id)
-   await deleteDoc(empresaDoc)
+  const deleteempresa = async (id,imageurl) => {
+  const empresaDoc = doc(db, "m_productos", id)
+  const ima=`${imageurl}`
+  const imageRef = ref(storage,ima);
+ //Eiminar el archivo
+ await deleteDoc(empresaDoc)
+ await deleteObject(imageRef);
+
     getEmpresas()
   }	 
-  const confirmDelete = (id) => {
+  const confirmDelete = (id,imageurl) => {
     MySwal.fire({
       title: '¿Esta Seguro de Eliminar esta Registro?',
       text: "",
@@ -50,7 +56,7 @@ function ListadoPr() {
     }).then((result) => {
       if (result.isConfirmed) { 
         //llamamos a la fcion para eliminar   
-        deleteempresa(id)               
+        deleteempresa(id,imageurl)               
         Swal.fire(
           'Eliminado!',
           'Registro Eliminado.',
@@ -104,9 +110,9 @@ function ListadoPr() {
   
     
   {
-	name:"Agregar Imagenes",
+	name:"Ver Imagenes",
 	cell:(row)=><Link 
-	to={`/ModuloAdministrador/Productos/AgregarImagenes/${row.id}`} 
+	to={`/ModuloAdministrador/Productos/VerImagenes/${row.id}`} 
 	className="btn btn-light">Ver Imagenes</Link>
   },
   
@@ -118,12 +124,12 @@ function ListadoPr() {
   },
    {
 	 name:"Eliminar",
-     cell:(row)=><button onClick={ () => { confirmDelete(row.id) } } className="btn btn-danger">Eliminar</button>
+     cell:(row)=><button onClick={ () => { confirmDelete(row.id,row.imagenq)} } className="btn btn-danger">Eliminar</button>
 
    },
     {
-	 name:"Eliminar",
-     cell:(row)=><button onClick={ () => { confirmDelete(row.id) } } className="btn btn-danger">Eliminar Imagenes</button>
+	 name:"Actualizar Stock",
+     cell:(row)=><button onClick={ () => { confirmDelete(row.id) } } className="btn btn-danger">Actualizar stock</button>
 
    }
   

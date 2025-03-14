@@ -91,7 +91,7 @@ function Veroferta1() {
 
          <div className="mb-5">
            <Link to={link}>
-           <button className="boton">Postularse</button>
+           <button className="boton1">Postularse</button>
            </Link>
            {/*/<Comentarios/>
           

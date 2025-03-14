@@ -11,3 +11,28 @@
 	margin-left:50px;
 	width:80px;
 }
+
+button.boton1{
+	background:linear-gradient(#051126 70%,#203560);
+	color:white;
+	display: block;
+	margin: 0 auto;
+	width:200px;
+}
+
+
+@media (max-width: 480px) {
+	
+	h3
+	{
+		text-align: center;
+		margin-top: 20px;
+	}
+	p{
+		text-align: justify;
+	}
+	
+	button.boton1{
+		margin-bottom:150px;
+	}	
+}

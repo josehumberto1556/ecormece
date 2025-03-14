@@ -38,12 +38,16 @@ function ListadoSub() {
  
  
    const columns= [
-  
+   
+    {
+      name:"Nombre",
+      selector:(row)=>row.nombre
+   }, 
 
-  {
-	name:"Correo electronico",
-	selector:(row)=>row.email
-  }
+    {
+    name:"Correo electronico",
+    selector:(row)=>row.email
+    }
   
   ]
 	

@@ -1,4 +1,6 @@
-
+a:hover{
+	color:blue;
+}
 
 .fondo{
 	background:linear-gradient(#051126 70%,#203560);
@@ -9,18 +11,43 @@
 .boton2{
 	background:linear-gradient(#051126 70%,#203560);
 	color:white;
-	width:100px;
+	height:300px;
+	padding:5px;
+	width:320px;
 }
 
 .boton3{
 	background:linear-gradient(#051126 70%,#203560);
-	width:300px;
+	color:white;
 	height:300px;
+	padding:5px;
+	width:300px;
+	
 }
 
+.boton2:hover
+{
+  color:white;
+}
 
-.boton4{
+.boton3:hover{
+	color:white;
+}
+
+button.boton4{
 	background:linear-gradient(#051126 70%,#203560);
 	color:white;
-	width:300px;
+	display: block;
+	margin: 0 auto;
+	width:200px;
 }
+
+
+input.boton4{
+	background:linear-gradient(#051126 70%,#203560);
+	color:white;
+	display: block;
+	margin: 0 auto;
+	width:200px;
+}
+

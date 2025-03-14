@@ -7,6 +7,7 @@ import Header  from '../header'
 import Aside   from '../Aside'
 import Footer  from '../Footer'
 import  './formulario.css'
+import CryptoJS from 'crypto-js';
 
 import { getStorage,
          ref, 
@@ -46,59 +47,60 @@ function Registrar() {
 	    urlDescarga=await getDownloadURL(archivoRef)
 	    console.log(uplo)
 	    console.log(urlDescarga)
-	    const correo=e.target.emailField.value
-        const password=e.target.passwordField.value
-	    console.log(correo,password)
-	    const usuario=await crearUsuario(
-				 correo,
-				 password
-                 ).then((
-	             usuarioFirebase)=>
-	             {return usuarioFirebase}
-	             ).catch((error) => {
-      const errorCode = error.code;
-      const errorMessage = error.message;
-      
-      switch (errorCode) {
-        case "auth/email-already-in-use":
-            MySwal.fire({
-                           title: "Error!",
-                           text: "Correo ya existe!",
-                           icon: "danger",
-                           button: "Felicitaciones!"
-					    });
-          break;
-        case "auth/invalid-email":
-          MySwal.fire({
-                           title: "Error!",
-                           text: "Correo Invalido!",
-                           icon: "danger",
-                           button: "Felicitaciones!"
-					    });
-          break;
-        case "auth/weak-password":
-          MySwal.fire({
-                           title: "Error!",
-                           text: "Clave debil!",
-                           icon: "danger",
-                           button: "Felicitaciones!"
-					    });
-          break;
-        default:
-          // Handle other errors
-          break;
-      }	
-				 })
-				 
-				   let idu=usuario.user.uid;
-				   const empresaCollection = collection(db, "usuarios")
 
+	    // const correo=e.target.emailField.value
+      //   const password=e.target.passwordField.value
+	    // console.log(correo,password)
+	    // const usuario=await crearUsuario(
+			// 	 correo,
+			// 	 password
+      //            ).then((
+	    //          usuarioFirebase)=>
+	    //          {return usuarioFirebase}
+	    //          ).catch((error) => {
+      // const errorCode = error.code;
+      // const errorMessage = error.message;
+      
+      // switch (errorCode) {
+      //   case "auth/email-already-in-use":
+      //       MySwal.fire({
+      //                      title: "Error!",
+      //                      text: "Correo ya existe!",
+      //                      icon: "danger",
+      //                      button: "Felicitaciones!"
+			// 		    });
+      //     break;
+      //   case "auth/invalid-email":
+      //     MySwal.fire({
+      //                      title: "Error!",
+      //                      text: "Correo Invalido!",
+      //                      icon: "danger",
+      //                      button: "Felicitaciones!"
+			// 		    });
+      //     break;
+      //   case "auth/weak-password":
+      //     MySwal.fire({
+      //                      title: "Error!",
+      //                      text: "Clave debil!",
+      //                      icon: "danger",
+      //                      button: "Felicitaciones!"
+			// 		    });
+      //     break;
+      //   default:
+      //     // Handle other errors
+      //     break;
+      // }	
+			// 	 })
+				 
+			// 	   let idu=usuario.user.uid;
+				   const empresaCollection = collection(db, "musuarios")
+            const hash = CryptoJS.MD5(direccion_empresa).toString();
                    await addDoc( empresaCollection, { 
-				                       nombre_usuario:codigo_empresa, 
-	                                   email_usuario:nombre_empresa,
-									   clave_usuario:direccion_empresa,
-									   imagen:urlDescarga,
-									   nivel_usuario:1
+				                        nombre_usuario:codigo_empresa, 
+	                              email_usuario:nombre_empresa,
+									              clave_usuario:hash,
+									              imagen:urlDescarga,
+									              nivel_usuario:1
 									   } )
 		MySwal.fire({
                       title: "Bien hecho!",

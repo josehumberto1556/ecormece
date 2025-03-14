@@ -12,12 +12,12 @@ import DataTable from 'react-data-table-component'
 import Swal  from 'sweetalert2'
 import withReactContent from 'sweetalert2-react-content'
 import Header  from '../header'
-import Aside   from '../Aside'
+import Aside1  from '../Aside1'
 import Footer  from '../Footer'
 
 const MySwal = withReactContent(Swal)
 
-function ListadoNeg() {
+function ListadoNeg1() {
 	
   //1.configuramos los hooks
   const [search,setSearch ]=useState([])
@@ -132,7 +132,7 @@ function ListadoNeg() {
   return (
     <>
   <div className="hold-transition sidebar-mini layout-fixed">
-	    <Aside/>
+	    <Aside1/>
 	   <div className="main-panel" 
 	    style={{marginTop:"150px",marginBottom:"-30px"}}>
 		  <div className="row">
@@ -148,7 +148,7 @@ function ListadoNeg() {
 				fixedHeaderScrollHeight="450px"
 				selecttablesRow
 				selecttablesRowHighlight
-				actions={<Link to="/ModuloAdministrador/modulo_pago_negocio/Buscarfecha" 
+				actions={<Link to="/ModuloAdministrador/modulo_pagos_de_negocio/Buscarfecha" 
 				className='btn btn-secondary mt-2 mb-2'>Buscar por fecha</Link>    }
 				highlightOnHover
 				subHeader
@@ -177,4 +177,4 @@ function ListadoNeg() {
   )
 }
 
-export default ListadoNeg
+export default ListadoNeg1

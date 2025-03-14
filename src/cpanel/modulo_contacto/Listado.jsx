@@ -79,7 +79,7 @@ function ListadoC() {
   
     useEffect( () => {
     const result=empre.filter((country)=>{
-	  return country.nombre_correo.toLowerCase().match(search.toLowerCase())
+	  return country.nombre.toLowerCase().match(search.toLowerCase())
 	})
 	setfiltereCountries(result)
   }, [search] ) 

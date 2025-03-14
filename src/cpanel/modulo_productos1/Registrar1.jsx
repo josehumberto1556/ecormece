@@ -16,7 +16,7 @@ import { getStorage,
 		 getDownloadURL } from 'firebase/storage'
 
 import Header  from '../header'
-import Aside   from '../Aside'
+import Aside1   from '../Aside1'
 import Footer  from '../Footer'
 import './formulario.css'
 import Swal  from 'sweetalert2'
@@ -27,7 +27,7 @@ const MySwal = withReactContent(Swal)
 
 const storage=getStorage(app)
 
-function RegistrarPr() {
+function RegistrarPr1() {
 	
 	 const [listado,setListado]=useState([])
      const [ codigo_empresa,setcodigoempresa ] = useState('')
@@ -164,7 +164,7 @@ function RegistrarPr() {
   return (
       <>
 
-	<Aside/>
+	<Aside1/>
 
    <div className="hold-transition sidebar-mini layout-fixed">
 		 <div className="wrapper">
@@ -288,7 +288,7 @@ function RegistrarPr() {
 
                      <div align="Center">
                     <button type='submit' className='btn btn-primary mr-2'>Guardar</button>
-					<Link to="/ModuloAdministrador/Productos/" 
+					<Link to="/ModuloAdministrador/Producto/" 
 					className='btn btn-primary mr-2'>Regresar</Link>
                 </div> 
 				  
@@ -312,7 +312,7 @@ function RegistrarPr() {
   
 }
 
-export default RegistrarPr
+export default RegistrarPr1
 
 
 

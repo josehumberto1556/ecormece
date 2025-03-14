@@ -23,7 +23,7 @@ export const Detallesnegocio1=({id,title,price,image,handleAgregar, handleQuitar
             <div className="col-12 col-md-4 col-lg-3 mb-5">
                                                 
                     <div className="product-item">
-                    <Link  to={`/detalleProducto/${id}`}>	
+                    <Link  to={`/detallesDelProducto/${id}`}>	
                         <img 
                         src={image}
                         className="img-fluid product-thumbnail"/>

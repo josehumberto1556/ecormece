@@ -104,7 +104,7 @@ const Recuperar=(props) =>  {
 
               
 
-         <input  type="submit"  className="boton2"  value="Recuperar"/>
+         <input  type="submit"  className="boton4"  value="Recuperar"/>
 				 {/*<a  href="/IniciarSeccion" className="boton">Regresar</a>*/}
 				 
 				 

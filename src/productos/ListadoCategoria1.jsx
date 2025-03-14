@@ -101,7 +101,7 @@ function ListadoCategoria1() {
         
        
 				{!loading && lastVisible && (
-        <button onClick={handleLoadMore} className="boton">Cargar más</button>
+        <button onClick={handleLoadMore} className="boton-cargar">Cargar más</button>
       )}
         </div>
 

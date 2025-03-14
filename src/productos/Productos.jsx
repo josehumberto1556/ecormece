@@ -41,7 +41,7 @@ function Productos() {
 		
 					<div className="col-12 col-md-4 col-lg-3 mb-5 mb-md-0" key={empr.id}>
 					 
-					<Link to={`/VerProducto/${empr.nombre_productos}`}>
+					<Link to={`/detallesDelProducto/${empr.id}`}>
             
 			        <section 	className="product-item" >
 					<img src={empr.imagen}

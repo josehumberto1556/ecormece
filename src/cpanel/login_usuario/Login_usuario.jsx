@@ -8,7 +8,7 @@ import CryptoJS from 'crypto-js';
 const MySwal = withReactContent(Swal)
 
 
-const LoginU = () => {
+const LoginUsuario = () => {
 	
 	const{log} = useUserAuth();
     let navigate = useNavigate();
@@ -29,7 +29,7 @@ const LoginU = () => {
                       icon: "success",
                        button: "Felicitaciones!",
                    });
-                navigate("/ModuloAdministrador"); 
+                navigate("/Administrador"); 
 			}catch(error){
 				
 				
@@ -148,4 +148,4 @@ const LoginU = () => {
   );
 };
 
-export default LoginU;
+export default LoginUsuario;

@@ -20,7 +20,7 @@ import "boxicons"
 function ListadoProducto() {
 	const {nombre} = useParams()
 	let categoria= decodeURIComponent(nombre);
-   	const [empre,setEmpresas ]=useState([])
+   	const [empre,setEmpresas]=useState([])
 	const [searchTerm, setSearchTerm] = useState('');
      
     const getEmpresas=async() =>

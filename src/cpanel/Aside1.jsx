@@ -7,7 +7,7 @@ import {app,db} from '../Configfirebase/Configfirebase'
 import { useNavigate } from "react-router";
 import "./aside.css"
 
-const Aside = () => {
+const Aside1 = () => {
   
   const { logOut, user } = useUserAuth();
   const n  =user.nom
@@ -15,7 +15,7 @@ const Aside = () => {
   const handleLogout = async () => {
     try {
       await logOut();
-      navigate("/CuentaUsuario");
+      navigate("/CuentasDeUsuarios");
     } catch (error) {
       console.log(error.message);
     }
@@ -44,72 +44,17 @@ const Aside = () => {
         <li className="nav-item">
 		
          <Link className="nav-link" style={{color:"white"}}
-		  to="/ModuloAdministrador">Inicio</Link>
+		  to="/Administrador">Inicio</Link>
 		  
         </li>
         
-		 
-		<li className="nav-item">
-          
-		  <Link className="nav-link" style={{color:"white"}}
-		  to="/ModuloAdministrador/modulo_usuarios/ModuloUsuario">Usuarios</Link>
-		  
-        </li>
-		
-		<li className="nav-item">
-          
-		  <Link className="nav-link" style={{color:"white"}}
-		  to="/ModuloAdministrador/modulo_novedades/ModuloNovedades">Novedades</Link>
-		  
-        </li>
-		
-        <li className="nav-item">
-          
-		   <Link className="nav-link" style={{color:"white"}}
-		  to="/ModuloAdministrador/modulo_categorias/ModuloCategorias"
-		  >              
-		  Categorias
-          </Link>
-        
-        </li>
-		
-        <li className="nav-item">
-          
-		     <Link className="nav-link" style={{color:"white"}}
-		  to="/ModuloAdministrador/modulo_contacto/ListadoContacto"
-		  >              
-		 Mensaje Contacto
-          </Link>
-        
-		</li>
-		
-		 <li className="nav-item">
-          
-		     <Link className="nav-link" style={{color:"white"}}
-		  to="/ModuloAdministrador/Subscripcion"
-		  >              
-		 Subscripción
-          </Link>
-        
-		</li>
-		{
-			/*
-		 <li className="nav-item">
-          
-		     <Link className="nav-link" style={{color:"white"}}
-		  to="/ModuloAdministrador/Opiniones"
-		  >              
-		 Opiniones
-          </Link>
-        
-		</li>
-		*/}
-	    	 <li className="nav-item">
+   
+	 <li className="nav-item">
           
 		     <Link 
 			   className="nav-link" 
 			   style={{color:"white"}}
-		       to="/ModuloAdministrador/Productos">              
+		       to="/ModuloAdministrador/Producto">              
 		         Productos
           </Link>
         
@@ -120,7 +65,7 @@ const Aside = () => {
 		     <Link 
 			   className="nav-link" 
 			   style={{color:"white"}}
-		       to="/ModuloAdministrador/PagosNegocios">              
+		       to="/ModuloAdministrador/PagosDeNegocios">              
 		         Pagos de negocio
           </Link>
         
@@ -150,7 +95,7 @@ const Aside = () => {
 )
 }
 
-export default Aside;
+export default Aside1;
 
 
 

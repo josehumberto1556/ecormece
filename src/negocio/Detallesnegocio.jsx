@@ -37,7 +37,7 @@ export const Detallesnegocio=({id,title,price,image,handleAgregar, handleQuitar,
                             </span>
                                             
                         <br/>
-                        {added
+                        {/* {added
                           ? <button
                             type="button"
                             className="boton-err"
@@ -52,8 +52,13 @@ export const Detallesnegocio=({id,title,price,image,handleAgregar, handleQuitar,
                               onClick={clickAgregar}
                             >
                                 Agregar Carrito
-                              </button>
-                            }
+                              </button> */}
+                           <Link  to={`/IniciarSeccion`}>	
+                             <button
+                              type="button"
+                              className="boton-ag"
+                               >Agregar</button>
+                           </Link>	
 
 
                         </div>

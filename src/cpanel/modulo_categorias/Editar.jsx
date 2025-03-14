@@ -23,9 +23,9 @@ function EditarP() {
   const [ codigo_empresa,setcodigoempresa ] = useState('')
   const [ nombre_empresa,setNombreempresa ] = useState('')
   const [ i,setI ] = useState(null)
-   
-    const {id} = useParams()
-
+  const [error, setError] = useState("");
+  const {id} = useParams()
+  const maxSize = 5 * 1024 * 1024; // 5 MB en bytes
 
 
 	 const getEmpresaById = async (id) => {
@@ -51,7 +51,34 @@ function EditarP() {
     {
       //detectar archivo
        const archivoLocal=e.target.files[0]
-      setI(archivoLocal);
+       if (archivoLocal)
+        {
+          // Validar el tipo de archivo
+          if (!archivoLocal.type.startsWith("image/")) 
+           {
+                setError("Por favor, selecciona un archivo de imagen válido.")
+                return;
+             }
+
+            const allowedTypes = ['image/jpeg', 'image/png', 'image/webp'];
+            if (!allowedTypes.includes(archivoLocal.type)) 
+            {
+                setError("Solo se permiten imágenes JPG, PNG y WebP.");
+                return;
+            }
+   
+       }
+   
+        // Validar el tamaño del archivo
+        if (archivoLocal.size > maxSize) {
+         setI(null);
+         setError("El archivo es demasiado grande. El tamaño máximo permitido es 5 MB.");
+         return;
+       }
+      
+         setI(archivoLocal);
+         setError("");
+      
     }
 
     const update = async (e) => {
@@ -150,28 +177,19 @@ function EditarP() {
                         <input
                             type="file"
                             className='form-control'
+                             accept="image/*"
                             onChange={subirArchivo} 
                         />
                     </div>
-			     
 
-				 {/*<div className="form-group">
-                        <label for="Categoriar">Foto Provincia</label>
-                        <img
-						src={nombre_empresa}
-						width="100"  height="100"
-                        />
-                    </div> 
-				 
-				 <div className="form-group">
-                        <label for="Categoriar">Bandera</label>
-                        <input
-                            type="file"
-                            className='form-control'
-                            onChange={subirArchivo} 
-                        />
-                    </div> */ }
-					
+                  {error &&     
+                    <div className="alert alert-danger alert-dismissible fade show  text-center" role="alert">
+                        <strong>Error!</strong> {error}
+                        <button type="button" className="btn-close" data-bs-dismiss="alert" aria-label="Close"></button>
+                  </div>
+              }   
+
+				
 					 <div align="Center">
                     <button type='submit' className='btn btn-primary mr-2'>Guardar</button>
 					<Link to="/ModuloAdministrador/modulo_categorias/ModuloCategorias" className='btn btn-primary mr-2'>Regresar</Link>
