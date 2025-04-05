@@ -2,60 +2,53 @@ import Navbar  from "../navbar/Navbar"
 import Navbar1 from "../navbar/Navbar1"
 import Footer  from "../piepagina/Footer"
 import "./IniciarSeccion.css"
+import React,{useState,useEffect}from 'react'
+import {db,app} from '../Configfirebase/Configfirebase'	
 import {Link, useNavigate }   from "react-router-dom";
+import { collection,query,where,getDocs } from 'firebase/firestore'; 
 import { useUserAuth } from "../context/UsuarioContext";
 import Swal from 'sweetalert2'
 import withReactContent from 'sweetalert2-react-content'
+import CryptoJS from 'crypto-js';
 const MySwal = withReactContent(Swal)
 
 function IniciarSeccion() {
   const{log} = useUserAuth();
   let navigate = useNavigate();
-   
+   const [ email,setEmail ] = useState('')
+   const [ clave,setClave ] = useState('')
+   const [error, setError] = useState(""); 
   const  submitHandler=async(e)=>{
       
     e.preventDefault()
-    const email=e.target.emailField.value
-    const password=e.target.passwordField.value
+    // const email=e.target.emailField.value
+    // const password=e.target.passwordField.value
+   
     try
     {
-          
-      await log(email,password);
-      MySwal.fire({
+      const hash = CryptoJS.MD5(clave).toString();
+      const col= collection(db,'usuarios');
+      const q=query(col,where("email_usuario","==",email),where("clave_usuario","==",hash));
+      const datos=await getDocs(q);       
+      if(datos.empty){setError("Correo o contraeña invalida.");return null;}
+      else
+      {
+        await log(email,hash);
+      
+              MySwal.fire({
                     title: "Bien hecho!",
                     text: "Has Iniciado Sección!",
                     icon: "success",
                      button: "Felicitaciones!",
                  });
               navigate("/Menu"); 
-    }catch(error){
-      
-      
-      
-      if(error.code ==='auth/invalid-email')
-      {
-                MySwal.fire({
-                    title: "Error!",
-                    text: "Correo Electronico Invalido!",
-                    icon: "danger",
-                     button: "Felicitaciones!"
-            });
-               
         
-              }
+        }//fin del else
+
+        }catch(error){
       
-      if(error.code ==='auth/user-not-found')
-      {
-                MySwal.fire({
-                    title: "Error!",
-                    text: "Correo no existe!",
-                    icon: "danger",
-                     button: "Felicitaciones!"
-            });
-               
-        
-              }
       
+  
       if (error.code === 'auth/wrong-password')
       {
            MySwal.fire({
@@ -69,7 +62,9 @@ function IniciarSeccion() {
       
 
     }//fin del try catch
-
+    
+  
+  
   }
 
  return (
@@ -98,6 +93,12 @@ function IniciarSeccion() {
 			   <div>
           
          <h3 className="mb-5 text-center">Cuenta de Usuario</h3>
+         {error &&     
+                      <div className="alert alert-danger alert-dismissible fade show text-center" role="alert">
+                         <strong>Error!</strong> {error}
+                         <button type="button" className="btn-close" data-bs-dismiss="alert" aria-label="Close"></button>
+                      </div>
+                   }
 
          <form  onSubmit={submitHandler}>
 
@@ -112,6 +113,8 @@ function IniciarSeccion() {
         minlength="3"
         maxlength="100" 
         required
+        value={email}
+        onChange={ (e) => setEmail(e.target.value)}
       />
     <label className="form-label" for="form2Example1">Correo Electronico</label>
   </div>
@@ -127,6 +130,8 @@ function IniciarSeccion() {
     minlength="6"
     maxlength="20"
     required
+    value={clave}
+    onChange={ (e) => setClave(e.target.value)}
    />
     <label class="form-label" for="form2Example2">Contraseña</label>
   </div>

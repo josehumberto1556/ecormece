@@ -1,8 +1,8 @@
-#mover{margin-left:300px;}
+@media (min-width: 1024px)  {
 
-
-@media (min-width: 400px) and (max-width: 1280px) {
-   #mover{
-    margin-left:30px;
+  
+  .mover{
+    margin-left:300px;
+    margin-bottom:-80px
   }
 }

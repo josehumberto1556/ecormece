@@ -119,7 +119,7 @@ function Editar() {
    <div className="hold-transition sidebar-mini layout-fixed">
 		 <div className="wrapper">
 	
-        <div className="main-panel">
+        <div className="main-panel" style={{marginTop:"80px"}}>
 	<div className="content-header">
 					  <div className="container-fluid">
 						 <div className="row mb-2">
@@ -136,7 +136,7 @@ function Editar() {
 				  </div>
 					  </div>
 </div>	
-        <div className='row'  id="mover">
+        <div className='row mover' >
             <div className='col-md-8 grid-margin stretch-card'>
              <div className="card">
 			  <div className="card-body">

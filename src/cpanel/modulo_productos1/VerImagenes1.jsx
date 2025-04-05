@@ -71,7 +71,7 @@ function VerImagenes1() {
 				  </div>
 					  </div>
 </div>	
-        <div className='row'id="mover"  style={{marginBottom:"-80px"}} >
+        <div className='row mover'>
             <div className='col-md-8 grid-margin stretch-card'>
              <div className="card">
 			  <div className="card-body">
