@@ -47,6 +47,13 @@ const Aside1 = () => {
 		  to="/Administrador">Inicio</Link>
 		  
         </li>
+
+       <li>
+
+		<Link className="nav-link" style={{color:"white"}}
+		  to="/ModuloAdministrador/PerfilUsuario">Mi Perfil</Link>
+		  
+        </li>
         
    
 	 <li className="nav-item">

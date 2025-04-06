@@ -1,18 +1,15 @@
 import React,{useState}from 'react'
 import {useNavigate}  from 'react-router-dom'
+import { useUserAuth } from "../../context/UsuarioContext";		
 import { collection, addDoc,query,where,getDocs } from 'firebase/firestore'
-import {db,app} from '../Configfirebase/Configfirebase'	
+import {db,app} from '../../Configfirebase/Configfirebase'	
 import { getStorage,
          doc,
          ref, 
-		 uploadBytes,
+         uploadBytes,
      uploadBytesResumable,
-		 getDownloadURL,
+         getDownloadURL,
      getMetadata } from 'firebase/storage'
-import "./IniciarSeccion.css"
-import Navbar  from "../navbar/Navbar"
-import Navbar1 from "../navbar/Navbar1"
-import Footer  from "../piepagina/Footer"
 import Swal  from 'sweetalert2'
 import withReactContent from 'sweetalert2-react-content'
 import CryptoJS from 'crypto-js';
@@ -20,6 +17,7 @@ const MySwal = withReactContent(Swal)
 const storage=getStorage(app)
 
 export const RegistroHook=()=>{
+    const { crearUsuario } = useUserAuth();
     const [ nombreusu,setNombreusu ] = useState('')
     const [errorNombre, setErrorNombre] = useState(null);
     const [ emailu,setEmailu ] = useState('')
@@ -41,12 +39,13 @@ export const RegistroHook=()=>{
     const manejarCambioImagen = (evento) => 
     {
         const archivo = evento.target.files[0];
-       
-        if (archivo.size > maxSize) {
-          setImagen(null);
-          setErrorImagen("El archivo es demasiado grande. El tamaño máximo permitido es 5 MB.");
-          return;
-        } 
+    
+        // Validar el tamaño del archivo
+      if (archivo.size > maxSize) {
+        setImagen(null);
+        setErrorImagen("El archivo es demasiado grande. El tamaño máximo permitido es 5 MB.");
+        return;
+      } 
 
         if (archivo)
         {
@@ -84,19 +83,21 @@ export const RegistroHook=()=>{
 
     }//fin de la funion mensaje
   
-     const existeImagenEnStorage=async(nombreArchivo)=> {
-        try {
-          const imagenRef = ref(storage, `musuarios/${nombreArchivo}`); // Ruta a tu carpeta de imágenes
-          urlDescarga=await getDownloadURL(imagenRef)
-         // await getMetadata(imagenRef); // Intenta obtener metadatos
-          return true; // Si no hay error, la imagen existe
-        } catch (error) {
-          if (error.code === 'storage/object-not-found') {
+  const existeImagenEnStorage=async(nombreArchivo)=> {
+     
+    try {
+          const imageRef = ref(storage,`musuarios/${nombreArchivo}`); // Reemplaza 'images' con tu ruta de almacenamiento
+          await getDownloadURL(imageRef);
+          return true; // La imagen existe
+          } catch (error) {
+          if (error.code === "storage/object-not-found") {
             return false; // La imagen no existe
+          } else {
+            console.error("Error al verificar la imagen:", error);
+            return false; // Ocurrió un error
           }
-          console.error("Error al comprobar imagen:", error);
-          return false; // Otro error, asumimos que no existe para evitar bloqueos
-        }
+          }
+
       }
 
       const subirImagen = async () =>
@@ -133,29 +134,60 @@ export const RegistroHook=()=>{
            setErrorClave(null);
            setErrorImagen(null);
            setErrorc(null);
-   
            const nombreArchivo = imagen.name; // O un nombre generado
            const existe = await existeImagenEnStorage(nombreArchivo);
            if (existe) {
             setErrorImagen("La imagen ya existe");
-           return;}
-        
+           return;
+           }
+           try
+           {
            
-           try {
-            const archivoRef=ref(storage,`musuarios/${imagen.name}`)
-            const uplo=await uploadBytes(archivoRef,imagen)
-            urlDescarga=await getDownloadURL(archivoRef)
-             
-               const existe = await existeImagenEnStorage(nombreArchivo);
-            //   if(existe) {
-            //    setErrorImagen("Ya existe una imagen con ese nombre.");
-            //    return;
-            //  }//fin del exitsw
-             
+             const archivoRef=ref(storage,`musuarios/${imagen.name}`)
+             const uplo=await uploadBytes(archivoRef,imagen)
+             urlDescarga=await getDownloadURL(archivoRef)
+             const hash = CryptoJS.MD5(clave).toString()
+             const usuario=await crearUsuario(
+                    	 emailu,
+                    	 hash
+                         ).then((
+                         usuarioFirebase)=>
+                         {return usuarioFirebase}
+                         ).catch((error) => {
+              const errorCode = error.code;
+              const errorMessage = error.message;
+              
+              switch (errorCode) {
+                case "auth/email-already-in-use":
+                    MySwal.fire({
+                                   title: "Error!",
+                                   text: "Correo ya existe!",
+                                   icon: "danger",
+                                   button: "Felicitaciones!"
+                    		    });
+                  break;
+                case "auth/invalid-email":
+                  MySwal.fire({
+                                   title: "Error!",
+                                   text: "Correo Invalido!",
+                                   icon: "danger",
+                                   button: "Felicitaciones!"
+                    		    });
+                  break;
+                case "auth/weak-password":
+                  MySwal.fire({
+                                   title: "Error!",
+                                   text: "Clave debil!",
+                                   icon: "danger",
+                                   button: "Felicitaciones!"
+                    		    });
+                  break;
+                default:
+                  // Handle other errors
+                  break;
+              }	
+                    	 })
             
-             //insertar datos base de datos
-             //if(validacionExitosa){
-             const hash = CryptoJS.MD5(clave).toString();
              await addDoc( empresaCollection, {
                nombre_usuario:nombreusu,
                email_usuario: emailu, 
@@ -175,7 +207,7 @@ export const RegistroHook=()=>{
                       button: "Felicitaciones!",
                       });
                //     }        
-                    navigate('/IniciarSeccion')
+               //navigate('/ModuloAdministrador/modulo_usuarios/ModuloUsuario')
            } catch (error) {
              console.error("Error al subir imagen:", error);
              setErrorImagen("Error al subir la imagen. Inténtalo de nuevo.");

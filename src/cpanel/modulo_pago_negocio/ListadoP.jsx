@@ -41,11 +41,26 @@ function ListadoNeg() {
  
     const empresaDoc =await doc(db, "pago_producto", id)
     const data = { 
-                    estado:"activo"
+                    estado:"activo",
+                    mensaje_pago:"Pago cancelado"
                  }
          await updateDoc(empresaDoc, data)
           
    }	 
+
+
+   
+  const pagoPendiente = async (id) => 
+    {
+   
+      const empresaDoc =await doc(db, "pago_producto", id)
+      const data = { 
+                      mensaje_pago:"Esta Pendiente Su Pago"
+                   }
+           await updateDoc(empresaDoc, data)
+            
+     }
+
 
   const activar = (id) => {
     MySwal.fire({
@@ -68,6 +83,29 @@ function ListadoNeg() {
       }
     })    
   }
+
+  const Enviarmensaje = (id) => {
+    MySwal.fire({
+      title: '¿Esta Seguro de Activar este Comprobante de pago?',
+      text: "",
+      icon: 'warning',
+      showCancelButton: true,
+      confirmButtonColor: '#d33',
+      cancelButtonColor: '#3085d6',
+      confirmButtonText: 'Activar'
+    }).then((result) => {
+      if (result.isConfirmed) { 
+        //llamamos a la fcion para eliminar   
+        pagoPendiente(id)               
+        Swal.fire(
+          'Esta!',
+          'Pendienete.',
+          'el pago'
+        )
+      }
+    })    
+  }
+
   const columns= [
   
   {
@@ -89,7 +127,11 @@ function ListadoNeg() {
     name:"Estado",
     selector:(row)=>row.estado
   },
-
+  
+  {
+    name:"Pago  Pendiente Administrador",
+    selector:(row)=>row.mensaje_pago
+    },
 
   {
     name:"Comprabante de pago negocio",
@@ -112,7 +154,12 @@ function ListadoNeg() {
     
     {
       cell:(row)=><button onClick={ () => { activar(row.id) } } className="btn btn-danger">Activar</button>
+    },
+
+    {
+      cell:(row)=><button onClick={ () => { Enviarmensaje(row.id) } } className="btn btn-danger">Enviar Mensaje</button>
     }
+
 
   
   ]

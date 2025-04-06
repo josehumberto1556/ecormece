@@ -20,6 +20,7 @@ function ListadoPr1() {
   ///1.configuramos los hooks
   const [search,setSearch ]=useState([])
   const [empre,setEmpresas ]=useState([])
+  const [empre1,setEmpresas1 ]=useState([])
   const [filtereCountries,setfiltereCountries]=useState([])
 
   const  empresaCollection=collection(db,"m_productos")
@@ -127,11 +128,12 @@ function ListadoPr1() {
      cell:(row)=><button onClick={ () => { confirmDelete(row.id,row.imagenq)} } className="btn btn-danger">Eliminar</button>
 
    },
-    {
-	 name:"Actualizar Stock",
-     cell:(row)=><button onClick={ () => { confirmDelete(row.id) } } className="btn btn-danger">Actualizar stock</button>
-
-   }
+  {
+     name:"Actualizar Stock",
+     cell:(row)=><Link 
+     to={`/ModuloAdministrador/Productos/Actualizarproducto/${row.id}`} 
+     className="btn btn-light">Actualizar Stock</Link>
+  }
   
   ]
 	
@@ -163,7 +165,28 @@ function ListadoPr1() {
 			  <div className="card">
 			    <div className="card-body">
 				<h4 className="card-title">Listado de  Productos</h4>
-				  	<DataTable 
+        {empre1.map(pro=>(
+             pro.cantidad==0 
+             ? 
+                 
+              <div className="alert alert-danger alert-dismissible fade show text-center" role="alert">
+                 <strong>Advertencia!</strong> No Tienes stock el producto {pro.nombre_productos}
+                 <button type="button" className="btn-close" data-bs-dismiss="alert" aria-label="Close"></button>
+              </div>
+                      
+             :
+             pro.cantidad<=5
+             ?
+             <div className="alert alert-danger alert-dismissible fade show text-center" role="alert">
+             <strong>Advertencia!</strong> Que dan pocos productos {pro.nombre_productos} en el stock
+             <button type="button" className="btn-close" data-bs-dismiss="alert" aria-label="Close"></button>
+          </div>
+                  
+             :<p></p>
+
+          ))}
+
+				<DataTable 
 				columns={columns} 
 				data={filtereCountries} 
 				fixedHeader 

@@ -20,8 +20,8 @@ function ListadoPr() {
   ///1.configuramos los hooks
   const [search,setSearch ]=useState([])
   const [empre,setEmpresas ]=useState([])
+  const [empre1,setEmpresas1 ]=useState([])
   const [filtereCountries,setfiltereCountries]=useState([])
-
   const  empresaCollection=collection(db,"m_productos")
   const getEmpresas=async ()   => {
   const data=await getDocs(empresaCollection)
@@ -29,6 +29,9 @@ function ListadoPr() {
    setEmpresas(
        data.docs.map( (doc) => ( {...doc.data(),id:doc.id}))
    )
+   setEmpresas1(
+    data.docs.map( (doc) => ( {...doc.data(),id:doc.id}))
+)
    setfiltereCountries(
        data.docs.map( (doc) => ( {...doc.data(),id:doc.id}))
    )
@@ -129,7 +132,9 @@ function ListadoPr() {
    },
     {
 	 name:"Actualizar Stock",
-     cell:(row)=><button onClick={ () => { confirmDelete(row.id) } } className="btn btn-danger">Actualizar stock</button>
+   cell:(row)=><Link 
+   to={`/ModuloAdministrador/Productos/Actualizarproductos/${row.id}`} 
+   className="btn btn-danger">Actualizar Stock</Link>
 
    }
   
@@ -163,7 +168,27 @@ function ListadoPr() {
 			  <div className="card">
 			    <div className="card-body">
 				<h4 className="card-title">Listado de  Productos</h4>
-				  	<DataTable 
+				  {empre1.map(pro=>(
+             pro.cantidad==0 
+             ? 
+                 
+              <div className="alert alert-danger alert-dismissible fade show text-center" role="alert">
+                 <strong>Advertencia!</strong> No Tienes stock el producto {pro.nombre_productos}
+                 <button type="button" className="btn-close" data-bs-dismiss="alert" aria-label="Close"></button>
+              </div>
+                      
+             :
+             pro.cantidad<=5
+             ?
+             <div className="alert alert-danger alert-dismissible fade show text-center" role="alert">
+             <strong>Advertencia!</strong> Que dan pocos productos {pro.nombre_productos} en el stock
+             <button type="button" className="btn-close" data-bs-dismiss="alert" aria-label="Close"></button>
+          </div>
+                  
+             :<p></p>
+
+          ))}
+            <DataTable 
 				columns={columns} 
 				data={filtereCountries} 
 				fixedHeader 

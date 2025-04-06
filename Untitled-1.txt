@@ -1,0 +1,8 @@
+Explicación de la Función addMovie:
+
+async: La función es asíncrona ya que la operación de escritura en Firebase es asíncrona.
+movieData: Omit<Movie, 'id'>: Este parámetro define la estructura de los datos de la película que se va a insertar. Utilizamos Omit<Movie, 'id'> para asegurar que no se intente pasar un id (ya que Firebase lo genera automáticamente).
+addDoc(collection(db, 'movies'), movieData): Esta es la función de Firebase Firestore para añadir un nuevo documento a la colección 'movies'. Toma como argumentos la referencia a la colección y el objeto con los datos del documento.
+docRef: La función addDoc devuelve una DocumentReference, que contiene información sobre el documento recién creado, incluyendo su id.
+return docRef.id;: En caso de éxito, la función devuelve el ID del documento creado.
+catch: Si ocurre algún error durante la operación de escritura, se captura el error, se actualiza el estado error del Hook y se devuelve null.

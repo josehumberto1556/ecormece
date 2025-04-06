@@ -52,7 +52,7 @@ const letra = { color:"#ffffff"}
 						</li>
 						
 						<li className="nav-item active">
-							<Link to="/ListadosDeCategorias"  className="nav-link">Perfil</Link>
+							<Link to="/PerfilUsuario"  className="nav-link">Mi Perfil</Link>
 						</li>
 					
 						

@@ -1,7 +1,7 @@
 import {
   BrowserRouter as Router,
   Route,
-  Routes,
+  Routes
 } from "react-router-dom";
 
 import Inicio from "./inicio/Inicio"
@@ -31,6 +31,7 @@ import LoginU              from  './cpanel/login/Login'
 import LoginUsuario        from  './cpanel/login_usuario/Login_usuario'
 import RecuperarClave      from  './cpanel/login/RecuperarClave'
 import  ProtectedRoute     from  './cpanel/login/ProtectedRoute' 
+import  ProtectedRoute1     from  './cpanel/login/ProtectedRoute1' 
 import ModuloAdministrador from "./cpanel/ModuloAdministrador"
 import Administrador       from "./cpanel/Administrador"
 
@@ -43,9 +44,12 @@ import  RegistrarN         from  './cpanel/modulo_novedades/Registrar'
 import  EditarN            from  './cpanel/modulo_novedades/Editar'
 
 
-import  ListadoP           from  './cpanel/modulo_categorias/ListadoP'
-import  RegistrarP         from  './cpanel/modulo_categorias/Registrar'
-import  EditarP            from  './cpanel/modulo_categorias/Editar' 
+import  ListadoP             from  './cpanel/modulo_categorias/ListadoP'
+import  RegistrarP           from  './cpanel/modulo_categorias/Registrar'
+import  EditarP              from  './cpanel/modulo_categorias/Editar' 
+import { Actualizarproducto} from "./cpanel/modulo_productos/Actualizarproducto";
+import { Actualizarproducto1 } from "./cpanel/modulo_productos1/Actualizarproducto1";
+
 
 import  ListadoPr          from  './cpanel/modulo_productos/ListadoPr'
 import  ListadoPr1         from  './cpanel/modulo_productos1/ListadoPr1'
@@ -87,6 +91,11 @@ import { Buscarfecha } from "./cpanel/modulo_pago_negocio/Buscarfecha";
 
 import { Buscarfecha1 } from "./cpanel/modulo_pago_negocio1/Buscarfecha1";
 
+import Perfil from "./cpanel/perfil_usuario/Perfil";
+import PerfilUsuario from "./PerfilUsuario/PerfilUsuario";
+import NotFoundPage from "./404/Notfound";
+
+
 function App() {
   return (
    <UsuarioContextProvider>
@@ -94,7 +103,7 @@ function App() {
 
    
 	<Router>
-    
+	
         <Routes>
 	     <Route path="/"                        exact   element={<Inicio/>} />
 		 <Route path="/Inicio"                  exact   element={<Inicio1/>} />
@@ -159,7 +168,7 @@ function App() {
 
 
 		 <Route path="/ModuloAdministrador"  
-		 element={<ModuloAdministrador/>} />
+		 element={<ProtectedRoute><ModuloAdministrador/></ProtectedRoute>} />
 
 		 
 		 <Route 
@@ -283,40 +292,39 @@ function App() {
          <Route
 		 path="/ModuloAdministrador/Producto"
 		  element={
-			        <ProtectedRoute>
+			        <ProtectedRoute1>
 		              <ListadoPr1/>  
 		 
-		  </ProtectedRoute>
+		  </ProtectedRoute1>
 				  } 
 		 />
 
         <Route
 		 path="/ModuloAdministrador/Productos/RegistarProducto"
 		  element={
-			        <ProtectedRoute>
+			        <ProtectedRoute1>
 		              <RegistrarPr1/>  
-		 
-		  </ProtectedRoute>
+		            </ProtectedRoute1>
 				  } 
 		 />
 
        <Route
 		 path="/ModuloAdministrador/Productos/EditarProducto/:id"
 		  element={
-			        <ProtectedRoute>
+			        <ProtectedRoute1>
 		              <EditarN1/>  
 		 
-		  </ProtectedRoute>
+		           </ProtectedRoute1>
 				  } 
 		 />
       
 	  <Route
 		 path="/ModuloAdministrador/Productos/AgregarlasImagenes/:id"
 		  element={
-			        <ProtectedRoute>
+			        <ProtectedRoute1>
 		              <AgregarImagenes1/>  
 		 
-		            </ProtectedRoute>
+		            </ProtectedRoute1>
 				  } 
 		 />	
 
@@ -324,10 +332,10 @@ function App() {
        <Route
 		 path="/ModuloAdministrador/Productos/VerlasImagenes/:id"
 		  element={
-			        <ProtectedRoute>
+			        <ProtectedRoute1>
 		              <VerImagenes1/>  
 		 
-		            </ProtectedRoute>
+		            </ProtectedRoute1>
 				  } 
 		 />		
 
@@ -373,8 +381,34 @@ function App() {
 				  } 
 		 />		
 
+         <Route
+		  path="/ModuloAdministrador/Productos/Actualizarproductos/:id"
+		  element={
+			        <ProtectedRoute>
+		              <Actualizarproducto/>  
+		            </ProtectedRoute>
+				  } 
+		 />		
 
-          
+        <Route
+		  path="/ModuloAdministrador/Productos/Actualizarproducto/:id"
+		  element={
+			        <ProtectedRoute1>
+		              <Actualizarproducto1/>  
+		            </ProtectedRoute1>
+				  } 
+		 />		
+
+          <Route
+		  path="/ModuloAdministrador/PerfilUsuario"
+		  element={
+			        <ProtectedRoute1>
+		              <Perfil/>  
+		            </ProtectedRoute1>
+				  } 
+		 />		
+
+
 
            <Route
 		    path="/CarritoProductos/"
@@ -450,8 +484,9 @@ function App() {
 	   <Route
 		    path="ModuloAdministrador/modulo_pagos_de_negocio/Buscarfecha"
 		    element={
-			        
-				<Buscarfecha1/>  
+				<ProtectedRoute1>        
+				<Buscarfecha1/> 
+				</ProtectedRoute1> 
 		 
 		            
 				  } 
@@ -460,9 +495,9 @@ function App() {
         <Route
 		    path="ModuloAdministrador/PagosDeNegocios"
 		    element={
-			        
+			    <ProtectedRoute1>    
 				<ListadoNeg1/>  
-		 
+				</ProtectedRoute1>
 		            
 				  } 
 		   />
@@ -471,9 +506,9 @@ function App() {
 	   <Route
 		    path="ModuloAdministrador/PagosNegocios"
 		    element={
-			        
-				<ListadoNeg/>  
-		 
+				<ProtectedRoute>      
+				  <ListadoNeg/>  
+				  </ProtectedRoute>
 		            
 				  } 
 		   />
@@ -481,17 +516,29 @@ function App() {
 	   <Route
 		    path="ModuloAdministrador/modulo_pago_negocio/Buscarfecha"
 		    element={
-			        
-				<Buscarfecha/>  
-		 
+				<ProtectedRoute>      
+				 <Buscarfecha/>  
+				 </ProtectedRoute>
+		            
+				  } 
+		   />
+          
+		  <Route
+		   path="*"
+		   element={NotFoundPage}/>
+         
+		 <Route
+		    path="PerfilUsuario"
+		    element={
+				      
+				 <PerfilUsuario/>  
+				
 		            
 				  } 
 		   />
 
-
-
 		</Routes> 
-		 
+				 
 	</Router>
 
 	</CarritoProvider>

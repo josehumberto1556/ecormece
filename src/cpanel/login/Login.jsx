@@ -1,6 +1,8 @@
 import React,{useState} from "react";
 import {Link, useNavigate }   from "react-router-dom";
 import { useUserAuth } from "../../context/UsuarioContext";
+import {db,app} from '../../Configfirebase/Configfirebase'	
+import { collection,query,where,getDocs } from 'firebase/firestore'; 
 import "./Login.css"
 import Swal from 'sweetalert2'
 import withReactContent from 'sweetalert2-react-content'
@@ -14,15 +16,20 @@ const LoginU = () => {
     let navigate = useNavigate();
 	  const [ email,setEmail ] = useState('')
     const [ clave,setClave ] = useState('')
+     const [error, setError] = useState(""); 
 	async function submitHandler(e){
 		 e.preventDefault()
-		 const password= CryptoJS.MD5(clave).toString();
-		 console.log(email,password)
-         		 
-			try
-			{
-				 
-				await log(email,password);
+		         		 
+		try
+		{
+		
+        const password= CryptoJS.MD5(clave).toString();
+		    const col= collection(db,'usuarios');
+        const q=query(col,where("email_usuario","==",email),where("clave_usuario","==",password));
+        const datos=await getDocs(q);       
+        if(datos.empty){setError("Correo o contraeña invalida.");return null;}
+				else{
+        await log(email,password);
 				MySwal.fire({
                       title: "Bien hecho!",
                       text: "Has Iniciado Sección!",
@@ -30,6 +37,7 @@ const LoginU = () => {
                        button: "Felicitaciones!",
                    });
                 navigate("/ModuloAdministrador"); 
+        }//fin del else
 			}catch(error){
 				
 				
@@ -68,7 +76,6 @@ const LoginU = () => {
 					    });
 				}
 				
-				
 	
 			}//fin del try catch
 	}	
@@ -87,6 +94,12 @@ const LoginU = () => {
           <div className="card-body p-5 text-center">
 
             <h3 className="mb-5">Cuenta de Usuario</h3>
+            {error &&     
+                      <div className="alert alert-danger alert-dismissible fade show text-center" role="alert">
+                         <strong>Error!</strong> {error}
+                         <button type="button" className="btn-close" data-bs-dismiss="alert" aria-label="Close"></button>
+                      </div>
+                   }
 
             <form onSubmit={submitHandler}>
 
