@@ -5,6 +5,7 @@ import { getAnalytics } from "firebase/analytics";
 import { getFirestore } from 'firebase/firestore'
 
 import { getAuth } from "firebase/auth"
+
 const firebaseConfig = {
   apiKey: "AIzaSyCmF84JtjH4a9FHm-LZ6ecOvdt1FikaitE",
   authDomain: "ecormece-e8991.firebaseapp.com",

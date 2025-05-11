@@ -9,6 +9,7 @@ import { getStorage,
      uploadBytesResumable,
 		 getDownloadURL,
      getMetadata } from 'firebase/storage'
+import { useUserAuth } from "../context/UsuarioContext";		
 import "./IniciarSeccion.css"
 import Navbar  from "../navbar/Navbar"
 import Navbar1 from "../navbar/Navbar1"
@@ -20,6 +21,7 @@ const MySwal = withReactContent(Swal)
 const storage=getStorage(app)
 
 export const RegistroHook=()=>{
+   const { crearUsuario } = useUserAuth();
     const [ nombreusu,setNombreusu ] = useState('')
     const [errorNombre, setErrorNombre] = useState(null);
     const [ emailu,setEmailu ] = useState('')
@@ -31,12 +33,22 @@ export const RegistroHook=()=>{
     const navigate = useNavigate()
     const [validacionExitosa, setValidacionExitosa] = useState(false)
     const empresaCollection = collection(db, "usuarios")
-
+    const [acceptTerms, setAcceptTerms] = useState(false);
+    const [receiveUpdates, setReceiveUpdates] = useState(false);
     //estados de imagenes
     const [imagen, setImagen] = useState(null);
     const [errorImagen, setErrorImagen] = useState(null);
     let urlDescarga;
     const maxSize = 5 * 1024 * 1024; // 5 MB en bytes
+
+
+    const handleTermsChange = (event) => {
+      setAcceptTerms(event.target.checked);
+    };
+  
+    const handleUpdatesChange = (event) => {
+      setReceiveUpdates(event.target.checked);
+    }
 
     const manejarCambioImagen = (evento) => 
     {
@@ -124,9 +136,10 @@ export const RegistroHook=()=>{
                 return;
               }//fin del if de negacion de imagen
        
-            if(categoria)
+            if(!acceptTerms && !receiveUpdates)
            {
              setErrorc("Debe selecionar tipo de actividad")
+             return;
            }
            setErrorNombre(null);
            setErrorEmail(null);
@@ -152,30 +165,209 @@ export const RegistroHook=()=>{
             //    return;
             //  }//fin del exitsw
              
+            //crear usuario
             
              //insertar datos base de datos
-             //if(validacionExitosa){
-             const hash = CryptoJS.MD5(clave).toString();
-             await addDoc( empresaCollection, {
-               nombre_usuario:nombreusu,
-               email_usuario: emailu, 
-               clave_usuario:hash,
-               nivel_usuario:categoria,
-               imagen:urlDescarga,
-               status:1
-              } )
-              setNombreusu(''); 
-              setEmailu('')
-              setClave('')
-              setImagen('')
-              MySwal.fire({
-                      title: "Bien hecho!",
-                      text: "Registro con Exito!",
-                      icon: "success",
-                      button: "Felicitaciones!",
-                      });
-               //     }        
-                    navigate('/IniciarSeccion')
+             if(acceptTerms==true && receiveUpdates==false)
+             {
+              const hash = CryptoJS.MD5(clave).toString();
+              const usuario=await crearUsuario(
+                    	 emailu, 
+                    	 hash
+                         ).then((
+                         usuarioFirebase)=>
+                         {return usuarioFirebase}
+                         ).catch((error) => {
+              const errorCode = error.code;
+              const errorMessage = error.message;
+              
+              switch (errorCode) {
+                case "auth/email-already-in-use":
+                    MySwal.fire({
+                                   title: "Error!",
+                                   text: "Correo ya existe!",
+                                   icon: "danger",
+                                   button: "Felicitaciones!"
+                    		    });
+                  break;
+                case "auth/invalid-email":
+                  MySwal.fire({
+                                   title: "Error!",
+                                   text: "Correo Invalido!",
+                                   icon: "danger",
+                                   button: "Felicitaciones!"
+                    		    });
+                  break;
+                case "auth/weak-password":
+                  MySwal.fire({
+                                   title: "Error!",
+                                   text: "Clave debil!",
+                                   icon: "danger",
+                                   button: "Felicitaciones!"
+                    		    });
+                  break;
+                default:
+                  // Handle other errors
+                  break;
+              }	
+                    	 })
+              await addDoc( empresaCollection, {
+                nombre_usuario:nombreusu,
+                email_usuario: emailu, 
+                clave_usuario:hash,
+                imagen:urlDescarga,
+                vendedor:acceptTerms,
+                status:0,
+                nivel_usuario:2
+                } )
+                setNombreusu(''); 
+                setEmailu('')
+                setClave('')
+                setImagen('')
+                MySwal.fire({
+                        title: "Bien hecho!",
+                        text: "Registro con Exito!",
+                        icon: "success",
+                        button: "Felicitaciones!",
+                        });
+                         navigate('/IniciarSeccion')        
+              
+               } 
+               
+              if(acceptTerms==false && receiveUpdates==true)
+              {
+              const hash = CryptoJS.MD5(clave).toString();
+              const usuario=await crearUsuario(
+                    	 emailu,
+                    	 hash
+                         ).then((
+                         usuarioFirebase)=>
+                         {return usuarioFirebase}
+                         ).catch((error) => {
+              const errorCode = error.code;
+              const errorMessage = error.message;
+              
+              switch (errorCode) {
+                case "auth/email-already-in-use":
+                    MySwal.fire({
+                                   title: "Error!",
+                                   text: "Correo ya existe!",
+                                   icon: "danger",
+                                   button: "Felicitaciones!"
+                    		    });
+                  break;
+                case "auth/invalid-email":
+                  MySwal.fire({
+                                   title: "Error!",
+                                   text: "Correo Invalido!",
+                                   icon: "danger",
+                                   button: "Felicitaciones!"
+                    		    });
+                  break;
+                case "auth/weak-password":
+                  MySwal.fire({
+                                   title: "Error!",
+                                   text: "Clave debil!",
+                                   icon: "danger",
+                                   button: "Felicitaciones!"
+                    		    });
+                  break;
+                default:
+                  // Handle other errors
+                  break;
+              }	
+                    	 }) 
+              await addDoc( empresaCollection, {
+                nombre_usuario:nombreusu,
+                email_usuario: emailu, 
+                clave_usuario:hash,
+                imagen:urlDescarga,
+                comprador:receiveUpdates,
+                status:0,
+                nivel_usuario:3
+                } )
+                setNombreusu(''); 
+                setEmailu('')
+                setClave('')
+                setImagen('')
+                MySwal.fire({
+                        title: "Bien hecho!",
+                        text: "Registro con Exito!",
+                        icon: "success",
+                        button: "Felicitaciones!",
+                        });
+                        navigate('/IniciarSeccion')        
+              
+               } 
+
+             if(acceptTerms==true && receiveUpdates==true)
+             {
+              const hash = CryptoJS.MD5(clave).toString();
+              const usuario=await crearUsuario(
+                    	 emailu,
+                    	 hash
+                         ).then((
+                         usuarioFirebase)=>
+                         {return usuarioFirebase}
+                         ).catch((error) => {
+              const errorCode = error.code;
+              const errorMessage = error.message;
+              
+              switch (errorCode) {
+                case "auth/email-already-in-use":
+                    MySwal.fire({
+                                   title: "Error!",
+                                   text: "Correo ya existe!",
+                                   icon: "danger",
+                                   button: "Felicitaciones!"
+                    		    });
+                  break;
+                case "auth/invalid-email":
+                  MySwal.fire({
+                                   title: "Error!",
+                                   text: "Correo Invalido!",
+                                   icon: "danger",
+                                   button: "Felicitaciones!"
+                    		    });
+                  break;
+                case "auth/weak-password":
+                  MySwal.fire({
+                                   title: "Error!",
+                                   text: "Clave debil!",
+                                   icon: "danger",
+                                   button: "Felicitaciones!"
+                    		    });
+                  break;
+                default:
+                  // Handle other errors
+                  break;
+              }	
+                    	 })
+              await addDoc( empresaCollection, {
+                nombre_usuario:nombreusu,
+                email_usuario: emailu, 
+                clave_usuario:hash,
+                imagen:urlDescarga,
+                vendedor:acceptTerms,
+                comprador:receiveUpdates,
+                status:0,
+                nivel_usuario:4
+                } )
+                setNombreusu(''); 
+                setEmailu('')
+                setClave('')
+                setImagen('')
+                MySwal.fire({
+                        title: "Bien hecho!",
+                        text: "Registro con Exito!",
+                        icon: "success",
+                        button: "Felicitaciones!",
+                        });
+   
+                       navigate('/IniciarSeccion')        
+              
+               } 
+
            } catch (error) {
              console.error("Error al subir imagen:", error);
              setErrorImagen("Error al subir la imagen. Inténtalo de nuevo.");
@@ -245,7 +437,11 @@ export const RegistroHook=()=>{
         errorImagen,
         manejarCambioImagen,
         subirImagen,
-        validacionExitosa
+        validacionExitosa,
+        acceptTerms,
+        receiveUpdates,
+        handleUpdatesChange,
+        handleTermsChange
       
     }
 }

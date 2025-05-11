@@ -18,6 +18,10 @@ const {
        errorImagen,
        manejarCambioImagen,
        subirImagen,
+       acceptTerms,
+       receiveUpdates,
+       handleUpdatesChange,
+       handleTermsChange,
        validacionExitosa}=RegistroHook()
     return (
     <>
@@ -77,14 +81,44 @@ const {
            
            <div className="form-group mb-5">
              <label className="text-black" for="message">Tipo Actividad</label>
-             <select 
+             <div className="mb-3 form-check">
+             <input
+              type="checkbox"
+              className="form-check-input"
+              id="acceptTerms"
+              checked={acceptTerms}
+              onChange={handleTermsChange}
+             />
+              <label 
+               className="form-check-label" 
+               htmlFor="acceptTerms">
+             Vendedor
+             </label>
+             </div>
+
+             <div className="mb-3 form-check">
+              <input
+               type="checkbox"
+               className="form-check-input"
+               id="receiveUpdates"
+               checked={receiveUpdates}
+               onChange={handleUpdatesChange}
+              />
+              <label 
+               className="form-check-label" 
+               htmlFor="acceptTerms">
+                 Comprador
+                </label>
+             </div>
+            
+             {/* <select 
               className="form-control" 
               onChange={manejarNivel}
               required>
               <option value="-">Seleccione</option>
                <option value="2">Vendedor</option>
                <option value="3">Comprador</option>
-              </select>
+              </select> */}
               {errorc && <p style={{ color: 'red',textAlign:"center" }}>{errorc}</p>}           
            </div>
 
