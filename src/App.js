@@ -111,6 +111,9 @@ import EditarNegocio from "./cpanel/modulo_negocio/Editar";
 import ListadoPago from "./cpanel/modulo_pago_negocio/ListadoPago";
 import { MensjaePago } from "./pagescarrito/MensjaePago";
 
+import Compras from "./compras/Compras";
+import { VerCompra } from "./compras/VerCompra";
+
 function App() {
   return (
    <UsuarioContextProvider>
@@ -127,8 +130,9 @@ function App() {
 		 <Route path="/ListadosDeCategorias"    exact   element={<ListadoCategoria1/>}/>
 		 <Route path="/Productos/:nombre"       exact   element={<ListadoProducto/>} />
          <Route path="/Producto/:nombre"        exact   element={<ListadoProducto1/>} />
-
-         <Route path="/detalleProducto/:id"     exact   element={<Detalleproducto/>} />
+         <Route path="/Compras"                 exact   element={<Compras/>}/>
+         <Route path="/VerCompra/:id"           exact   element={<VerCompra/>}/>
+		 <Route path="/detalleProducto/:id"     exact   element={<Detalleproducto/>} />
 		 <Route path="/detallesDelProducto/:id" exact   element={<Detalleproducto1/>} />
 		 <Route path="/Nosotros"                exact   element={<Nosotros/>} />
          <Route path="/OfertasEmpleo"           exact   element={<Servicios/>} />

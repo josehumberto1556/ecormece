@@ -41,7 +41,7 @@ function PerfilUsuario() {
                  setcodigoempresa(productoData.nombre_usuario || ''); // Asegúrate de que el campo exista
                  setNombreempresa(productoData.email_usuario || ''); // Asegúrate de que el campo exista
                  setDireccionempresa(productoData.clave_usuario || '')   
-                 setImagen(productoData.imageni)		
+                 setImagen(productoData.imagen)		
                }
            
              } catch (error) {
@@ -128,7 +128,7 @@ function PerfilUsuario() {
                 <div className="row justify-content-center">
                   <div className="col-md-8 col-lg-8 pb-4">
                   <form  onSubmit={update}>
-                <h1 style={{textAlign:"center"}}>Editar perfil {nombre_usuario} </h1>
+                <h1 style={{textAlign:"center"}}>Perfil Usuario {nombre_usuario} </h1>
                 <div className="row">
                   <div className="col-6">
                     <div className="form-group">
@@ -140,6 +140,7 @@ function PerfilUsuario() {
                        value={nombre_usuario}
                        onChange={ (e) => setcodigoempresa(e.target.value)}
                        required
+                       disabled
 					            />
                     </div>
                   </div>
@@ -155,7 +156,7 @@ function PerfilUsuario() {
                   placeholder="Correo Electronico ..."
                   value={email_usuario}
                   onChange={ (e) => setNombreempresa(e.target.value)}
-				          required/>
+				          disabled/>
                 </div>
 
                 <div className="form-group mb-5">
@@ -169,7 +170,7 @@ function PerfilUsuario() {
 				            placeholder="Clave ..."
 				            value={clave_usuario}
                     onChange={ (e) => setDireccionempresa(e.target.value)}
-                    required
+                    disabled
 				          />
                 </div>
 
@@ -178,21 +179,21 @@ function PerfilUsuario() {
                 <img src={imageni} width="100"  height="100"/>
                 </div>
                
-                <div className="form-group mb-5">
+                {/* <div className="form-group mb-5">
                 <input
                             onChange={subirArchivo} 
                             type="file"
                             className='form-control'
 						    
                         />
-                </div>
+                </div> */}
 
 
-                <button
+                {/* <button
                  type="submit"
 				         style={{color:'white'}}
                  className="boton1 mt-1"
-                >Editar</button>
+                >Editar</button> */}
               </form>
 
                    </div>

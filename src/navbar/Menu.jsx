@@ -7,6 +7,8 @@ import NavbarDos  from "../navbar/Navbar2"
 import Inicio1 from '../inicio/Inicio1';
 import { Inicio2 } from '../inicio/Inicio2';
 import Inicio from '../inicio/Inicio';
+import { PerfilCompletar } from '../inicioSeccion/PerfilCompletar';
+
 export const Menu=() =>{
 
 const { user} = useUserAuth();
@@ -43,7 +45,7 @@ const [empre,setEmpresas ]=useState([])
       empre.map(usu=>(
          nom
          ?
-            usu.nivel_usuario===2 && usu.status===1 ? <Inicio1/>
+            usu.nivel_usuario===3 && usu.status===0 ? <PerfilCompletar/>
             :
             usu.nivel_usuario===3 && usu.status===1 ?  <Inicio1/>
             :<Inicio/>

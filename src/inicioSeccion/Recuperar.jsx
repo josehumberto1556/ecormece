@@ -34,7 +34,7 @@ const Recuperar=(props) =>  {
                        icon: "success",
                         button: "Felicitaciones!",
                     });
-         navigate("/CuentaUsuario");   
+         navigate("/IniciarSeccion");   
      }catch(error)
    {
      if(error.code ==='auth/user-not-found')
