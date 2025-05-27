@@ -10,7 +10,7 @@ import "./aside.css"
 const Aside1 = () => {
   
   const { logOut, user } = useUserAuth();
-  const n  =user.nom
+  const n=user.nom
   const navigate = useNavigate();
   const handleLogout = async () => {
     try {
@@ -51,10 +51,16 @@ const Aside1 = () => {
        <li>
 
 		<Link className="nav-link" style={{color:"white"}}
-		  to="/ModuloAdministrador/PerfilUsuario">Mi Perfil</Link>
+		  to="/ModuloAdministrador/PerfilUsuario">Mi Perfil Usuario</Link>
 		  
         </li>
         
+		 <li>
+
+		<Link className="nav-link" style={{color:"white"}}
+		  to="/ModuloAdministrador/PerfilNegocio">Mi Perfil Negocio</Link>
+		  
+        </li>
    
 	 <li className="nav-item">
           
@@ -67,13 +73,43 @@ const Aside1 = () => {
         
 		</li>
 
+        <li>
+
+		<Link className="nav-link" style={{color:"white"}}
+		  to="/ModuloAdministrador/MetodoPago">Metodo de Pagos</Link>
+		  
+        </li>
+
 	    <li className="nav-item">
           
 		     <Link 
 			   className="nav-link" 
 			   style={{color:"white"}}
 		       to="/ModuloAdministrador/PagosDeNegocios">              
-		         Pagos de negocio
+		         Compra y Venta
+          </Link>
+        
+		</li>
+
+            <li className="nav-item">
+          
+		     <Link 
+			   className="nav-link" 
+			   style={{color:"white"}}
+		       to="/ModuloAdministrador/PagosAdministrador">              
+		         Pagar Administrador
+          </Link>
+        
+		</li>
+
+         
+            <li className="nav-item">
+          
+		     <Link 
+			   className="nav-link" 
+			   style={{color:"white"}}
+		       to="/ModuloAdministrador/MensajeAdministrador">              
+		         Mensaje Administrador
           </Link>
         
 		</li>

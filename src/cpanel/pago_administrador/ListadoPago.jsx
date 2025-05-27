@@ -17,14 +17,14 @@ import Footer  from '../Footer'
 
 const MySwal = withReactContent(Swal)
 
-function ListadoNeg1() {
+function PagarAdministrador() {
 	
   //1.configuramos los hooks
   const [search,setSearch ]=useState([])
   const [empre,setEmpresas ]=useState([])
   const [filtereCountries,setfiltereCountries]=useState([])
 
-  const  empresaCollection=collection(db,"pago_producto")
+  const  empresaCollection=collection(db,"pago_administrador")
   const getEmpresas=async ()   => {
   const data=await getDocs(empresaCollection)
    //console.log(data.docs)
@@ -36,20 +36,20 @@ function ListadoNeg1() {
    )
      }
 
-  const activarpago = async (id) => 
+  const Inabilitar = async (id) => 
   {
  
-    const empresaDoc =await doc(db, "pago_producto", id)
+    const empresaDoc =await doc(db, "pago_administrador", id)
     const data = { 
-                    estado:"activo"
+                    status:0
                  }
          await updateDoc(empresaDoc, data)
           
    }	 
 
-  const activar = (id) => {
+  const eliminarR = (id) => {
     MySwal.fire({
-      title: '¿Esta Seguro de Activar este Comprobante de pago?',
+      title: '¿Esta Seguro de eliminar este registro?',
       text: "",
       icon: 'warning',
       showCancelButton: true,
@@ -59,10 +59,10 @@ function ListadoNeg1() {
     }).then((result) => {
       if (result.isConfirmed) { 
         //llamamos a la fcion para eliminar   
-        activarpago(id)               
+       Inabilitar(id)               
         Swal.fire(
-          'Comprobante!',
-          'Validado.',
+          'Registro!',
+          'Eliminado.',
           'Con Exito'
         )
       }
@@ -70,20 +70,8 @@ function ListadoNeg1() {
   }
   const columns= [
   
-  {
-    name:"Nombre negocio",
-    selector:(row)=>row.nombre_negocio
-  },
 
-  {
-    name:"Nombre Productos",
-    selector:(row)=>row.nombre_producto
-    },
 
-  {
-    name:"Tipo de Operación",
-    selector:(row)=>row.tipo_operacion
-  },
   {
     name:"Fecha de pago",
     selector:(row)=>row.fecha_pago
@@ -94,31 +82,30 @@ function ListadoNeg1() {
     selector:(row)=>row.estado
   },
 
+  
 
   {
-    name:"Comprabante de pago negocio",
+    name:"Comprabante de Pago",
     selector:(row)=>
-    <a href={row.imagen} target="_blank">
-      <img src={row.imagen} width="100" height="100"/>
+    <a href={row.foto_pago} target="_blank">
+      <img src={row.foto_pago} width="100" height="100"/>
     </a>,
     sortable:true
     },
 
-    
-  {
-    name:"Comprabante de pago  administrador",
-    selector:(row)=>
-    <a href={row.imagena} target="_blank">
-     <img src={row.imagena} width="100" height="100"/>
-    </a>,
-    sortable:true
+    {
+      name:"Modificar",
+      cell:(row)=><Link 
+      to={`/ModuloAdministrador/Editar_pago_administrador/${row.id}`} 
+      className="btn btn-light">Editar</Link>
     },
+
     
     {
-      cell:(row)=><button onClick={ () => { activar(row.id) } } className="btn btn-danger">Activar</button>
+      cell:(row)=><button onClick={ () => { eliminarR(row.id) } } className="btn btn-danger">Eliminar</button>
     }
 
-  
+    
   ]
 	
   useEffect( () => {
@@ -127,8 +114,9 @@ function ListadoNeg1() {
   
     useEffect( () => {
     const result=empre.filter((country)=>{
-	  return country.nombre_negocio.toLowerCase().match(search.toLowerCase())
-	})
+	  return country.fecha_pago.toLowerCase().match(search.toLowerCase())
+	 
+     })
 	setfiltereCountries(result)
   }, [search] ) 
 	
@@ -143,7 +131,7 @@ function ListadoNeg1() {
 		    <div className="col-lg-12 grid-margin stretch-card">
 			  <div className="card">
 			    <div className="card-body">
-				<h4 className="card-title">Listado de Pagos de negocio</h4>
+				<h4 className="card-title">Listado de Pagos administrador</h4>
 				<DataTable 
 				columns={columns} 
 				data={filtereCountries} 
@@ -152,17 +140,18 @@ function ListadoNeg1() {
 				fixedHeaderScrollHeight="450px"
 				selecttablesRow
 				selecttablesRowHighlight
-				actions={<Link to="/ModuloAdministrador/modulo_pagos_de_negocio/Buscarfecha" 
-				className='btn btn-secondary mt-2 mb-2'>Buscar por fecha</Link>    }
+				actions={<Link to="/ModuloAdministrador/Registrar_pago_administrador" 
+				className='btn btn-danger mt-2 mb-2'>Registro</Link>    }
+        
 				highlightOnHover
 				subHeader
 				subHeaderComponent={<input 
 				                    type="text" 
-									placeholder="Buscar Ngocio ..." 
-									className="w25 form-control" 
-									value={search}
-									onChange={(e)=>setSearch(e.target.value)}/>
-									}
+									          placeholder="Buscar Fecha ..." 
+									          className="w25 form-control" 
+									          value={search}
+									           onChange={(e)=>setSearch(e.target.value)}/>
+								       	}
 				/>
 		          
 		       </div>
@@ -181,4 +170,4 @@ function ListadoNeg1() {
   )
 }
 
-export default ListadoNeg1
+export default PagarAdministrador

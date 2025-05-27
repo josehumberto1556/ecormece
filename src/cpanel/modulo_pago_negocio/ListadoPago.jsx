@@ -17,14 +17,14 @@ import Footer  from '../Footer'
 
 const MySwal = withReactContent(Swal)
 
-function ListadoNeg() {
+function ListadoPago() {
 	
   //1.configuramos los hooks
   const [search,setSearch ]=useState([])
   const [empre,setEmpresas ]=useState([])
   const [filtereCountries,setfiltereCountries]=useState([])
 
-  const  empresaCollection=collection(db,"pago_producto")
+  const  empresaCollection=collection(db,"pago_administrador")
   const getEmpresas=async ()   => {
   const data=await getDocs(empresaCollection)
    //console.log(data.docs)
@@ -39,10 +39,11 @@ function ListadoNeg() {
   const activarpago = async (id) => 
   {
  
-    const empresaDoc =await doc(db, "pago_producto", id)
+    const empresaDoc =await doc(db, "pago_administrador", id)
     const data = { 
-                    estado:"activo",
-                    mensaje_pago:"Pago cancelado"
+                    estado:"Cancelado",
+                    mensaje_pago:"Pago cancelado",
+                    status:1
                  }
          await updateDoc(empresaDoc, data)
           
@@ -51,9 +52,9 @@ function ListadoNeg() {
 
    
   const pagoPendiente = async (id) => 
-    {
+  {
    
-      const empresaDoc =await doc(db, "pago_producto", id)
+      const empresaDoc =await doc(db, "pago_administrador", id)
       const data = { 
                       mensaje_pago:"Esta Pendiente Su Pago"
                    }
@@ -109,14 +110,9 @@ function ListadoNeg() {
   const columns= [
   
   {
-    name:"Nombre negocio",
-    selector:(row)=>row.nombre_negocio
+    name:"Correo",
+    selector:(row)=>row.correo
   },
-
-  {
-    name:"Nombre Productos",
-    selector:(row)=>row.nombre_producto
-    },
 
   {
     name:"Fecha de pago",
@@ -127,32 +123,12 @@ function ListadoNeg() {
     name:"Estado",
     selector:(row)=>row.estado
   },
-
-  {
-    name:"tipo Operación",
-    selector:(row)=>row.tipo_operacion
-  },
-  
-  {
-    name:"Pago  Pendiente",
-    selector:(row)=>row.mensaje_pago
-    },
-
-  {
-    name:"Comprabante de pago negocio",
-    selector:(row)=>
-    <a href={row.imagen} target="_blank">
-      <img src={row.imagen} width="100" height="100"/>
-    </a>,
-    sortable:true
-    },
-
     
   {
-    name:"Comprabante de pago  administrador",
+    name:"Comprabante de pago",
     selector:(row)=>
-    <a href={row.imagena} target="_blank">
-     <img src={row.imagena} width="100" height="100"/>
+    <a href={row.foto_pago} target="_blank">
+     <img src={row.foto_pago} width="100" height="100"/>
     </a>,
     sortable:true
     },
@@ -191,7 +167,7 @@ function ListadoNeg() {
 		    <div className="col-lg-12 grid-margin stretch-card">
 			  <div className="card">
 			    <div className="card-body">
-				<h4 className="card-title">Listado de Pagos de negocio</h4>
+				<h4 className="card-title">Listado de Pagos de Usuario</h4>
 				<DataTable 
 				columns={columns} 
 				data={filtereCountries} 
@@ -229,4 +205,4 @@ function ListadoNeg() {
   )
 }
 
-export default ListadoNeg
+export default ListadoPago

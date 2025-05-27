@@ -21,7 +21,7 @@ import Detalleproducto from "./productos/detalleProducto"
 import Detalleproducto1 from "./productos/detalleProducto1" 
 import VerProducto from "./productos/VerProducto" 
 import TodosBlog from "./blog/TodosBlog" 
-
+import PerfilNegocio from "./cpanel/modulo_productos1/PerfilNegocio";
 
 import IniciarSeccion    from "./inicioSeccion/IniciarSeccion"
 import {RegistrarUsuario}  from "./inicioSeccion/RegistrarUsuario"
@@ -73,6 +73,9 @@ import  ListadoNeg          from  './cpanel/modulo_pago_negocio/ListadoP'
 
 import  ListadoNeg1          from  './cpanel/modulo_pago_negocio1/ListadoP1'
 
+import  PagarAdministrador   from  './cpanel/pago_administrador/ListadoPago'
+
+
 import {UsuarioContextProvider} from "./context/UsuarioContext";
 import { CarritoProvider } from "./context/CarritoProvider"
 import { CarritoPage } from "./pagescarrito/CarritoPage";
@@ -94,11 +97,24 @@ import { Buscarfecha1 } from "./cpanel/modulo_pago_negocio1/Buscarfecha1";
 import Perfil from "./cpanel/perfil_usuario/Perfil";
 import PerfilUsuario from "./PerfilUsuario/PerfilUsuario";
 import NotFoundPage from "./404/Notfound";
+import { PerfilNegocios } from "./cpanel/modulo_pago_negocio1/PerfilNegocios";
+import ListadoM from "./cpanel/modulo_metodos_pago/ListadoM";
+import RegistroM from "./cpanel/modulo_metodos_pago/RegistroM";
+import RegistrarPago from "./cpanel/pago_administrador/Registrar";
+import EditarPago from "./cpanel/pago_administrador/Editar";
+import MensajeAdministrador from "./cpanel/pago_administrador/MensajeAdministrador";
 
+import ListadoNegocio from "./cpanel/modulo_negocio/ListadoNegoio";
+import RegistraNegocio from "./cpanel/modulo_negocio/Registrar";
+import EditarNegocio from "./cpanel/modulo_negocio/Editar";
+
+import ListadoPago from "./cpanel/modulo_pago_negocio/ListadoPago";
+import { MensjaePago } from "./pagescarrito/MensjaePago";
 
 function App() {
   return (
    <UsuarioContextProvider>
+	
     <CarritoProvider>
 
    
@@ -126,7 +142,7 @@ function App() {
 		 <Route path="/IniciarSeccion"          exact   element={<IniciarSeccion/>} />
 		 <Route path="/RegistrarUsuario"        exact   element={<RegistrarUsuario/>}/>
 	     <Route path="/RecuperarAcceso"         exact   element={<Recuperar/>}/>
-		 
+		 <Route path="/MensajePago"             exact   element={<MensjaePago/>}/>
 		 <Route 
 		path="/Comprador" 
 		 element={
@@ -197,7 +213,35 @@ function App() {
 				       <Editar/>
 			        </ProtectedRoute>
 			      }  
-		 /> 
+		 />
+
+		
+            <Route
+            path="/ModuloAdministrador/Negocios"
+		    element={
+			        <ProtectedRoute>
+			           <ListadoNegocio/>
+			 	    </ProtectedRoute>
+				    } 
+		 />
+
+         <Route
+            path="/ModuloAdministrador/modulo_negocio/RegistraNegocio"
+		    element={
+			        <ProtectedRoute>
+			           <RegistraNegocio/>
+			 	    </ProtectedRoute>
+				    } 
+		 />
+
+        <Route
+            path="/ModuloAdministrador/modulo_negocio/EditarNegocio/:id"
+		    element={
+			        <ProtectedRoute>
+			           <EditarNegocio/>
+			 	    </ProtectedRoute>
+				    } 
+		 />
 		 
 		   	<Route 
 		path="/ModuloAdministrador/modulo_novedades/ModuloNovedades" 
@@ -228,6 +272,17 @@ function App() {
 				   } 
 		 />
 		 
+		<Route
+		 path="/ModuloAdministrador/PagoUsuario"
+		  element={
+			        <ProtectedRoute>
+				      <ListadoPago/>
+				    </ProtectedRoute>
+				   
+				   } 
+		 />
+
+
          <Route 
 		path="/ModuloAdministrador/modulo_categorias/ModuloCategorias" 
 		 element={<ListadoP/>} 
@@ -289,6 +344,24 @@ function App() {
 				  } 
 		 />
 
+       <Route
+		 path="/ModuloAdministrador/MetodoPago"
+		  element={
+			        <ProtectedRoute1>
+                      <ListadoM/> 
+		             </ProtectedRoute1>
+				  } 
+		 />
+		
+		<Route
+		 path="/ModuloAdministrador/RegistrarMetodoPago"
+		  element={
+			        <ProtectedRoute1>
+                      <RegistroM/> 
+		             </ProtectedRoute1>
+				  } 
+		 />
+
          <Route
 		 path="/ModuloAdministrador/Producto"
 		  element={
@@ -298,6 +371,15 @@ function App() {
 		  </ProtectedRoute1>
 				  } 
 		 />
+
+         <Route
+		 path="/ModuloAdministrador/PerfilNegocio/:correo"
+		  element={
+			        
+		              <PerfilNegocio/>  
+		          
+				  } 
+				   />
 
         <Route
 		 path="/ModuloAdministrador/Productos/RegistarProducto"
@@ -408,7 +490,15 @@ function App() {
 				  } 
 		 />		
 
-
+             <Route
+		      path="/ModuloAdministrador/PerfilNegocio"
+		      element={
+			        <ProtectedRoute1>
+		              <PerfilNegocios/>  
+		            </ProtectedRoute1>
+				  } 
+		 />	
+          
 
            <Route
 		    path="/CarritoProductos/"
@@ -522,20 +612,60 @@ function App() {
 		            
 				  } 
 		   />
-          
+	
+	     <Route
+		    path="ModuloAdministrador/PagosAdministrador"
+		    element={
+			    <ProtectedRoute1>    
+				<PagarAdministrador/>  
+				</ProtectedRoute1>
+		            
+				  } 
+		   />
+
+         <Route
+		    path="ModuloAdministrador/Registrar_pago_administrador"
+		    element={
+			    <ProtectedRoute1>    
+				<RegistrarPago/>  
+				</ProtectedRoute1>
+		            
+				  } 
+		   />
+
+         <Route
+		    path="ModuloAdministrador/Editar_pago_administrador/:id"
+		    element={
+			    <ProtectedRoute1>    
+				<EditarPago/>  
+				</ProtectedRoute1>
+		            
+				  } 
+		   />
+
+		  <Route
+		    path="ModuloAdministrador/MensajeAdministrador"
+		    element={
+			    <ProtectedRoute1>    
+				<MensajeAdministrador/>  
+				</ProtectedRoute1>
+		            
+				  } 
+		   />
+
+
+         <Route
+		    path="PerfilUsuario"
+		    element={
+				     <PerfilUsuario/>  
+				    } 
+		   />
+
 		  <Route
 		   path="*"
 		   element={NotFoundPage}/>
          
-		 <Route
-		    path="PerfilUsuario"
-		    element={
-				      
-				 <PerfilUsuario/>  
-				
-		            
-				  } 
-		   />
+		
 
 		</Routes> 
 				 

@@ -10,7 +10,9 @@ import {
   signInWithEmailAndPassword,
   onAuthStateChanged,
   signOut,
-  updateEmail
+  updateEmail,
+  reauthenticateWithCredential,
+   EmailAuthProvider
 } from 'firebase/auth';
 
 import { 
@@ -33,9 +35,34 @@ export const UsuarioContextProvider=({children})=>
     return createUserWithEmailAndPassword(auth, email, password);
   }
   
-  function editaremail(email){
-	  return updateEmail(auth,email)
-  }
+async function editarEmail(nuevoCorreo, claveActual) {
+        const usuario = auth.currentUser;
+        if (!usuario) {
+            throw new Error('No hay ningún usuario autenticado.');
+        }
+
+        const credential = EmailAuthProvider.credential(usuario.email, claveActual);
+
+        try {
+            await reauthenticateWithCredential(usuario, credential);
+            await updateEmail(usuario, nuevoCorreo);
+            return true;
+        } catch (error) {
+            console.error("Error al actualizar correo:", error);
+            let errorMessage = "Error al actualizar correo.";
+            if (error.code === 'auth/requires-recent-login') {
+                errorMessage = "Reinicio de sesión reciente requerido.";
+            } else if (error.code === 'auth/invalid-email') {
+                errorMessage = "Correo electrónico no válido.";
+            } else if (error.code === 'auth/email-already-in-use') {
+                errorMessage = "Correo electrónico ya en uso.";
+            } else if (error.code === 'auth/wrong-password') {
+                errorMessage = "Contraseña incorrecta.";
+            }
+            throw new Error(errorMessage);
+        }
+    }
+
   function recuperarClave(formCorreo) {
     return sendPasswordResetEmail(auth, formCorreo)
   }
@@ -79,7 +106,7 @@ export const UsuarioContextProvider=({children})=>
   
   return(
 	   <usuarioContext.Provider
-	    value={{ user,log,logOut,crearUsuario,recuperarClave }}
+	    value={{ user,log,logOut,crearUsuario,recuperarClave,editarEmail }}
 		>
 		{children}
 		</usuarioContext.Provider>

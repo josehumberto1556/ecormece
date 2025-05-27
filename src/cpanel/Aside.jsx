@@ -104,6 +104,17 @@ const Aside = () => {
         
 		</li>
 		*/}
+         <li className="nav-item">
+          
+		     <Link 
+			   className="nav-link" 
+			   style={{color:"white"}}
+		       to="/ModuloAdministrador/Negocios">              
+		         Negocios
+          </Link>
+        
+		</li>
+
 	    	 <li className="nav-item">
           
 		     <Link 
@@ -121,10 +132,23 @@ const Aside = () => {
 			   className="nav-link" 
 			   style={{color:"white"}}
 		       to="/ModuloAdministrador/PagosNegocios">              
-		         Pagos de negocio
+		         Compra y Venta
           </Link>
         
 		</li>
+
+		 <li className="nav-item">
+          
+		     <Link 
+			   className="nav-link" 
+			   style={{color:"white"}}
+		       to="/ModuloAdministrador/PagoUsuario">              
+		         Pago Usuarios
+          </Link>
+        
+		</li>
+
+		
 
 		   <li className="nav-item">
 		   {

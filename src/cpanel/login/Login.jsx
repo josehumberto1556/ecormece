@@ -28,16 +28,17 @@ const LoginU = () => {
         const q=query(col,where("email_usuario","==",email),where("clave_usuario","==",password));
         const datos=await getDocs(q);       
         if(datos.empty){setError("Correo o contraeña invalida.");return null;}
-				else{
-        await log(email,password);
-				MySwal.fire({
+				else{       
+            await log(email,password);
+				    MySwal.fire({
                       title: "Bien hecho!",
                       text: "Has Iniciado Sección!",
                       icon: "success",
                        button: "Felicitaciones!",
                    });
                 navigate("/ModuloAdministrador"); 
-        }//fin del else
+        
+      }//fin del else
 			}catch(error){
 				
 				

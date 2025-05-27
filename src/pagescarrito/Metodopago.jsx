@@ -6,17 +6,16 @@ import {link,useParams} from 'react-router-dom'
 export const Metodopago=({id,nombrenegocio})=> {
 
     
-    let nombre= decodeURIComponent(nombrenegocio);
     const [empre,setEmpresas ]=useState([])
     const [searchTerm, setSearchTerm] = useState('');
 
     const getEmpresas=async() =>
     {
         
-        if(nombre)
+        if(nombrenegocio)
         { 
-           const col= collection(db,'negocios');
-           const q=query(col,where("nombre_negocio","==",nombre));
+           const col= collection(db,'metodo_pago');
+           const q=query(col,where("email_usuario","==",nombrenegocio));
            const datos=await getDocs(q);
           //data.forEach(user=>{console.log(user.data())})
           setEmpresas(datos.docs.map((doc => ({ ...doc.data(), id: doc.id }))))				   
@@ -38,7 +37,7 @@ export const Metodopago=({id,nombrenegocio})=> {
       </div>
       {empre.map(item=>(
       <div class="col-md-8 mb-3 mb-md-0">
-       <p>{item.metodos_pago}</p>   
+       <p>{item.metodo1}</p>   
       </div>
     ))}
     </>

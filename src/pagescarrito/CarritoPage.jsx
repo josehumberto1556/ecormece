@@ -1,10 +1,10 @@
-import Navbar  from "../navbar/Navbar"
 import Navbar1 from "../navbar/Navbar1"
 import NavbarDos from "../navbar/Navbar2"
 import Footer  from "../piepagina/Footer"
 import { useContext } from "react"
 import { CarritoContext } from "../context/CarritoContext"
 import { Cupon } from "./Cupon"
+
 import "./Carrito.css"
 
 export const CarritoPage = () => {

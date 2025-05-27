@@ -73,6 +73,10 @@ const letra = { color:"#ffffff"}
 						<li className="nav-item active">
 							<Link to="/Negocio"  className="nav-link">Negocio</Link>
 						</li>
+
+						<li className="nav-item active">
+							<Link to="/Negocio"  className="nav-link">Listado Compras</Link>
+						</li>
  
                        
 						

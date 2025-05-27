@@ -20,15 +20,80 @@ const MySwal = withReactContent(Swal)
 const Perfil = () => {
 
   
-     const [ nombre_usuario,setcodigoempresa ] = useState('')
+     const [ nombre_usuario,setCodigoempresa ] = useState('')
      const [ email_usuario,setNombreempresa ] = useState('')
      const [ clave_usuario,setDireccionempresa ] = useState('')
-     const [ imageni,setImagen ] = useState('')
+     const [ imagen,setImagen ] = useState('')
      const [ i,setI ] = useState(null)
      const [idProducto, setIdProducto] = useState(null)
-     const {user}=useUserAuth();
-    let nom=user.email 
-   
+     const {user,editarEmail}=useUserAuth();
+     const [errorImagen, setErrorImagen] = useState(null);
+     let urlDescarga;    
+     let nom=user.email
+     
+    const maxSize = 5 * 1024 * 1024; // 5 MB en bytes
+
+      // const manejarCambioImagen = (evento) => 
+      //   {
+      //       const archivo = evento.target.files[0];
+           
+      //       if (archivo.size > maxSize) {
+      //         setImagen(null);
+      //         setErrorImagen("El archivo es demasiado grande. El tamaño máximo permitido es 5 MB.");
+      //         return;
+      //       } 
+    
+      //       if (archivo)
+      //       {
+      //           if (!archivo.type.startsWith("image/")) 
+      //           {
+      //               setErrorImagen("Por favor, selecciona un archivo de imagen válido.")
+      //               return;
+      //            }
+    
+      //            const allowedTypes = ['image/jpeg', 'image/png', 'image/webp'];
+      //           if (!allowedTypes.includes(archivo.type)) {
+      //                setErrorImagen("Solo se permiten imágenes JPG, PNG y WebP.");
+      //               return;
+      //            }
+      //            if (archivo.size > 1024 * 1024) { // 1MB
+      //             setErrorImagen("La imagen es demasiado grande maximi 1M.");
+      //             return;
+      //          }
+      //         else {
+      //           setImagen(null);
+      //           setErrorImagen("Por favor, selecciona una imagen.");
+      //         }
+          
+                 
+      //       }//fin del if principal
+            
+      //       else 
+      //       {
+      //               setImagen(null);
+      //               setErrorImagen("Por favor, selecciona una imagen.");
+      //       }//fin del else principal
+    
+      //       setImagen(archivo);
+      //       setErrorImagen(null); // Limpiar errores anteriores
+    
+      //   }//fin de la funion mensaje
+      
+        //  const existeImagenEnStorage=async(nombreArchivo)=> {
+        //     try {
+        //       const imagenRef = ref(storage, `musuarios/${nombreArchivo}`); // Ruta a tu carpeta de imágenes
+        //       urlDescarga=await getDownloadURL(imagenRef)
+        //      // await getMetadata(imagenRef); // Intenta obtener metadatos
+        //       return true; // Si no hay error, la imagen existe
+        //     } catch (error) {
+        //       if (error.code === 'storage/object-not-found') {
+        //         return false; // La imagen no existe
+        //       }
+        //       console.error("Error al comprobar imagen:", error);
+        //       return false; // Otro error, asumimos que no existe para evitar bloqueos
+        //     }
+        //   }
+    
     const getUsuarios=async()=>{
     try
      {
@@ -40,10 +105,10 @@ const Perfil = () => {
               const producto = querySnapshot.docs[0]
               const productoData = producto.data();
               setIdProducto(producto.id);
-              setcodigoempresa(productoData.nombre_usuario || ''); // Asegúrate de que el campo exista
+              setCodigoempresa(productoData.nombre_usuario || ''); // Asegúrate de que el campo exista
               setNombreempresa(productoData.email_usuario || ''); // Asegúrate de que el campo exista
               setDireccionempresa(productoData.clave_usuario || '')   
-              setImagen(productoData.imageni)		
+              setI(productoData.imageni)		
             }
         
           } catch (error) {
@@ -58,67 +123,34 @@ const Perfil = () => {
             // eslint-disable-next-line
         }, [])
 
-        let urlDescarga
-		let archivoLocalname
-   async function subirArchivo(e)
-   {
-	  
-	   const archivoLocal=e.target.files[0]
-	   archivoLocalname=archivoLocal.name
-	   setI(archivoLocal);
-	  
-   }
 
-   const update = async (e) => {
-     e.preventDefault()
-      const empresa = await getDoc( doc(db, "usuarios", idProducto) )
-    if(!i)
-    {
-          
-       const n=imageni
-       const archivoRef=ref(storage,`imagenesusuarios/${n}`)
-       const uplo=await uploadBytes(archivoRef,n)
-       urlDescarga=await getDownloadURL(archivoRef)
-       const hash = CryptoJS.MD5(clave_usuario).toString();          
-          const data = { nombre_usuario:nombre_usuario, 
-                         email_usuario:email_usuario,
-                         clave_usuario:hash,
-                         imagen:n
-                        }
-                        
-           await updateDoc(empresa, data)
-            MySwal.fire({
-                              title: "Felicitaciones!",
-                              text: "Registro Modificado Con Exito!",
-                              icon: "danger",
-                             button: "Felicitaciones!"
-                        });	   
-          }
-          else{
-           const n=i	  
-            const archivoRef=ref(storage,`imagenesusuarios/${n.name}`)
-            const uplo=await uploadBytes(archivoRef,n)
-            urlDescarga=await getDownloadURL(archivoRef) 
-               const hash = CryptoJS.MD5(clave_usuario).toString();  
-                const data = { nombre_usuario:nombre_usuario, 
-                           email_usuario:email_usuario,
-                           clave_usuario:hash,
-                           imagen:urlDescarga
-                         }
-                         
-           await updateDoc(empresa, data)
-         MySwal.fire({
-                              title: "Felicitaciones!",
-                              text: "Registro Modificado Con Exito!",
-                              icon: "danger",
-                             button: "Felicitaciones!"
-                        });	  
-      
-      }
-        
-                
-       }
+   const  subirImagen=async()=>
+   {
+ 
+      const empresa = doc(db, "usuarios", idProducto)	
+      console.log("el id producto es:",idProducto)       
    
+       const hash = CryptoJS.MD5(clave_usuario).toString();          
+       const data = {
+                        nombre_usuario:nombre_usuario, 
+                        email_usuario:email_usuario,
+                        clave_usuario:hash,
+                        //  imagen:n
+                   }
+       
+                     
+        await updateDoc(empresa, data)
+        MySwal.fire({
+                       title: "Felicitaciones!",
+                       text: "Registro Modificado Con Exito!",
+                        icon: "danger",
+                         button: "Felicitaciones!"
+                  });	   
+      
+
+   }
+	  
+	
 
   return (
     <>
@@ -136,7 +168,7 @@ const Perfil = () => {
 					<div className="col-sm-6">
 					  <ol className="breadcrumb float-sm-right">
 						<li className="breadcrumb-item">
-                         <a href="javascript:void(0);">Editar Usuario</a></li>
+                         <a href="javascript:void(0);">Perfil Usuario</a></li>
 						<li className="breadcrumb-item active">Cpanel</li>
 					  </ol>
 					</div>
@@ -148,8 +180,8 @@ const Perfil = () => {
            <div className='col-md-8 grid-margin stretch-card'>
              <div className="card">
 		 	   <div className="card-body">
-			    <h4 className="text-center">Editar Perfil {nombre_usuario} </h4><br/>
-                <form className="forms-sample" onSubmit={update} >
+			    <h4 className="text-center">Perfil {nombre_usuario} </h4><br/>
+                <form className="forms-sample">
 
                     <div className="form-group">
                         <label for="Categoriar">Nombre Usuario</label>
@@ -159,9 +191,9 @@ const Perfil = () => {
                             placeholder="Nombre Usuario ..."
                             minlength="3"
                             maxlength="20"
-                            required
+                            disabled
                             value={nombre_usuario}
-                            onChange={ (e) => setcodigoempresa(e.target.value)}
+                            onChange={ (e) => setCodigoempresa(e.target.value)}
                             
                         />
                     </div>                  
@@ -174,7 +206,7 @@ const Perfil = () => {
                             placeholder="Correo Usuario ..."
                             minlength="6"
                             maxlength="100"
-                            required
+                            disabled
                             value={email_usuario}
                             onChange={ (e) => setNombreempresa(e.target.value)}
                         />
@@ -188,7 +220,7 @@ const Perfil = () => {
                             placeholder="Correo Usuario ..."
                             minlength="6"
                             maxlength="20"
-                            required
+                            disabled
                             value={clave_usuario}
                             onChange={ (e) => setDireccionempresa(e.target.value)}
                         />
@@ -198,25 +230,25 @@ const Perfil = () => {
 					
 					 <div className="form-group">
                           <label for="Categoriar">Imagen</label>
-                           <img src={imageni} width="100"  height="100"/>
+                           <img src={i} width="100"  height="100"/>
                     </div> 
 
-                    <div className="form-group">
+                    {/* <div className="form-group">
                         <label className="descripcionr">Subir Imagen</label>
                         <input
-                            onChange={subirArchivo} 
+                            accept="image/*"
                             type="file"
                             className='form-control'
 						    
                         />
-					 </div> 
-
+					 </div>  */}
+               <div align="Center">
+                      {/* <button type='button' onClick={subirImagen} className='btn btn-primary mr-2'>Guardar</button>
+                    <Link to="/Administrador" className='btn btn-primary mr-2'>Regresar</Link> */}
+                  </div> 
          </form>
 
-    <div align="Center">
-                      <button type='submit' className='btn btn-primary mr-2'>Guardar</button>
-                    <Link to="/Administrador" className='btn btn-primary mr-2'>Regresar</Link>
-                  </div> 
+
                 </div>
               </div>
            </div>

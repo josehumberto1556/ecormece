@@ -99,10 +99,10 @@ function EditarN1() {
              const empresa = doc(db, "m_productos", id)
 		    
               const data = { nombre_productos:nombre_novedades, 
-	                         descripcion:descripcion,
-					         cantidad:video,
-							 precio:precio
-					       }
+	                           descripcion:descripcion,
+					                   cantidad:video,
+							               precio:precio
+					                 }
 						   
               await updateDoc(empresa, data)
 		      MySwal.fire({

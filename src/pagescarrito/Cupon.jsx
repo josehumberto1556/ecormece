@@ -1,23 +1,24 @@
 import React,{useState,useEffect}from 'react'
 import {Link,useNavigate}  from 'react-router-dom'
-import { collection, 
-	     addDoc,
-	     getDocs,
-	     getDoc,
-	     deleteDoc,
-	    doc
-	 } from 'firebase/firestore'
-
-import {db,app} from '../Configfirebase/Configfirebase'	
-
+import { collection,
+         doc,
+         addDoc,
+         updateDoc, 
+         query, 
+         where,
+         getDocs } from 'firebase/firestore'
 import { getStorage,
          ref, 
-		 uploadBytes,
-		 getDownloadURL } from 'firebase/storage'
+       uploadBytes,
+         uploadBytesResumable,
+       getDownloadURL,
+        getMetadata } from 'firebase/storage'
+import {db,app} from '../Configfirebase/Configfirebase'	
 import "./Carrito.css"
 import {Metodopago} from  "./Metodopago"
 import Swal  from 'sweetalert2'
 import withReactContent from 'sweetalert2-react-content'
+import { useUserAuth } from "../context/UsuarioContext";
 const MySwal = withReactContent(Swal)
 
 
@@ -27,49 +28,148 @@ export const Cupon = ({t,metodo}) => {
 
 const [ i,setI ] = useState(null)
 
- const empresaCollection = collection(db, "pago_producto")
  const navigate = useNavigate()
+ const [imagen, setImagen] = useState(null);
+ const [errorImagen, setErrorImagen] = useState(null);
  let urlDescarga
+ let neg
+ const maxSize = 5 * 1024 * 1024; // 5 MB en bytes
+ let fechas=new Date()
+ const fecha=new Date().toLocaleDateString()
+ const [nombreNegocio, setNombreNegocio] = useState('')
+ const { user } = useUserAuth();
+ let nom=user.email
+
+ const manejarCambioImagen = (evento) => 
+     {
+         const archivo = evento.target.files[0];
+        
+         if (archivo.size > maxSize) {
+           setImagen(null);
+           setErrorImagen("El archivo es demasiado grande. El tamaño máximo permitido es 5 MB.");
+           return;
+         } 
+ 
+         if (archivo)
+         {
+             if (!archivo.type.startsWith("image/")) 
+             {
+                 setErrorImagen("Por favor, selecciona un archivo de imagen válido.")
+                 return;
+              }
+ 
+              const allowedTypes = ['image/jpeg', 'image/png', 'image/webp'];
+             if (!allowedTypes.includes(archivo.type)) {
+                  setErrorImagen("Solo se permiten imágenes JPG, PNG y WebP.");
+                 return;
+              }
+              if (archivo.size > 1024 * 1024) { // 1MB
+               setErrorImagen("La imagen es demasiado grande maximi 1M.");
+               return;
+            }
+           else {
+             setImagen(null);
+             setErrorImagen("Por favor, selecciona una imagen.");
+           }
+       
+              
+         }//fin del if principal
          
-
-
-  async function subirArchivo(e)
-  {
-	    const archivoLocal=e.target.files[0];
-	    setI(archivoLocal);
-  }//fin de subir archivo
-
-
- const store = async (e) => {
-     e.preventDefault()
-  if(i)
-  {
-    
-    const archivoRef=ref(storage,`pago_prooducto/${i.name}`)
-    const uplo=await uploadBytes(archivoRef,i)
-    urlDescarga=await getDownloadURL(archivoRef)
-     await addDoc({  
-                       nombre_producto:"cocacola",
-                       imagen:urlDescarga,
-                       status:1
-                   } )
-      
-    
-    
-  
-
-      MySwal.fire({
-                       title: "Felicitaciones!",
-                       text: "Registro con exito!",
-                       icon: "danger",
-                       button: "Felicitaciones!"
-              });
-         navigate("/ModuloAdministrador/Productos")
-     }
-    
-   }
-
+         else 
+         {
+                 setImagen(null);
+                 setErrorImagen("Por favor, selecciona una imagen.");
+         }//fin del else principal
+ 
+         setImagen(archivo);
+         setErrorImagen(null); // Limpiar errores anteriores
+ 
+     }//fin de la funion mensaje
    
+     const existeImagenEnStorage=async(nombreArchivo)=> {
+         try {
+           const imagenRef = ref(storage, `comprobante_pago/${nombreArchivo}`); // Ruta a tu carpeta de imágenes
+           urlDescarga=await getDownloadURL(imagenRef)
+          // await getMetadata(imagenRef); // Intenta obtener metadatos
+           return true; // Si no hay error, la imagen existe
+         } catch (error) {
+           if (error.code === 'storage/object-not-found') {
+             return false; // La imagen no existe
+           }
+           console.error("Error al comprobar imagen:", error);
+           return false; // Otro error, asumimos que no existe para evitar bloqueos
+         }
+       }        
+
+        const subirImagen = async () =>
+         {
+                    
+           if (!imagen)
+           {
+              setErrorImagen("Debes seleccionar una imagen.");
+             return;
+           }//fin del if de negacion de imagen
+                           
+               setErrorImagen(null);
+                const nombreArchivo = imagen.name; // O un nombre generado
+                const existe = await existeImagenEnStorage(nombreArchivo);
+                if (existe) {
+                 setErrorImagen("La imagen ya existe");
+                return;}
+          
+              
+              const usuariosRef = collection(db, 'negocios');
+              const q = query(usuariosRef, where('correo', '==',nom));
+              const querySnapshot = await getDocs(q);
+
+                            
+               if(!querySnapshot.empty) 
+               {
+                 
+                  querySnapshot.forEach((doc) => {
+                  setNombreNegocio(doc.data().nombre_negocio);
+                })
+
+       
+                   try
+                   {
+     
+                      const archivoRef=ref(storage,`comprobante_pago/${imagen.name}`)
+                      const uplo=await uploadBytes(archivoRef,imagen)
+                      urlDescarga=await getDownloadURL(archivoRef)
+                      const existe = await existeImagenEnStorage(nombreArchivo);
+                      const nombresProductos = metodo.map(item => item.nombre_productos);
+                      const empresaCollection = collection(db,"pago_producto") 
+                      const totalDelPedido = t;
+                      await addDoc( empresaCollection, {
+                                       nombre_negocio:nombreNegocio,
+                                       fecha_pago:fecha,
+                                       imagen:urlDescarga,
+                                       tipo_operacion:"compra",
+                                       nombre_producto:nombresProductos,
+                                       imagena:'',
+                                       mensaje_pago:'',
+                                       total: parseFloat(totalDelPedido)
+
+                                   } )
+                     
+                        MySwal.fire({
+                                title: "Felicitaciones!",
+                                text: "Compra completado con Exito!",
+                                icon: "danger",
+                                button: "Felicitaciones!"
+                          });
+                           navigate('/MensajePago')
+                   }catch(error)
+                   {
+                      console.error("Error al actualizar datos:", error);
+                   }              
+              }
+             
+     
+                   
+         }//fin del metodo subir imagen 
+     
 
   return (
     <>
@@ -98,14 +198,11 @@ const [ i,setI ] = useState(null)
                   </div> */}
                   
                   <div class="row">
-                   { metodo.map(item=>(
-
-                         <Metodopago 
-                          key={item.id}
-                          nombrenegocio={item.nombre_negocio}
-                          />
+                   <Metodopago 
+                    nombrenegocio={nom}
+                    />
               
-                  ))}  
+                   
                   
                   </div>
 
@@ -116,19 +213,25 @@ const [ i,setI ] = useState(null)
                       <p>Ingrese Comprobante de pago.</p>
                     </div>
                   
-                  <form  onSubmit={store}>
+                  <form>
                     <div class="col-md-8 mb-3 mb-md-0">
                      
                         <input
                         type="file" 
                         className="form-control py-3" 
-                        onChange={subirArchivo}
                         id="coupon" 
-                        required/>
+                        onChange={manejarCambioImagen}   
+                        accept="image/*"
+                      />
+                      {errorImagen && <p style={{ color: 'red' ,textAlign:"center"}}>{errorImagen}</p>}    
+
                    </div>
 
                     <div class="col-md-4">
-                      <button type='submit' className="botoncc">Procesar Pago</button>
+                      <button    
+                      type="button"
+                      onClick={subirImagen} 
+                      className="botoncc">Procesar Pago</button>
                     </div>
                   </form>
                   </div>
