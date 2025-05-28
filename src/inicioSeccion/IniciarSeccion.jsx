@@ -18,51 +18,59 @@ function IniciarSeccion() {
    const [ email,setEmail ] = useState('')
    const [ clave,setClave ] = useState('')
    const [error, setError] = useState(""); 
-  const  submitHandler=async(e)=>{
-      
-    e.preventDefault()
-    // const email=e.target.emailField.value
-    // const password=e.target.passwordField.value
-   
-    try
-    {
-      const hash = CryptoJS.MD5(clave).toString();
-      const col= collection(db,'usuarios');
-      const q=query(col,where("email_usuario","==",email),where("clave_usuario","==",hash));
-      const datos=await getDocs(q);       
-      if(datos.empty){setError("Correo o contraeña invalida.");return null;}
-      else
-      {
-        await log(email,hash);
-      
-              MySwal.fire({
-                    title: "Bien hecho!",
-                    text: "Has Iniciado Sección!",
-                    icon: "success",
-                     button: "Felicitaciones!",
-                 });
-              navigate("/Menu"); 
-        
-        }//fin del else
-
-        }catch(error){
-      
-      
   
-      if (error.code === 'auth/wrong-password')
-      {
-           MySwal.fire({
-                    title: "Error!",
-                    text: "Contraseña debil minimo 6 caracteres!",
-                    icon: "danger",
-                     button: "Felicitaciones!"
-            });
-      }
+   const  submitHandler=async(e)=>
+   {
       
-      
+     e.preventDefault()
+     setError("");
+     try
+     {
+     
+        await log(email,clave); 
+        MySwal.fire({
+        title: "¡Bien hecho!",
+        text: "¡Has Iniciado Sesión!",
+        icon: "success",
+        button: "¡Felicitaciones!",
+      });
+        navigate("/Menu");
+    }catch(error)
+     {
+      console.error("Error al iniciar sesión:", error.code, error.message);
+      let errorMessage = "Ocurrió un error inesperado al iniciar sesión.";
 
-    }//fin del try catch
-    
+      // Manejo de errores específicos de Firebase Authentication
+      switch (error.code) {
+        case 'auth/user-not-found':
+          errorMessage = "Correo electrónico no registrado. Por favor, regístrate.";
+          break;
+        case 'auth/wrong-password':
+          errorMessage = "Contraseña incorrecta. Por favor, verifica tus credenciales.";
+          break;
+        case 'auth/invalid-email':
+          errorMessage = "El formato del correo electrónico es inválido.";
+          break;
+        case 'auth/too-many-requests':
+          errorMessage = "Demasiados intentos fallidos. Inténtalo de nuevo más tarde.";
+          break;
+        case 'auth/network-request-failed':
+          errorMessage = "Problemas de conexión a internet. Por favor, verifica tu conexión.";
+          break;
+        // Puedes añadir más casos según los errores que esperes de Firebase Auth
+        default:
+          errorMessage = "Error al iniciar sesión. Verifica tu correo y contraseña.";
+          break;
+      }
+      setError(errorMessage);
+      // Mostrar el error con SweetAlert2 si lo prefieres, o solo el mensaje de error de React
+      MySwal.fire({
+        title: "Error de Inicio de Sesión",
+        text: errorMessage,
+        icon: "error", // Cambié a 'error' para mejor semántica
+        button: "Entendido",
+      });
+    }
   
   
   }

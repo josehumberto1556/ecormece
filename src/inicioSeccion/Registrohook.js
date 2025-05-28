@@ -213,8 +213,7 @@ export const RegistroHook=()=>{
                     	 })
               await addDoc( empresaCollection, {
                 nombre_usuario:nombreusu,
-                email_usuario: emailu, 
-                clave_usuario:hash,
+                email_usuario: emailu,
                 imagen:urlDescarga,
                 vendedor:acceptTerms,
                 status:0,
@@ -280,7 +279,6 @@ export const RegistroHook=()=>{
               await addDoc( empresaCollection, {
                 nombre_usuario:nombreusu,
                 email_usuario: emailu, 
-                clave_usuario:hash,
                 imagen:urlDescarga,
                 comprador:receiveUpdates,
                 status:0,
@@ -345,8 +343,7 @@ export const RegistroHook=()=>{
                     	 })
               await addDoc( empresaCollection, {
                 nombre_usuario:nombreusu,
-                email_usuario: emailu, 
-                clave_usuario:hash,
+                email_usuario: emailu,
                 imagen:urlDescarga,
                 vendedor:acceptTerms,
                 comprador:receiveUpdates,

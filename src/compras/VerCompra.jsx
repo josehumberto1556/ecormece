@@ -19,7 +19,7 @@ export const VerCompra=()=>
    
     const {id} = useParams()
      const getEmpresaById = async (id) => {
-            const empresa = await getDoc( doc(db, "pago_producto", id) )
+            const empresa = await getDoc( doc(db, "imagenes_subidas_comprobante", id) )
             if(empresa.exists()) {
                 //console.log(product.data())
                 setcodigoempresa(empresa.data().nombre_producto)    

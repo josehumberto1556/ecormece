@@ -25,7 +25,7 @@ function Compras() {
      
      const getEmpresas=async()=> 
      {
-        const empresaCollection=collection(db,"pago_producto")
+        const empresaCollection=collection(db,"imagenes_subidas_comprobante")
         const q=query( empresaCollection,where("correo","==",correo));
         const data=await getDocs(q);
         
@@ -58,8 +58,8 @@ function Compras() {
     {
       name:"Foto Producto",
       selector:(row)=>
-      <a href={row.imagen} target="_blank">
-       <img src={row.imagen} width="100" height="100"/>
+      <a href={row.url} target="_blank">
+       <img src={row.url} width="100" height="100"/>
       </a>,
       sortable:true
     },
