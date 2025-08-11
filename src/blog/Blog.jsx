@@ -2,7 +2,7 @@ import React,{useState,useEffect}from 'react'
 import {db} from '../Configfirebase/Configfirebase'		
 import {collection,getDocs} from 'firebase/firestore'
 import {Link}      from 'react-router-dom'
-
+import "./blog.css"
 
 function Blog() {
 	
@@ -22,41 +22,47 @@ function Blog() {
   }, [] )
 	
   return (
-    <div>
-     <div className="blog-section">
-			<div className="container">
-				<div className="row mb-5">
-					<div className="col-md-6">
-						<h2 className="section-title">Articulos Recientes</h2>
-					</div>
-					<div className="col-md-6 text-start text-md-end">
-						<Link to="/TodosBlog" className="more">Ver Todos los articulos</Link>
-					</div>
-				</div>
-
-				<div className="row">
+    <>
+   
+	<section className="articles-section">
+        <div className="container">
+             <div className="header-section">
+                <h2>Últimas Noticias</h2>
+                <Link to="/TodosBlog" className="view-all-link">Ver todas las noticias &rarr;</Link>
+            </div>
+            <div className="articles-grid">
                {empre.map((empr)=>(
-					<div className="col-12 col-sm-6 col-md-4 mb-4 mb-md-0">
-						<div className="post-entry">
-							<a href="#" className="post-thumbnail">
-							<img src={empr.imagenblog} alt="Image" 
-							className="img-fluid"/></a>
-							<div className="post-content-entry">
-								<h3><a href="#">{empr.nombre_blog}</a></h3>
-								<div className="meta">
-									<span>b<a href="#">{empr.descripcionblog}</a></span> <span> <a href="#">{empr.fechablog}</a></span>
-								</div>
-							</div>
-						</div>
-					</div>
+                <article className="article-card">
+                    <img
+					src={empr.imagenblog}
+                    width="400"
+					height="250"
+					alt="Imagen del Artículo 1"
+					className="article-image"/>
+                    <div className="article-content">
+                        <h3>{empr.nombre_blog}</h3>
+                        <p className="article-meta">{empr.fechablog}</p>
+                        <p className="article-excerpt">{empr.descripcionblog}</p>
+                        <a href="#" className="read-more">Leer más &rarr;</a>
+                    </div>
+                </article>
+			   ))}
+			    <article class="article-card">
+                    <img 
+					src="https://via.placeholder.com/400x250/E0E0E0/333333?text=Imagen+del+Articulo+2" alt="Imagen del Artículo 2" class="article-image"/>
+                    <div class="article-content">
+                        <h3>Título del Artículo 2</h3>
+                        <p class="article-meta">Publicado el 29 de julio de 2025</p>
+                        <p class="article-excerpt">Este es otro extracto. Es importante que el texto sea conciso y atractivo para captar la atención del usuario.</p>
+                        <a href="#" class="read-more">Leer más &rarr;</a>
+                    </div>
+                </article>
 
-					
-			 ))  }
-				
-				</div>
 			</div>
-		</div>
-    </div>
+         </div>
+      </section>		 
+	</>
+	
   );
 }
 

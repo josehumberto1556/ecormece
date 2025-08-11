@@ -1,0 +1,35 @@
+/* Adaptación del código para diferentes pantallas */
+
+.you-might-also-like {
+    padding: 40px;
+    background: #fff;
+    margin-top: 20px;
+}
+
+.products-list {
+    display: grid;
+    grid-template-columns: repeat(4, 1fr); /* 4 columnas por defecto en pantallas grandes */
+    gap: 20px;
+    text-align: center;
+}
+
+/* Media query para pantallas de tablets (ej. 768px a 1024px) */
+@media (max-width: 1024px) {
+    .products-list {
+        grid-template-columns: repeat(2, 1fr); /* 2 columnas en pantallas de tamaño medio */
+        gap: 15px;
+    }
+}
+
+/* Media query para pantallas de móviles (ej. hasta 767px) */
+@media (max-width: 767px) {
+    .you-might-also-like {
+        padding: 20px;
+        margin-top: 10px;
+    }
+
+    .products-list {
+        grid-template-columns: 1fr; /* 1 columna en pantallas pequeñas para una mejor visualización */
+        gap: 10px;
+    }
+}

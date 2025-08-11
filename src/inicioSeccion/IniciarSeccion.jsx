@@ -155,17 +155,17 @@ function IniciarSeccion() {
       </div>
     </div>
 
-    <div class="col">
+    <div className="col">
      
-    <Link className="text-center boton2"
+    <Link className="text-center boton-a"
 				to="/RecuperarAcceso"> 
 			  Recuperar Contraseña
                 </Link>
     </div>
   </div>
  
-  <div class="d-grid gap-2 col-6 mx-auto">
-   <button  type="submit" className="boton4">Entrar</button>
+  <div className="d-grid gap-2 col-6 mx-auto">
+   <button  type="submit" className="boton-a">Entrar</button>
   </div>
   
   <br/>
@@ -173,7 +173,7 @@ function IniciarSeccion() {
   <div className="text-center">
     
     <Link 
-      className="text-center boton3"
+      className="text-center boton-a"
 	   	to="/RegistrarUsuario"
      > 
 		  Registrar Usuario

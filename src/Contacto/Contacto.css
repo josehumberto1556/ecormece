@@ -1,10 +1,126 @@
-.boton1{
-	background:linear-gradient(#051126 70%,#203560);
-	color:white;
+ .boton-a{
+    background-color:#FFCA4B;
+    border:0px;
+}
+.contact-page .page-content {
+    background-color: var(--background-section-light); /* Fondo blanco para la página de contacto */
+    	}
+
+.contact-info-section {
+    display: grid;
+    grid-template-columns: repeat(auto-fit, minmax(280px, 1fr));
+    gap: 30px;
+    margin-bottom: 60px;
 }
 
-.fondo{
-	background:linear-gradient(#051126 70%,#203560);
-	
-	
+.contact-card {
+    background-color: var(--background-section-medium); /* Fondo gris azulado para tarjetas de contacto */
+    padding: 30px;
+    border-radius: var(--border-radius);
+    text-align: center;
+    box-shadow: var(--box-shadow-light);
+    border: 1px solid var(--border-color);
+    transition: transform 0.3s ease;
+}
+
+.contact-card:hover {
+    transform: translateY(-5px);
+}
+
+.contact-card i {
+    font-size: 3em;
+    color: var(--primary-color);
+    margin-bottom: 20px;
+}
+
+.contact-card h3 {
+    font-size: 1.5em;
+    color: var(--text-color-dark);
+    margin-bottom: 10px;
+}
+
+.contact-card p {
+    font-size: 1em;
+    color: var(--text-color-dark);
+}
+
+.contact-form-section {
+    background-color: var(--background-section-medium); /* Fondo gris azulado para el formulario */
+    padding: 50px;
+    border-radius: var(--border-radius);
+    box-shadow: var(--box-shadow-medium);
+    border: 1px solid var(--border-color);
+}
+
+.contact-form-section h2 {
+    text-align: center;
+    font-size: 2.5em;
+    margin-bottom: 40px;
+    color: var(--text-color-dark);
+}
+
+.contact-form .form-group {
+    margin-bottom: 25px;
+}
+
+.contact-form label {
+    display: block;
+    font-weight: 500;
+    margin-bottom: 10px;
+    color: var(--text-color-dark);
+    font-size: 1.1em;
+}
+
+.contact-form input[type="text"],
+.contact-form input[type="email"],
+.contact-form textarea {
+    width: 100%;
+    padding: 12px 15px;
+    border: 1px solid var(--border-color);
+    border-radius: 5px;
+    font-family: var(--font-family-sans);
+    font-size: 1em;
+    color: var(--text-color-dark);
+    background-color: var(--text-color-light); /* Fondo blanco para inputs */
+    transition: border-color 0.3s ease, box-shadow 0.3s ease;
+}
+
+.contact-form input:focus,
+.contact-form textarea:focus {
+    border-color: var(--primary-color);
+    box-shadow: 0 0 0 3px rgba(0, 123, 255, 0.25);
+    outline: none;
+}
+
+.contact-form textarea {
+    resize: vertical; /* Permite redimensionar verticalmente */
+    min-height: 120px;
+}
+
+.contact-form .btn-primary {
+    width: auto; /* Para que el botón no sea 100% de ancho */
+    display: block; /* O display: inline-block; si quieres centrarlo con text-align en el padre */
+    margin: 30px auto 0 auto; /* Centrar el botón */
+}
+
+/* Media Queries para Responsividad de la página de Contacto */
+@media (max-width: 992px) {
+    .contact-info-section {
+        grid-template-columns: repeat(auto-fit, minmax(250px, 1fr));
+    }
+    .contact-form-section {
+        padding: 40px;
+    }
+}
+
+@media (max-width: 576px) {
+    .contact-info-section {
+        grid-template-columns: 1fr; /* Una columna en pantallas pequeñas */
+    }
+    .contact-form-section {
+        padding: 25px;
+    }
+    .contact-card i {
+        font-size: 2.5em;
+    }
 }

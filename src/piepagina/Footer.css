@@ -1,5 +1,125 @@
-.Footer
+
+.footer-section 
 {
-  background:linear-gradient(#051126 70%,#203560) !important;  
+   
+  background:linear-gradient(#000205 70%,#02050a) !important;  
   color:white;
+  margin-bottom: -52px;
+
+}
+
+.main-footer {
+    background:linear-gradient(#000205 70%,#02050a) !important;
+    color: var(--text-color-light);
+    padding: 50px 0 20px;
+    margin-top: 60px;
+	margin-left:-20px;
+}
+
+.main-footer .container {
+    display: flex;
+    flex-direction: column;
+}
+
+.main-footer  a {
+    text-decoration: none;
+    color: var(--primary-color);
+}
+
+.main-footer  a:hover {
+    color: #0056b3;
+}
+
+.footer-columns {
+    display: grid;
+    grid-template-columns: repeat(auto-fit, minmax(200px, 1fr));
+    gap: 30px;
+    margin-bottom: 30px;
+}
+
+.footer-column h3 {
+    font-size: 1.4em;
+    margin-bottom: 20px;
+    color:#FFCA4B;
+    position: relative;
+    padding-bottom: 10px;
+}
+
+.footer-column h3::after {
+    content: '';
+    position: absolute;
+    width: 50px;
+    height: 3px;
+    background-color: var(--secondary-color);
+    left: 0;
+    bottom: 0;
+    border-radius: 2px;
+}
+
+.footer-column p, .footer-column ul li {
+    font-size: 0.95em;
+    margin-bottom: 10px;
+    list-style: none;
+}
+
+.footer-column ul li a {
+    color: var(--text-color-light);
+    transition: color 0.3s ease;
+}
+
+.footer-column ul li a:hover {
+    color: var(--primary-color);
+}
+
+.contact-info p i {
+    margin-right: 10px;
+    color: var(--primary-color);
+}
+
+.social-icons {
+    display: flex;
+    gap: 15px;
+}
+
+.social-icons a {
+    color: var(--text-color-light);
+    font-size: 1.5em;
+    transition: color 0.3s ease;
+}
+
+.social-icons a:hover {
+    color: var(--primary-color);
+}
+
+.footer-bottom {
+    text-align: center;
+    padding-top: 20px;
+    border-top: 1px solid rgba(255, 255, 255, 0.1);
+}
+
+.footer-bottom p {
+    font-size: 0.9em;
+    color: rgba(255, 255, 255, 0.7);
+}
+
+@media (max-width: 768px) {
+
+
+    .footer-columns {
+        grid-template-columns: 1fr;
+        text-align: center;
+    }
+
+    .footer-column ul {
+        padding-left: 0;
+    }
+    
+    .footer-column h3::after {
+        left: 50%;
+        transform: translateX(-50%);
+    }
+
+    .social-icons {
+        justify-content: center;
+    }
 }

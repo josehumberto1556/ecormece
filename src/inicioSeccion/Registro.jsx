@@ -33,8 +33,8 @@ const {
           <div className="row justify-content-center">
 
 
-            <div className="col-md-9 col-lg-8 pb-4">
-            <form>
+         <section className="contact-form-section col-md-9 col-lg-8 pb-4">
+            <form className="contact-form">
                 <h1 style={{textAlign:"center"}}>Regisrar Usuario</h1>
                 <div className="row">
                   <div className="col-6">
@@ -130,13 +130,13 @@ const {
 
                 <button
                 type="button"
-                 className="boton4"
+                 className="boton-a"
                  onClick={subirImagen}
                 >Guardar
                 </button>
               </form>
-
-            </div>
+              
+            </section>
 
           </div>
 
@@ -147,6 +147,7 @@ const {
 
     </div>	
 		
+        
     </>
   )
 }

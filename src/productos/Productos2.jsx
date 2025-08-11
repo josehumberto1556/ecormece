@@ -1,81 +1,53 @@
-import why from "../images/why-choose-us-img.jpg"
-import Envios from "../images/truck.svg"
-import Compra from "../images/bag.svg"
-import soporteTecnico from "../images/support.svg"
+import "./productos.css"
+import React,{useState,useEffect} from 'react'
+import {db} from '../Configfirebase/Configfirebase'		
+import {collection,getDocs,orderBy, limit,query} from 'firebase/firestore'
+import {Link}      from 'react-router-dom'
 
 function Productos2() {
+	
+	 
+const [empre,setEmpresas ]=useState([])
+  const  empresaCollection=collection(db,"categoria")
+  const getEmpresas=async ()   => {
+//  const limitedQuery=await getDocs(empresaCollection)
+  const limitedQuery=query(empresaCollection,orderBy("nombre_categoria"), limit(4))
+  const data=await getDocs(limitedQuery)
+   //console.log(data.docs)
+   setEmpresas(
+       data.docs.map( (doc) => ( {...doc.data(),id:doc.id}))
+   )
+   
+     }
+	
+	  useEffect( () => {
+    getEmpresas()
+  }, [] )
+  
+	
   return (
-    <div>
-     		<div className="why-choose-section">
-			<div className="container">
-				<div className="row justify-content-between">
-					<div className="col-lg-6">
-						<h2 className="section-title">Porque elejirnos</h2>
-						<p>
-							Somos una empresa compremetida con nuestro cliente 
-							en brindarle el mejor servicos
-						</p>
-
-						<div className="row my-5">
-							<div className="col-6 col-md-6">
-								<div className="feature">
-									<div className="icon">
-										<img src={Envios} alt="Image" className="imf-fluid"/>
-									</div>
-									<h3>Envio rapido</h3>
-									<p>Entrega direacta con el cliente.</p>
-								</div>
-							</div>
-							
-							
-
-							<div className="col-6 col-md-6">
-								<div className="feature">
-									<div className="icon">
-										<img src={Compra} 
-										alt="Image" className="imf-fluid"/>
-									</div>
-									<h3>Facil de compra</h3>
-									<p>Plataforma con facilidad de compra.</p>
-								</div>
-							</div>
-
-							<div className="col-6 col-md-6">
-								<div className="feature">
-									<div className="icon">
-										<img src={soporteTecnico} alt="Soporte Tecnico" className="imf-fluid"/>
-									</div>
-									<h3>24/7 Soporte</h3>
-									<p>soporte Tecnico las 24 horas para ayudar a nuestros clientes.</p>
-								</div>
-							</div>
-
-							{/*
-							<div className="col-6 col-md-6">
-								<div className="feature">
-									<div className="icon">
-										<img src="" alt="Image" 
-										className="imf-fluid"/>
-									</div>
-									<h3>Hassle Free Returns</h3>
-									<p>Donec vitae odio quis nisl dapibus malesuada. Nullam ac aliquet velit. Aliquam vulputate.</p>
-								</div>
-							</div>
-							*/}
-							</div>
-					</div>
-
-					<div className="col-lg-5">
-						<div className="img-wrap">
-							<img src={why} 
-							alt="Image" className="img-fluid"/>
-						</div>
-					</div>
-
-				</div>
+    
+	 <section className="categories-section">
+        <div className="container">
+            <h2>Explora por Categorías</h2>
+             
+             <div className="category-grid">
+             {empre.map((empr)=>(
+             <div key={empr.id}>
+			 <Link 
+			 to={`/Productos/${empr.nombre_categoria}`} 
+			 className="category-item" >
+               <img 
+			   src={empr.imagenq}
+			   alt={empr.nombre_categoria}/>
+               <h3>{empr.nombre_categoria}</h3>
+             </Link>
+               </div>
+            ))}
 			</div>
-		</div>
-    </div>
+			 
+        </div>
+    </section>
   );
 }
 

@@ -1,23 +1,31 @@
 import React,{useState,useContext} from "react";
+//import  {DataContext}   from '../context/DataProvider'
 import {Link}   from "react-router-dom";
+//import  {DataContext}   from '../context/DataProv/ider'
 import "./Navbar.css"
 import  Usu from "../images/user.svg"
+import Carrito from "../images/cart.svg"
+function Navbar() {
 
-import { CarritoContext } from "../context/CarritoContext"
-
-function Navbar()
-{
-	 
+ /* const value = useContext(DataContext);
+  const [carrito] = value.carrito;
+  const [menu,setMenu] =value.menu;
+  const toogleMenu = () =>{
+   setMenu(!menu)
+  }
+*/
   const letra = {
 	 color:"#ffffff"
 	
 	 
  }  
- const { listaCompras } = useContext(CarritoContext)
-  return (
 	
-    <div>
-     		<nav className="custom-navbar navbar navbar navbar-expand-md navbar-dark navbars fixed-top" arial-label="Furni navigation bar">
+  return (
+    <>
+     		<nav 
+			 className="navbar  custom-navbar navbar-expand-md navbar-dark fixed-top" 
+			 arial-label="Furni navigation bar"
+			 style={{backgroundColor:"black"}}>
 
 			<div className="container">
 				<Link to="/"  className="navbar-brand">ESA<span>.</span></Link>
@@ -38,20 +46,15 @@ function Navbar()
 					
 						
 						<li className="nav-item active">
-							<Link to="/Nosotros"  className="nav-link">Sobre Nosotros</Link>
+							<Link to="/Nosotros"  className="nav-link">Nosotros</Link>
 						</li>
 						
 						<li className="nav-item active">
-							<Link to="/OfertasEmpleo"  className="nav-link">Ofertas Empleo</Link>
+							<Link to="/OfertasEmpleo"  className="nav-link">Empleos</Link>
 						</li>
 						
 						<li className="nav-item active">
 							<Link to="/Contacto"  className="nav-link">Contacto</Link>
-						</li>
-
-						
-						<li className="nav-item active">
-						    <Link to="/Negocios"  className="nav-link">Negocio</Link>
 						</li>
  
                        
@@ -63,14 +66,13 @@ function Navbar()
 						<Link to="/IniciarSeccion" className="nav-link" href="#">
 						<img src={Usu}/>
 						</Link>
-						</li>
-                     
+						</li>     
 					</ul>
 				</div>
 			</div>
 				
 		</nav>
-    </div>
+    </>
   );
 }
 

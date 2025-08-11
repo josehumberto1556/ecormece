@@ -7,6 +7,7 @@
     "@testing-library/react": "^13.4.0",
     "@testing-library/user-event": "^13.5.0",
     "bootstrap": "^5.3.2",
+    "bootstrap-icons": "^1.13.1",
     "boxicons": "^2.1.4",
     "crypto-js": "^4.2.0",
     "firebase": "^10.14.1",
@@ -33,9 +34,7 @@
       "react-app/jest"
     ]
   },
-  "jest": {
-
-},
+  "jest": {},
   "browserslist": {
     "production": [
       ">0.2%",

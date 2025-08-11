@@ -49,15 +49,3 @@
 	border-radius:8px;
 	cursor:pointer;
 }
-
-.boton{ 
-	background:linear-gradient(#051126 70%,#203560);
-	color:white;
-	
-}
-
-
-.boton-err{
-	background:linear-gradient(#FE0D1D 70%,#FE0D1D);
-	color:white;
-}
