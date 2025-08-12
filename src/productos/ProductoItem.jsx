@@ -40,8 +40,11 @@ export const ProductoItem=({id,title,price,image,handleAgregar, handleQuitar, ha
 						<Link  to={`/IniciarSeccion`}>	
 						<button
 						    type="button"
-							 className="boton-ag"
-                            >Agregar</button>
+							className="boton-ag"
+                            style={{
+								     backgroundColor:"#FFCA4B"
+									}}
+							>Agregar</button>
 						</Link>	
 						{/* {added
 					      ? <button

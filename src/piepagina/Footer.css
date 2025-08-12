@@ -1,4 +1,77 @@
+/* Estilos por defecto para escritorio y pantallas grandes */
+.row {
+    display: flex;
+    justify-content: center;
+    width: 100%;
+}
 
+.col-lg-8 {
+    max-width: 750px;
+}
+
+.subscription-form {
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    text-align: center;
+    padding: 20px; /* Añade padding para mejor visualización */
+}
+
+.subscription-form h3 {
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    text-align: center;
+    font-size: 1.5rem; /* Tamaño de fuente para escritorio */
+}
+
+.subscription-form h3 span:nth-child(2) {
+    margin-left: 0 !important;
+}
+
+.subscription-form form {
+    display: flex;
+    flex-wrap: wrap; /* Permite que los elementos pasen a la siguiente línea */
+    justify-content: center;
+    gap: 10px;
+    margin-top: 20px;
+}
+
+.subscription-form .form-control {
+    width: auto; /* Ancho automático para los inputs */
+    min-width: 200px;
+}
+
+/* Media query para dispositivos móviles (ancho máximo de 768px) */
+@media (max-width: 768px) {
+    .row {
+        flex-direction: column; /* Apila las columnas verticalmente */
+        align-items: center;
+    }
+
+    .subscription-form h3 {
+        font-size: 1.2rem; /* Reduce el tamaño de la fuente para móviles */
+    }
+    
+    .subscription-form h3 span {
+        text-align: center;
+    }
+
+    .subscription-form form {
+        flex-direction: column; /* Apila los campos del formulario verticalmente */
+        align-items: center;
+    }
+
+    .subscription-form .form-control {
+        width: 100%; /* Los inputs ocupan todo el ancho disponible */
+        box-sizing: border-box; /* Asegura que el padding no afecte el ancho total */
+        min-width: unset; /* Elimina el mínimo ancho para mayor flexibilidad */
+    }
+    
+    .subscription-form .btn {
+        width: 100%;
+    }
+}
 .footer-section 
 {
    

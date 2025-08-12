@@ -1,0 +1,195 @@
+:root {
+    --primary-color: #007bff; /* Azul vibrante: ideal para la marca, enlaces y acciones principales */
+    --secondary-color: #ff5722; /* Naranja rojizo: para botones de acción, acentos y resaltado */
+    --accent-color: #4CAF50; /* Verde: para éxito o disponibilidad */
+
+    --text-color-dark: #212529; /* Negro suave: texto principal para alta legibilidad */
+    --text-color-light: #f8f9fa; /* Blanco: texto sobre fondos oscuros */
+
+    /* COLORES DE FONDO MEJORADOS */
+    --background-body: #f7f9fc; /* Fondo general del cuerpo: blanco azulado muy sutil */
+    --background-header: var(--primary-color); /* Fondo del menú/header: ¡Ahora nuestro azul primario! */
+    --background-hero: #343a40; /* Fondo de la sección hero: gris oscuro (se usará con imagen y overlay) */
+    --background-section-light: #ffffff; /* Fondo para secciones claras: blanco puro */
+    --background-section-medium: #eef1f6; /* Fondo para secciones intermedias: gris azulado claro */
+    --background-footer: #212529; /* Fondo del footer: negro oscuro para un contraste fuerte */
+
+    --border-color: #e0e6ed; /* Color de borde: gris muy suave */
+
+    --font-family-sans: 'Roboto', sans-serif;
+    --box-shadow-light: 0 4px 8px rgba(0, 0, 0, 0.05); /* Sombra sutil para elementos ligeros */
+    --box-shadow-medium: 0 8px 16px rgba(0, 0, 0, 0.1); /* Sombra media para tarjetas y elementos destacados */
+    --border-radius: 10px; /* Bordes ligeramente más redondeados */
+}
+
+body {
+    font-family: var(--font-family-sans);
+    line-height: 1.6;
+    color: var(--text-color-dark);
+    background-color: var(--background-body);
+}
+
+
+.boton
+{
+    background:linear-gradient(#051126 70%,#203560);
+    height:200px;
+    width:100px;
+}
+
+/* Sección de Productos Destacados */
+.container {
+    max-width: 1200px;
+    margin: 0 auto;
+    padding: 0 20px;
+}
+.featured-products {
+    padding: 60px 0;
+    background-color: var(--background-section-medium);
+    margin-bottom: 50px;
+}
+
+.featured-products h2, .categories-section h2 {
+    text-align: center;
+    font-size: 3em;
+    margin-bottom: 50px;
+    color: var(--text-color-dark);
+    position: relative;
+    padding-bottom: 15px;
+}
+
+.featured-products h2::after, .categories-section h2::after {
+    content: '';
+    position: absolute;
+    width: 80px;
+    height: 4px;
+    background-color: var(--primary-color);
+    left: 50%;
+    transform: translateX(-50%);
+    bottom: 0;
+    border-radius: 2px;
+}
+
+
+.product-grid {
+    display: grid;
+    grid-template-columns: repeat(auto-fit, minmax(280px, 1fr));
+    gap: 30px;
+}
+
+.product-card {
+    background-color: var(--text-color-light);
+    border-radius: var(--border-radius);
+    box-shadow: var(--box-shadow-medium);
+    text-align: center;
+    padding: 25px;
+    transition: transform 0.3s ease, box-shadow 0.3s ease;
+    border: 1px solid var(--border-color);
+}
+
+.product-card:hover {
+    transform: translateY(-8px);
+    box-shadow: 0 10px 25px rgba(0, 0, 0, 0.2);
+}
+
+.product-card img {
+    max-width: 100%;
+    height: 220px;
+    object-fit: contain;
+    border-radius: var(--border-radius);
+    margin-bottom: 20px;
+    border: 1px solid var(--border-color);
+    padding: 5px;
+}
+
+.product-card .price {
+    font-size: 1.5em;
+    color: var(--primary-color);
+    font-weight: 700;
+    margin-bottom: 20px;
+}
+
+
+.product-card h3 {
+    font-size: 1.6em;
+    margin-bottom: 12px;
+    color: var(--text-color-dark);
+}
+
+/*categorias */
+
+.categories-section {
+    padding: 60px 0;
+    background-color: var(--background-section-light);
+    margin-bottom: 50px;
+}
+
+
+.category-grid {
+    display: grid;
+    grid-template-columns: repeat(auto-fit, minmax(200px, 1fr));
+    gap: 30px;
+    justify-content: center;
+}
+
+.category-item {
+    background-color: var(--text-color-light);
+    border-radius: var(--border-radius);
+    box-shadow: var(--box-shadow-medium);
+    text-align: center;
+    padding: 25px;
+    transition: transform 0.3s ease, box-shadow 0.3s ease;
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    color: var(--text-color-dark);
+    border: 1px solid var(--border-color);
+}
+
+.category-item:hover {
+    transform: translateY(-8px);
+    box-shadow: 0 10px 25px rgba(0, 0, 0, 0.2);
+}
+
+.category-item img {
+    width: 160px;
+    height: 160px;
+    object-fit: cover;
+    border-radius: 50%;
+    margin-bottom: 20px;
+    border: 4px solid var(--secondary-color);
+    transition: border-color 0.3s ease;
+}
+
+.category-item:hover img {
+    border-color: var(--primary-color);
+}
+
+.category-item h3 {
+    font-size: 1.4em;
+    margin-top: 10px;
+}
+
+@media (max-width: 480px) {
+ 
+    .featured-products h2, .categories-section h2 {
+        font-size: 2em;
+    }
+    
+    .product-grid, .category-grid {
+        grid-template-columns: 1fr;
+    }
+}
+
+@media (max-width: 768px) {
+
+ .featured-products h2, .categories-section h2 {
+        font-size: 2.5em;
+    }
+
+    .product-grid, .category-grid {
+        grid-template-columns: repeat(auto-fit, minmax(250px, 1fr));
+    }
+
+   
+}

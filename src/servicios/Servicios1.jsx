@@ -49,20 +49,21 @@ function Servicios1() {
    <Navbar1/>
 			
 
-				
-				<div className="row">
-					<div className="col-md-4 offset-md-4 p-4">
-						<h1 className="b">Oferta de Empelo</h1>
-							<form>
-							  <input type="text" 
-							   value={searchTerm} 
-		                       onChange={handleSearch}
-							  placeholder="Oferta de Empleo ..." 
-							  className="form-control"
-							  reuired/>
-							</form>	
-					</div>
-				</div>
+	<div className="row justify-content-center">
+    <div className="col-md-6 p-4">
+        <h1 className="text-center">Oferta de Empelo</h1>
+        <form className="d-flex flex-column align-items-center">
+            <input 
+                type="text"  
+                value={searchTerm}  
+                onChange={handleSearch}
+                placeholder="Oferta de Empleo ..."  
+                className="form-control"
+                required
+            />
+        </form> 
+    </div>
+</div>
 				
 			   	<div className="row">
 			{filteredData.map((item) => (
@@ -86,8 +87,8 @@ function Servicios1() {
 			  {item.descripcionempleo}<br/>
 			   <Link 
 			   to={`/Verofertas/${item.id}`} 
-				style={{color:'white'}}
-	            className="boton">
+				style={{backgroundColor:"#FFCA4B",color:'black'}}
+	            >
                        Leer  m&aacute;s
                  </Link>
 				   

@@ -105,8 +105,12 @@ function Negocios1() {
 				
         </div>
         {!loading && lastVisible && (
-        <button onClick={handleLoadMore} className="boton5">Cargar más</button>
-      )}
+		<div className="button-container">
+        <button onClick={handleLoadMore} 
+		style={{backgroundColor:"#FFCA4B"}}>
+		Cargar más</button>
+       </div>
+	  )}
 		    </div>
 		</div>
 

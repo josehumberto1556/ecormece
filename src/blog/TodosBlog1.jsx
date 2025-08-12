@@ -2,12 +2,12 @@ import React,{useState,useEffect}from 'react'
 import {db} from '../Configfirebase/Configfirebase'		
 import {collection,getDocs} from 'firebase/firestore'
 import {Link}      from 'react-router-dom'
-import Navbar  from "../navbar/Navbar"
+import Navbar2  from "../navbar/Navbar2"
 import Navbar1  from "../navbar/Navbar1"
 import Footer  from "../piepagina/Footer"
 import "./productos.css"
 
-function TodosBlog() {
+function TodosBlog1() {
 	
   const [empre,setEmpresas ]=useState([])
   const  empresaCollection=collection(db,"blog")
@@ -26,7 +26,7 @@ function TodosBlog() {
 	
   return (
     <>
-	   <Navbar/>
+	   <Navbar2/>
        <Navbar1/>
      
 			<section className="featured-products">
@@ -45,7 +45,7 @@ function TodosBlog() {
 						</a></span> 
 					</div>
 					<Link 
-					to={`/VerNoticia/${empr.id}`}
+					to={`/VerNoticias/${empr.id}`}
 					className="btn btn-secondary">
 					Ver Noticia</Link>
                 </div>
@@ -62,4 +62,4 @@ function TodosBlog() {
   );
 }
 
-export default TodosBlog;
+export default TodosBlog1;

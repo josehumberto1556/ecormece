@@ -6,7 +6,7 @@ import Navbar from "../navbar/Navbar"
 import Navbar1 from "../navbar/Navbar1"
 import ProductoPopular from "../productos/ProductoPopular"
 import Footer  from "../piepagina/Footer"
-
+import "./ofertas.css"
 function Veroferta() {
 	
     const {id} = useParams()
@@ -49,63 +49,59 @@ function Veroferta() {
    <>
      <Navbar/>
     <Navbar1/>
-             <div className="section" style={{marginTop:"80px"}}>
-   <div className="container article">
-     <div className="row justify-content-center align-items-stretch">
+       <div className="section" style={{marginTop:"80px"}}>
+    <div className="container article">
+        <div className="row justify-content-center align-items-stretch">
+            <article className="col-lg-8 order-lg-2 px-lg-5 job-card">
+                <img 
+                    src={imagen} 
+                    alt="Image" 
+                    className="img-fluid"
+                    width="600"
+                    height="600"
+                />
 
-       <article className="col-lg-8 order-lg-2 px-lg-5">
-         
-         
+                <h3>{nombreempleo}</h3>
+                <p style={{textAlign:"justify"}}>
+                    {descripcion}<br/>
+                    <strong>{fecha}</strong>
+                </p>
 
-         <img src={imagen} 
-         alt="Image" className="img-fluid"
-           width="600"
-           height="600"
-         />
+                <h4>Responsabilidades</h4>
+                <p>
+                    <ul>
+                        <li>{responsabilidades}</li>
+                        {/* Puedes dividir las responsabilidades en una lista para una mejor presentación */}
+                        {/* Ejemplo:
+                        <li>Crear y programar publicaciones atractivas en redes sociales.</li>
+                        <li>Responder a comentarios y mensajes de la comunidad de manera profesional.</li>
+                        <li>Monitorear y analizar métricas de redes sociales.</li>
+                        */}
+                    </ul>
+                </p>
 
-         <h3>{nombreempleo}</h3>
-         <p style={{textAlign:"justify"}}> 
-         {descripcion}<br/>
-         <strong>{fecha}</strong>
-         </p>
-         
-         <p>
-          <b>Responsabilidades:</b><br/>
-          {responsabilidades}
-         </p>
-         
-         <p>
-          Requisitos:<br/>
-          {requisitos}
-         </p>
+                <h4>Requisitos</h4>
+                <p>
+                    <ul>
+                        <li>{requisitos}</li>
+                        {/* Puedes dividir los requisitos en una lista */}
+                        {/* Ejemplo:
+                        <li>Experiencia comprobable (mínimo [X] años) en gestión de redes sociales.</li>
+                        <li>Residencia actual en San Josecito o zonas cercanas.</li>
+                        <li>Excelente comunicación escrita y verbal.</li>
+                        */}
+                    </ul>
+                </p>
 
-         { /*<p>
-           
-           <iframe width="560" height="315" src={video} frameborder="0" allow="accelerometer; autoplay; encrypted-media; gyroscope; picture-in-picture" allowfullscreen></iframe>
-           
-         </p>*/}
-
-       
-     
-
-
-         <div className="mb-5">
-           <Link to={link}>
-           <button className="boton1">Postularse</button>
-           </Link>
-           {/*/<Comentarios/>
-          
-             <Formulariocontacto id={id}/>
-           */}
-         </div>
-         
-
-       </article>
-
+                <div className="mb-5">
+                    <Link to={link}>
+                        <button className="botones1" style={{backgroundColor:"#FFCA4B"}}>Postularse</button>
+                    </Link>
+                </div>
+            </article>
+        </div>
     </div>
-   
-   </div>
- </div>
+</div>
     <Footer/>
    </>
    )

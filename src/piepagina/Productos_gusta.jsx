@@ -8,7 +8,7 @@ const [empre,setEmpresas ]=useState([])
   const  empresaCollection=collection(db,"m_productos")
   const getEmpresas=async ()   => {
 //  const limitedQuery=await getDocs(empresaCollection)
-  const limitedQuery=query(empresaCollection,orderBy("nombre_productos"), limit(4))
+  const limitedQuery=query(empresaCollection,orderBy("nombre_productos","desc"), limit(4))
   const data=await getDocs(limitedQuery)
    //console.log(data.docs)
    setEmpresas(

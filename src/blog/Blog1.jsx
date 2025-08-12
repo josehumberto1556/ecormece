@@ -4,7 +4,7 @@ import {collection,getDocs,query, orderBy, limit,} from 'firebase/firestore'
 import {Link}      from 'react-router-dom'
 import "./blog.css"
 
-function Blog() {
+function Blog1() {
 	
   const [empre,setEmpresas ]=useState([])
   const  empresaCollection=collection(db,"blog")
@@ -33,7 +33,7 @@ function Blog() {
         <div className="container">
              <div className="header-section">
                 <h2>Últimas Noticias</h2>
-                <Link to="/TodosBlog" className="view-all-link">Ver todas las noticias &rarr;</Link>
+                <Link to="/TodosNoticias" className="view-all-link">Ver todas las noticias &rarr;</Link>
             </div>
             <div className="articles-grid">
                {empre.map((empr)=>(
@@ -49,7 +49,7 @@ function Blog() {
                         <p className="article-meta">{empr.fechablog}</p>
                         <p className="article-excerpt">{empr.descripcionblog}</p>
                         <Link 
-                         to={`/VerNoticia/${empr.id}`}
+                         to={`/VerNoticias/${empr.id}`}
 						className="read-more">
 						Leer más &rarr;
 						</Link>
@@ -65,4 +65,4 @@ function Blog() {
   );
 }
 
-export default Blog;
+export default Blog1;

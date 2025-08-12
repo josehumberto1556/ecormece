@@ -58,85 +58,83 @@ function Contacto1() {
    <NavbarDos/>
 	 <Navbar1/>
   
-			
-			<div className="untree_co-section">
-      <div className="container">
+		
 
-        <div className="block">
-          <div className="row justify-content-center">
+          <main className="page-content contact-page">
+        <div className="container">
+            <h1 className="page-title">Contáctanos</h1>
+            <p className="page-description">¿Tienes preguntas, comentarios o necesitas ayuda? ¡Estamos aquí para ti!</p>
 
-
-            <div className="col-md-8 col-lg-8 pb-4">
-
-              <form  onSubmit={store}>
-                <h1 style={{textAlign:"center"}}>Contacto</h1>
-                <div className="row">
-                  <div className="col-6">
-                    <div className="form-group">
-                      <label className="text-black" for="fname">Nombre</label>
-                      <input type="text" 
-	 				             className="form-control" 
-   					           id="fname"
-					             placeholder="Nombre ..."
-                       value={codigo_empresa}
-                       onChange={ (e) => setCodigoempresa(e.target.value)}
-					             required
-					            />
-                    </div>
-                  </div>
-                
+            <div className="contact-info-section">
+                {/* <div class="contact-card">
+                    <i class="fas fa-map-marker-alt"></i>
+                    <h3>Nuestra Ubicación</h3>
+                    <p>123 Avenida Siempre Viva, Sector Centro</p>
+                    <p>Rubio, Táchira, Venezuela</p>
+                </div> */}
+                <div className="contact-card">
+                    <i className="fas fa-envelope" style={{color:"#FFCA4B"}}></i>
+                    <h3>Envíanos un Correo</h3>
+                    <p>info@libertycommerce.com</p>
+                    <p>soporte@libertycommerce.com</p>
                 </div>
-                
-				<div className="form-group">
-                  <label className="text-black" for="email">Correo Electronico</label>
-                  <input 
-                  type="email" 
-                  className="form-control" 
-				           id="email" 
-                  placeholder="Correo Electronico ..."
-                  value={email_empresa}
-                  onChange={ (e) => setEmailempresa(e.target.value)}
-				          required/>
+                <div className="contact-card">
+                    <i className="fas fa-phone-alt" style={{color:"#FFCA4B"}}></i>
+                    <h3>Llámanos</h3>
+                    {/* <p>+58 (276) 123-4567</p> */}
+                    <p>Disponible Lunes - Viernes, 9 AM - 5 PM</p>
                 </div>
-
-                <div className="form-group mb-5">
-                  <label className="text-black" for="message">Mensaje</label>
-                  <textarea 
-                    name="" 
-				            className="form-control" 
-				            id="message" 
-                    cols="30" 
-				             rows="5"
-				            placeholder="Mensaje ..."
-				            value={direccion_empresa}
-                    onChange={ (e) => setDireccionempresa(e.target.value)}
-                    required
-				          >
-                    
-                  </textarea>
-                </div>
-
-                <button
-                 type="submit"
-				         style={{color:'white'}}
-                 className="boton1 mt-1"
-                >Enviar Mensaje</button>
-              </form>
-
             </div>
 
-          </div>
-
+            <section class="contact-form-section">
+                <h2>Envíanos un Mensaje</h2>
+                <form class="contact-form" onSubmit={store}>
+                    <div class="form-group">
+                        <label for="name">Nombre</label>
+                        <input 
+                        className="form-control"
+                        type="text" 
+                        id="name" 
+                        name="name"
+                        placeholder="Nombre ..."
+                        value={codigo_empresa}
+                        onChange={ (e) => setCodigoempresa(e.target.value)}
+                        required 
+                         />
+                    </div>
+                    <div class="form-group">
+                        <label for="email">Correo Electrónico</label>
+                        <input
+                         type="email" 
+                         className="form-control" 
+				                 id="email" 
+                         placeholder="Correo Electronico ..."
+                         value={email_empresa}
+                         onChange={ (e) => setEmailempresa(e.target.value)}
+                         required/>
+                    </div>
+                    
+                    <div class="form-group">
+                        <label for="message">Tu Mensaje</label>
+                        <textarea 
+                          name="mensaje" 
+				                  className="form-control" 
+				                   id="message" 
+                           cols="30" 
+				                  rows="5"
+				                  placeholder="Mensaje ..."
+				                  value={direccion_empresa}
+                          onChange={ (e) => setDireccionempresa(e.target.value)}
+                           required
+                        ></textarea>
+                    </div>
+                    <button type="submit" className="boton-a">Enviar Mensaje</button>
+                </form>
+            </section>
         </div>
-
-      </div>
-
-
-    </div>
-  
-
-		      
-		 
+    </main>
+		<p><br/><br/></p>	
+		
 
 	 
 	 <Footer/>

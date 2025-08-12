@@ -4,7 +4,7 @@ import {collection,getDocs,orderBy, limit,query} from 'firebase/firestore'
 import {Link}      from 'react-router-dom'
 import "./productos.css"
 
-function Productos() {
+function Productos4() {
  
   
 const [empre,setEmpresas ]=useState([])
@@ -40,7 +40,7 @@ const [empre,setEmpresas ]=useState([])
                     <h3>{empr.nombre_productos}</h3>
                     <p className="price">{empr.precio}</p>
                     <Link 
-					to={`/detalleProducto/${empr.id}`}
+					to={`/detallesDelProducto/${empr.id}`}
 					className="btn btn-secondary">
 					Ver Producto</Link>
                 </div>
@@ -54,4 +54,7 @@ const [empre,setEmpresas ]=useState([])
   );
 }
 
-export default Productos;
+export default Productos4;
+
+
+

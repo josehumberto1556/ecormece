@@ -52,7 +52,7 @@ const letra = { color:"#ffffff"}
 						</li>
 						
 						<li className="nav-item active">
-							<Link to="/PerfilUsuario"  className="nav-link">Mi Perfil</Link>
+							<Link to="/PerfilUsuario"  className="nav-link">Perfil</Link>
 						</li>
 					
 						
@@ -63,7 +63,7 @@ const letra = { color:"#ffffff"}
 					
 					
 						<li className="nav-item active">
-							<Link to="/OfertasDeEmpleo"  className="nav-link">Ofertas Empleo</Link>
+							<Link to="/OfertasDeEmpleo"  className="nav-link">Empleos</Link>
 						</li>
 						
 						<li className="nav-item active">
@@ -75,7 +75,7 @@ const letra = { color:"#ffffff"}
 						</li>
 
 						<li className="nav-item active">
-							<Link to="/Compras"  className="nav-link">Listado Compras</Link>
+							<Link to="/Compras"  className="nav-link">Compras</Link>
 						</li>
  
                        

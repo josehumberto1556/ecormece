@@ -1,14 +1,13 @@
 import { Menu } from "../navbar/Menu"
 import Navbar1 from "../navbar/Navbar1"
 import NavbarDos from "../navbar/Navbar2"
-import Productos from "../productos/Productos"
-import Productos2 from "../productos/Productos2"
-import Productos3 from "../productos/Productos3"
+import Productos4 from "../productos/Productos4"
+import Productos5 from "../productos/Productos5"
 import ProductoPopular from "../productos/ProductoPopular"
 import Blog  from "../blog/Blog"
 import Footer  from "../piepagina/Footer"
-import { useUserAuth } from "../context/UsuarioContext";
-
+import Boletin from "../piepagina/Boletin"
+import Blog1 from "../blog/Blog1"
 function Inicio1() {
 
 
@@ -17,11 +16,13 @@ function Inicio1() {
   <>
   	   <NavbarDos/>
 	   <Navbar1/>
-	   <Productos/>
-	   <Productos2/>
-	   <Productos3/>
+	   <Productos4/>
+	   <Productos5/>
+	  
 	   {/*<ProductoPopular/>
-	   <Blog/>*/}
+	   */}
+	   <Blog1/>
+	   <Boletin/>
 	   <Footer/> 
   </>
   );

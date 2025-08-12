@@ -1,3 +1,8 @@
+.button-container {
+    display: flex; /* Habilita Flexbox */
+    justify-content: center; /* Centra los elementos horizontalmente */
+    padding: 20px 0; /* Espaciado superior e inferior */
+}
 .container1 {
     background-color: #fff;
     padding: 4rem;
@@ -36,7 +41,7 @@
   } 
 
   button.boton5{
-    background:linear-gradient(#051126 70%,#203560);
+    background-color:#FFCA4B;
     color:white;
     display: block;
     margin: 0 auto;

@@ -21,8 +21,8 @@ import Detalleproducto from "./productos/detalleProducto"
 import Detalleproducto1 from "./productos/detalleProducto1" 
 import VerProducto from "./productos/VerProducto" 
 import TodosBlog from "./blog/TodosBlog" 
+import TodosBlog1 from "./blog/TodosBlog1" 
 import PerfilNegocio from "./cpanel/modulo_productos1/PerfilNegocio";
-
 import IniciarSeccion    from "./inicioSeccion/IniciarSeccion"
 import {RegistrarUsuario}  from "./inicioSeccion/RegistrarUsuario"
 import Recuperar         from "./inicioSeccion/Recuperar"
@@ -113,6 +113,8 @@ import { MensjaePago } from "./pagescarrito/MensjaePago";
 
 import Compras from "./compras/Compras";
 import { VerCompra } from "./compras/VerCompra";
+import VerNoticia from "./blog/VerNoticia"
+import VerNoticia1 from "./blog/VerNoticia1"
 
 function App() {
   return (
@@ -143,10 +145,13 @@ function App() {
          <Route path="/Contacto"                exact   element={<Contacto/>} />
 		 <Route path="/Contactos"               exact   element={<Contacto1/>} />
          <Route path="/TodosBlog"               exact   element={<TodosBlog/>} />
+		 <Route path="/TodosNoticias"           exact   element={<TodosBlog1/>} />
 		 <Route path="/IniciarSeccion"          exact   element={<IniciarSeccion/>} />
 		 <Route path="/RegistrarUsuario"        exact   element={<RegistrarUsuario/>}/>
 	     <Route path="/RecuperarAcceso"         exact   element={<Recuperar/>}/>
 		 <Route path="/MensajePago"             exact   element={<MensjaePago/>}/>
+		 <Route path="/VerNoticia/:id"          exact   element={<VerNoticia/>}/>
+		 <Route path="/VerNoticias/:id"         exact   element={<VerNoticia1/>}/>
 		 <Route 
 		path="/Comprador" 
 		 element={

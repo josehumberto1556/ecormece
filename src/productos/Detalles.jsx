@@ -9,58 +9,58 @@ export const Detalles=({
 	
 
     return(
-        <div class="row">
-        <div class="col-lg-5 mt-5">
-			<div class="card mb-3">
+        <div className="row">
+        <div className="col-lg-5 mt-5">
+			<div className="card mb-3">
 				<img className="card-img img-fluid" 
 				src={image}
 				alt={nombre} 
 				id="Detalle-producto"/>
 			</div>
-			<div class="row">
+			<div className="row">
 				
 				
-			<div class="col-1 align-self-center">
+			<div className="col-1 align-self-center">
 					<a href="#carouselExampleControls" role="button" data-bs-slide="prev">
-						<i class="text-dark fas fa-chevron-left"></i>
-						<span class="sr-only">Siguiente</span>
+						<i className="text-dark fas fa-chevron-left"></i>
+						<span className="sr-only">Siguiente</span>
 					</a>
 				</div>
 
-				<div id="carouselExampleControls" class="col-8 carousel slide carousel-multi-item" data-bs-ride="carousel">
+				<div id="carouselExampleControls" className="col-8 carousel slide carousel-multi-item" data-bs-ride="carousel">
                 
 				<div className="carousel-inner product-links-wap" role="listbox">
 
                   
 					<div className="carousel-item   active">
-						<div class="row">
-						<div class="col-4">
+						<div className="row">
+						<div className="col-4">
 						<a><img src={image1}   width="200" alt="..."/></a>
 						</div>
 						</div>
 					</div>
 
-					<div class="carousel-item">
-						<div class="row">
-						<div class="col-4">
+					<div className="carousel-item">
+						<div className="row">
+						<div className="col-4">
 							<img src={image2}  width="200" alt="..."/>
 						</div>
 						</div>
 					</div>
 		  
-				<div class="carousel-item">
-				<div class="row">
-					<div class="col-4">
+				<div className="carousel-item">
+				<div className="row">
+					<div className="col-4">
 						<img src={image3}  width="200" alt="..."/>
 					</div>
 					</div>
 				</div>
 			</div>
 
-				<div class="col-1 align-self-center">
+				<div className="col-1 align-self-center">
 					<a href="#carouselExampleControls" role="button" data-bs-slide="next">
-						<i class="text-dark fas fa-chevron-right"></i>
-						<span class="sr-only">Next</span>
+						<i className="text-dark fas fa-chevron-right"></i>
+						<span className="sr-only">Next</span>
 					</a>
 				</div>
 				
@@ -72,41 +72,41 @@ export const Detalles=({
 			</div>
 		</div>
 
-		<div class="col-lg-7 mt-5">
-			<div class="card">
-				<div class="card-body">
-					<h1 class="h2">{nombre}</h1>
-					<p class="h3 py-2">{price}</p>
-					<p class="py-2">
-						<i class="fa fa-star text-warning"></i>
-						<i class="fa fa-star text-warning"></i>
-						<i class="fa fa-star text-warning"></i>
-						<i class="fa fa-star text-warning"></i>
-						<i class="fa fa-star text-secondary"></i>
-						<span class="list-inline-item text-dark">Rating 4.8 | 36 Comments</span>
+		<div className="col-lg-7 mt-5">
+			<div className="card">
+				<div className="card-body">
+					<h1 className="h2">{nombre}</h1>
+					<p className="h3 py-2">{price}</p>
+					<p className="py-2">
+						<i className="fa fa-star text-warning"></i>
+						<i className="fa fa-star text-warning"></i>
+						<i className="fa fa-star text-warning"></i>
+						<i className="fa fa-star text-warning"></i>
+						<i className="fa fa-star text-secondary"></i>
+						<span className="list-inline-item text-dark">Rating 4.8 | 36 Comments</span>
 					</p>
-					<ul class="list-inline">
-						<li class="list-inline-item">
+					<ul className="list-inline">
+						<li className="list-inline-item">
 							<h6>Brand:</h6>
 						</li>
-						<li class="list-inline-item">
-							<p class="text-muted"><strong>Easy Wear</strong></p>
+						<li className="list-inline-item">
+							<p className="text-muted"><strong>Easy Wear</strong></p>
 						</li>
 					</ul>
 
 					<h6>Descripci&oacute;n:</h6>
 					<p>{descripcion}</p>
-					<ul class="list-inline">
-						<li class="list-inline-item">
+					<ul className="list-inline">
+						<li className="list-inline-item">
 							<h6>Avaliable Color :</h6>
 						</li>
-						<li class="list-inline-item">
-							<p class="text-muted"><strong>{color}</strong></p>
+						<li className="list-inline-item">
+							<p className="text-muted"><strong>{color}</strong></p>
 						</li>
 					</ul>
 
 					<h6>Specification:</h6>
-					<ul class="list-unstyled pb-3">
+					<ul className="list-unstyled pb-3">
 						<li>Lorem ipsum dolor sit</li>
 						<li>Amet, consectetur</li>
 						<li>Adipiscing elit,set</li>
@@ -119,12 +119,11 @@ export const Detalles=({
 					<div>
 						<input type="hidden" name="product-title" value="Activewear" />
 						
-						<div class="row pb-3">
+						<div className="row pb-3">
 							<div className="col d-grid"> 
 								<a 
 								className="botonproducto"
-								href="javascript: history.go(-1)"
-								
+								href="javascript: history.go(-1)"								
 								>
 								Volver atrás
 								</a>

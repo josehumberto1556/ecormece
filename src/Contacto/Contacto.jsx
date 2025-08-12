@@ -76,7 +76,7 @@ function Contacto() {
                     <p>info@libertycommerce.com</p>
                     <p>soporte@libertycommerce.com</p>
                 </div>
-                <div class="contact-card">
+                <div className="contact-card">
                     <i className="fas fa-phone-alt" style={{color:"#FFCA4B"}}></i>
                     <h3>Llámanos</h3>
                     {/* <p>+58 (276) 123-4567</p> */}

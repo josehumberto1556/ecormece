@@ -85,6 +85,7 @@ function ListadoCategoria() {
 		          reuired/>
         </form>	
         </div>
+		<p><br/><br/></p>
         {
           
 					filteredData.map(productos=>(

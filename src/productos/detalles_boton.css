@@ -3,8 +3,8 @@ a:hover{
 }
 .botonproducto
 {
-  background:linear-gradient(#051126 70%,#203560) ;
-  color:white;
+  background-color:#FFCA4B;
+  color:black;
   margin-left:200px;  
   text-align: center;
   text-decoration: none;
@@ -12,8 +12,8 @@ a:hover{
 }
 
 button.boton-cargar {
-  background:linear-gradient(#051126 70%,#203560) ;
-  color:white;
+  background:#FFCA4B;
+  color:black;
   display: block;
   margin: 0 auto;
   width:200px;

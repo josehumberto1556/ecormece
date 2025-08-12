@@ -41,7 +41,9 @@ export const ProductoItem2=({id,title,price,image,handleAgregar, handleQuitar, h
 						{added
 					      ? <button
 						    type="button"
-							className="boton-err"
+							style={{
+								     backgroundColor:"#FFCA4B"
+									}}
 							onClick={clickQuitar}
                             >
 							
@@ -49,7 +51,9 @@ export const ProductoItem2=({id,title,price,image,handleAgregar, handleQuitar, h
 							</button>
 							: <button
 							  type="button"
-							  className="boton-ag"
+							  style={{
+								     backgroundColor:"#FFCA4B"
+									}}
 							  onClick={clickAgregar}
 							>
 								Agregar Carrito
