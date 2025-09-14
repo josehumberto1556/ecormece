@@ -90,7 +90,8 @@ export const Carrito = (listaCompras,calcularTotal) => {
                 cantidad_producto:cantidad,
                 nombre_negocio:negocio,
                 tipo_operacion:"compra",
-                mensaje_pago:'',                                    fecha_pago:fecha,
+                venta:'venta',
+				fecha_pago:fecha,
                 correo:email,
                 total:parseFloat(totalDelPedido)
               });

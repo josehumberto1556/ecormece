@@ -53,9 +53,9 @@ export const PerfilNegocios=()=> {
                   setNombreempresa(productoData.correo || ''); // Asegúrate de que el campo exista
                   setDireccionempresa(productoData.direccion || '')
                   setDescripcion(productoData.descripcion || '') 
-                  setRedsocial1(productoData.rede_social || '')
-                  setRedsocial2(productoData.rede_social1 || '')
-                  setRedsocial3(productoData.rede_social2 || '')   
+                  setRedsocial1(productoData.facebook || '')
+                  setRedsocial2(productoData.instagran || '')
+                  setRedsocial3(productoData.titok || '')   
                   setTelefono(productoData.telefono || '')   
                   setI(productoData.foto)		
                 }
@@ -306,7 +306,7 @@ export const PerfilNegocios=()=> {
                           </div>
              </div>	
              
-              <div className='row mover' >
+              <div className='row'>
                  <div className='col-md-8 grid-margin stretch-card'>
                    <div className="card">
                    <div className="card-body">
@@ -336,7 +336,7 @@ export const PerfilNegocios=()=> {
                                   maxlength="20"
                                   value={nombre_usuario}
                                   onChange={manejarCambioNombre}
-                                  
+                                  disabled
                               />
                                {errorNombre && <p style={{color:"red",textAlign:"center"}}>{errorNombre}</p>}
                           </div>                  
@@ -350,7 +350,7 @@ export const PerfilNegocios=()=> {
                              onChange={manejarCambioDireccion}
                              cols="30" 				  
                              rows="5" 
-                             
+                             disabled
                            />
                            {errorDireccion && <p style={{color:"red",textAlign:"center"}}>{errorDireccion}</p>}
                            </div> 
@@ -364,7 +364,7 @@ export const PerfilNegocios=()=> {
                              onChange={manejarCambioDes}
                              cols="30" 				  
                              rows="5" 
-                            
+                             disabled
                            />
                             {errorDescripcion && <p style={{color:"red",textAlign:"center"}}>{errorDescripcion}</p>}
                            </div> 
@@ -378,6 +378,7 @@ export const PerfilNegocios=()=> {
                               rows="5"
                               value={telefono}
                               onChange={manejarCambiosTel}     
+				              disabled
                               />
                                 {errorTelefono && <p style={{color:"red",textAlign:"center"}}>{errorTelefono}</p>}
                           </div>   
@@ -390,8 +391,8 @@ export const PerfilNegocios=()=> {
                                   placeholder="Facebook ..."
                                   maxlength="20"
                                   value={redsocial1}
-                                   onChange={manejarCambiosf}
-                                  
+                                  onChange={manejarCambiosf}
+                                  disabled                                  
                               />
                           </div>
 
@@ -404,7 +405,7 @@ export const PerfilNegocios=()=> {
                                   maxlength="20"
                                   value={redsocial2}
                                   onChange={manejarCambiosi}
-                                  
+                                  disabled
                               />
                           </div>
                              
@@ -417,7 +418,7 @@ export const PerfilNegocios=()=> {
                                   maxlength="20"
                                   value={redsocial3}
                                   onChange={manejarCambiost}
-                                  
+                                  disabled                                  
                               />
                           </div>
                              
@@ -429,14 +430,14 @@ export const PerfilNegocios=()=> {
                           </div> 
       
 
-                             <div className="form-group mb-5">
+	  {/*   <div className="form-group mb-5">
                                <label className="text-black" for="message">Foto Negocio</label>
                                   <input type="file" onChange={manejarCambioImagen}   accept="image/*"/>
                                     {errorImagen && <p style={{ color: 'red' ,textAlign:"center"}}>{errorImagen}</p>}    
                             </div>
 
 
-                          {/* <div className="form-group">
+                           <div className="form-group">
                               <label className="descripcionr">Subir Imagen</label>
                               <input
                                   accept="image/*"
@@ -444,13 +445,14 @@ export const PerfilNegocios=()=> {
                                   className='form-control'
                                 
                               />
-                         </div>  */}
+                         </div>
                      <div align="Center">
                           <button
                            type='button'
                             onClick={subirImagen} 
                             className='btn btn-primary mr-2'>Guardar</button>
                       </div> 
+	  */}
                </form>
       
       

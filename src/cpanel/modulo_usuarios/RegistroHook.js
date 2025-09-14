@@ -146,10 +146,9 @@ export const RegistroHook=()=>{
              const archivoRef=ref(storage,`musuarios/${imagen.name}`)
              const uplo=await uploadBytes(archivoRef,imagen)
              urlDescarga=await getDownloadURL(archivoRef)
-             const hash = CryptoJS.MD5(clave).toString()
              const usuario=await crearUsuario(
                     	 emailu,
-                    	 hash
+                    	 clave
                          ).then((
                          usuarioFirebase)=>
                          {return usuarioFirebase}
@@ -191,9 +190,10 @@ export const RegistroHook=()=>{
              await addDoc( empresaCollection, {
                nombre_usuario:nombreusu,
                email_usuario: emailu, 
-               clave_usuario:hash,
+               clave_usuario:clave,
                nivel_usuario:categoria,
                imagen:urlDescarga,
+               estado:"Habilitado",
                status:1
               } )
               setNombreusu(''); 

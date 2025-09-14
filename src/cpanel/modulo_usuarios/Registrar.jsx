@@ -1,7 +1,6 @@
 import Header  from '../header'
 import Aside   from '../Aside'
 import Footer  from '../Footer'
-import  './formulario.css'
 import { RegistroHook } from './RegistroHook';
 import { Link } from "react-router-dom"
 
@@ -55,7 +54,7 @@ function Registrar() {
 				  </div>
 					  </div>
 </div>	
-        <div className='row mover'>
+        <div className='row' style={{marginRight:1000}}>
             <div className='col-md-8 grid-margin stretch-card'>
              <div className="card">
 			  <div className="card-body">

@@ -1,11 +1,12 @@
 import React,{useState,useEffect}from 'react'
 import {Link,useNavigate}  from 'react-router-dom'
-import { collection, addDoc } from 'firebase/firestore'
+import { collection, addDoc,query,where,getDocs  } from 'firebase/firestore'
 import {db,app} from '../Configfirebase/Configfirebase'	
 import { getStorage,
          ref, 
 		 uploadBytes,
 		 getDownloadURL } from 'firebase/storage'
+
 import Swal  from 'sweetalert2'
 import withReactContent from 'sweetalert2-react-content'		 
 import Navbar  from "../navbar/Navbar"
@@ -33,23 +34,34 @@ function Contacto() {
   const [ codigo_empresa,setCodigoempresa ] = useState('')
   const [ email_empresa,setEmailempresa ] = useState('')
   const [ direccion_empresa,setDireccionempresa ] = useState('')
-  
-  const empresaCollection = collection(db, "contacto")
+  const [ error,setCorreo]=useState("")
      
-      const store = async (e) => {
-    e.preventDefault()
-    await addDoc( empresaCollection, {
-                                        nombre:codigo_empresa, 
-	                                      email:email_empresa,
-									                      comentario:direccion_empresa,
-									 
-		                                  } )
-		MySwal.fire({
+      const store = async (e) =>
+	  {
+		  e.preventDefault()
+	      const empresaCollection = collection(db, "contacto")
+		  const q=query(empresaCollection,where("email","==",email_empresa));
+          const datos=await getDocs(q);  
+          if(!datos.empty)
+		  {
+			  setCorreo("El correo ya existe")
+		  }
+	      else
+		  {
+			  console.log("exito")
+		    await addDoc( empresaCollection,{
+                                            nombre:codigo_empresa, 
+	                                        email:email_empresa,
+									        comentario:direccion_empresa,
+										  }
+             		  )
+		    MySwal.fire({
                       title: "Bien hecho!",
                       text: "Registro con Exito!",
                       icon: "success",
                        button: "Felicitaciones!",
                    });
+		  }//fin del else		   
     
   }   
 
@@ -84,10 +96,10 @@ function Contacto() {
                 </div>
             </div>
 
-            <section class="contact-form-section">
+            <section className="contact-form-section">
                 <h2>Envíanos un Mensaje</h2>
-                <form class="contact-form" onSubmit={store}>
-                    <div class="form-group">
+                <form className="contact-form" onSubmit={store}>
+                    <div className="form-group">
                         <label for="name">Nombre</label>
                         <input 
                         className="form-control"
@@ -100,7 +112,7 @@ function Contacto() {
                         required 
                          />
                     </div>
-                    <div class="form-group">
+                    <div className="form-group">
                         <label for="email">Correo Electrónico</label>
                         <input
                          type="email" 
@@ -110,9 +122,15 @@ function Contacto() {
                          value={email_empresa}
                          onChange={ (e) => setEmailempresa(e.target.value)}
                          required/>
+						             {error &&     
+                      <div className="alert alert-danger alert-dismissible fade show text-center" role="alert">
+                         <strong>Error!</strong> {error}
+                         <button type="button" className="btn-close" data-bs-dismiss="alert" aria-label="Close"></button>
+                      </div>
+                   }
                     </div>
                     
-                    <div class="form-group">
+                    <div className="form-group">
                         <label for="message">Tu Mensaje</label>
                         <textarea 
                           name="mensaje" 

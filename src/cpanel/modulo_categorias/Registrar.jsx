@@ -149,7 +149,7 @@ function RegistrarP() {
 				  </div>
 					  </div>
 </div>	
-        <div className='row mover'>
+        <div className='row'>
             <div className='col-md-8 grid-margin stretch-card'>
              <div className="card">
 			  <div className="card-body">

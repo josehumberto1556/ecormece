@@ -5,6 +5,7 @@ import {db,app} from '../../Configfirebase/Configfirebase'
 import { getStorage,
          ref, 
 		 uploadBytes,
+		 deleteObject,
 		 getDownloadURL } from 'firebase/storage'
 import Header  from '../header'
 import Aside   from '../Aside'
@@ -114,14 +115,17 @@ function EditarN() {
                            button: "Felicitaciones!"
 					    });
 		}
-		else{
+		else
+		{
 		  const empresa = doc(db, "novedades", id)	
-		const n=i	  
-	    const archivoRef=ref(storage,`novedades/${n.name}`)
-	    const uplo=await uploadBytes(archivoRef,n)
-	    urlDescarga=await getDownloadURL(archivoRef)   
+		  const n=i	  
+		  const imageRef = ref(storage, imagen);
+          const eli=await deleteObject(imageRef);
+	      const archivoRef=ref(storage,`novedades/${n.name}`)
+	      const uplo=await uploadBytes(archivoRef,n)
+	      urlDescarga=await getDownloadURL(archivoRef)   
 		
-		const data = { nombre_novedades:nombre_novedades, 
+		  const data = { nombre_novedades:nombre_novedades, 
 	                   fecha:fecha,
 					   descripcion:descripcion,
 					   video:video,
@@ -161,7 +165,7 @@ function EditarN() {
 				  </div>
 					  </div>
 </div>	
-        <div className='row mover'>
+        <div className='row'>
             <div className='col-md-8 grid-margin stretch-card'>
              <div className="card">
 			  <div className="card-body">

@@ -24,7 +24,7 @@ function ListadoPago() {
   const [empre,setEmpresas ]=useState([])
   const [filtereCountries,setfiltereCountries]=useState([])
 
-  const  empresaCollection=collection(db,"pago_administrador")
+  const  empresaCollection=collection(db,"imagenes_subidas_comprobante")
   const getEmpresas=async ()   => {
   const data=await getDocs(empresaCollection)
    //console.log(data.docs)
@@ -39,9 +39,9 @@ function ListadoPago() {
   const activarpago = async (id) => 
   {
  
-    const empresaDoc =await doc(db, "pago_administrador", id)
+    const empresaDoc =await doc(db, "imagenes_subidas_comprobante", id)
     const data = { 
-                    estado:"Cancelado",
+                    pago_administrador:"Cancelado",
                     mensaje_pago:"Pago cancelado",
                     status:1
                  }
@@ -54,7 +54,7 @@ function ListadoPago() {
   const pagoPendiente = async (id) => 
   {
    
-      const empresaDoc =await doc(db, "pago_administrador", id)
+      const empresaDoc =await doc(db, "imagenes_subidas_comprobante", id)
       const data = { 
                       mensaje_pago:"Esta Pendiente Su Pago"
                    }
@@ -121,7 +121,7 @@ function ListadoPago() {
 
   {
     name:"Estado",
-    selector:(row)=>row.estado
+    selector:(row)=>row.pago_administrador
   },
     
   {
@@ -176,13 +176,11 @@ function ListadoPago() {
 				fixedHeaderScrollHeight="450px"
 				selecttablesRow
 				selecttablesRowHighlight
-				actions={<Link to="/ModuloAdministrador/modulo_pago_negocio/Buscarfecha" 
-				className='btn btn-secondary mt-2 mb-2'>Buscar por fecha</Link>    }
 				highlightOnHover
 				subHeader
 				subHeaderComponent={<input 
 				                    type="text" 
-									placeholder="Buscar Ngocio ..." 
+									placeholder="Buscar Negocio ..." 
 									className="w25 form-control" 
 									value={search}
 									onChange={(e)=>setSearch(e.target.value)}/>

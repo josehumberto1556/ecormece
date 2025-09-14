@@ -3,7 +3,8 @@ import {Link,useParams} from 'react-router-dom'
 import { getDoc, updateDoc, doc } from "firebase/firestore"
 import {db,app} from '../../Configfirebase/Configfirebase'	
 import { getStorage,
-         ref, 
+         deleteObject,
+		 ref, 
 		 uploadBytes,
 		 getDownloadURL } from 'firebase/storage'
 import Header  from '../header'
@@ -98,28 +99,31 @@ function EditarN() {
 		  
              const empresa = doc(db, "m_productos", id)
 		    
-              const data = { nombre_productos:nombre_novedades, 
-	                         descripcion:descripcion,
-					         cantidad:video,
-							 precio:precio
-					       }
+          const data = { nombre_productos:nombre_novedades, 
+	                     descripcion:descripcion,
+	     		         cantidad:video,
+						 precio:precio
+				       }
 						   
-              await updateDoc(empresa, data)
-		      MySwal.fire({
-                           title: "Felicitaciones!",
-                           text: "Registro Modificado con exito!",
-                           icon: "danger",
-                           button: "Felicitaciones!"
-					    });
+        await updateDoc(empresa, data)
+		MySwal.fire({
+                        title: "Felicitaciones!",
+                        text: "Registro Modificado con exito!",
+                        icon: "danger",
+                        button: "Felicitaciones!"
+		     	    });
 		}
-		else{
-		  const empresa = doc(db, "m_productos", id)	
-		const n=i	  
-	    const archivoRef=ref(storage,`m_producto/${n.name}`)
-	    const uplo=await uploadBytes(archivoRef,n)
-	    urlDescarga=await getDownloadURL(archivoRef)   
+		else
+		{
+		 const imageRef = ref(storage, imagen);
+         const eli=await deleteObject(imageRef);
+		 const empresa = doc(db, "m_productos", id)	
+		 const n=i	  
+	     const archivoRef=ref(storage,`m_producto/${n.name}`)
+	     const uplo=await uploadBytes(archivoRef,n)
+	     urlDescarga=await getDownloadURL(archivoRef)   
 		
-		const data = { nombre_productos:nombre_novedades, 
+		 const data = { nombre_productos:nombre_novedades, 
 	                   descripcion:descripcion,
 					   cantidad:video,
 					    precio:precio,
@@ -159,7 +163,7 @@ function EditarN() {
 				  </div>
 					  </div>
 </div>	
-        <div className='row mover'>
+        <div className='row'>
             <div className='col-md-8 grid-margin stretch-card'>
              <div className="card">
 			  <div className="card-body">

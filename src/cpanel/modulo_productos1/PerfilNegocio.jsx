@@ -78,14 +78,14 @@ export default function PerfilNegocio()
                     <div className="col-sm-6">
                       <ol className="breadcrumb float-sm-right">
                         <li className="breadcrumb-item">
-                        <a href="javascript:void(0);">Completar Perifl Negocio</a></li>
+                        <a href="javascript:void(0);">Completar Perfil Negocio</a></li>
                         <li className="breadcrumb-item active">Cpanel</li>
                       </ol>
                     </div>
                   </div>
                       </div>
 </div>	
-        <div className='row mover'>
+        <div className='row'>
             <div className='col-md-8 grid-margin stretch-card'>
              <div className="card">
               <div className="card-body">

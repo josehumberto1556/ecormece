@@ -3,7 +3,7 @@ import c    from "../images/envelope-outline.svg"
 import React,{useState,useEffect}from 'react'
 import {Link }   from "react-router-dom";
 import {db} from '../Configfirebase/Configfirebase'		
-import { collection, addDoc } from 'firebase/firestore'
+import { collection, addDoc,query,where,getDocs } from 'firebase/firestore'
 import { getStorage,
          ref, 
          uploadBytes,
@@ -18,24 +18,39 @@ function Boletin() {
 
     const [ nombre,setNombre ] = useState('')
     const [ codigo_empresa,setcodigoempresa ] = useState('')
-    const store = async (e) => {
-     e.preventDefault()
-     
-    const empresaCollection = collection(db, "subscribcion")
-
-  await addDoc( empresaCollection, {
-                                       nombre:nombre,
+    
+	
+	const store = async (e) => 
+	{
+      
+	  e.preventDefault()
+      const empresaCollection = collection(db, "subscribcion")
+      const q=query(empresaCollection,where("email","==",codigo_empresa));
+      const datos=await getDocs(q); 
+	  if(!datos.empty)
+	  {
+	       MySwal.fire({
+          title: "Error",
+          text: "El correo ya está registrado.",
+          icon: "error",
+          button: "Aceptar",
+        });
+	  }
+	  else
+	  {	  
+	  await addDoc( empresaCollection, {
+                                        nombre:nombre,
                                         email:codigo_empresa
                                      } )
                                      
-  MySwal.fire({
+      MySwal.fire({
                     title: "Bien hecho!",
                     text: "subscribción con exito!",
                     icon: "success",
                      button: "Felicitaciones!",
-  //console.log(e.target[0].value)
-    })}
-
+ 
+       })}
+    }//fin del else
     
   return (
     <>
@@ -79,7 +94,7 @@ function Boletin() {
               value={codigo_empresa}
               onChange={ (e) => setcodigoempresa(e.target.value)}
               required								
-             />
+             />		 
             </div>
                                 
                 <div className="col-auto">

@@ -71,6 +71,42 @@ async function editarEmail(nuevoCorreo, claveActual) {
     return signInWithEmailAndPassword(auth, email, password);
   }
 
+//   async function log(email, password) {
+//   try {
+//     // Intenta iniciar sesión con el email y la contraseña
+//     const userCredential = await signInWithEmailAndPassword(auth, email, password);
+    
+//     // Si la promesa se resuelve, el inicio de sesión fue exitoso
+//     const user = userCredential.user;
+//     console.log("¡Inicio de sesión exitoso! Usuario:", user.email);
+    
+//     // Devuelve las credenciales del usuario si es necesario
+//     return userCredential;
+
+//   } catch (error) {
+//     // Si la promesa se rechaza, captura el error
+//     console.error("Error al iniciar sesión:", error.code, error.message);
+
+//     // Usa una estructura 'switch' para dar retroalimentación específica al usuario
+//     switch (error.code) {
+//       case "auth/invalid-email":
+//         // Este error ocurre si el email no tiene un formato válido
+//         throw new Error("El correo electrónico no es válido.");
+//       case "auth/user-disabled":
+//         // Este error indica que el usuario fue deshabilitado en Firebase
+//         throw new Error("El usuario ha sido deshabilitado.");
+//       case "auth/user-not-found":
+//         // El email no está asociado a ninguna cuenta
+//         throw new Error("El correo electrónico no está registrado.");
+//       case "auth/wrong-password":
+//         // La contraseña no coincide con la del usuario
+//         throw new Error("La contraseña es incorrecta.");
+//       default:
+//         // Para cualquier otro tipo de error inesperado
+//         throw new Error("Ocurrió un error inesperado al iniciar sesión.");
+//     }
+//   }
+// }
    function logOut() {
     return signOut(auth);
   }

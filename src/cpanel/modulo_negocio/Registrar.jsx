@@ -21,13 +21,26 @@ const storage=getStorage(app)
 
 function RegistraNegocio() {
 	
-	 const [ codigo_empresa,setcodigoempresa ] = useState('')
+   const [ codigo_empresa,setcodigoempresa ] = useState('')
    const [ nombre_empresa,setNombreempresa ] = useState('')
-   const [ direccion_empresa,setDireccionempresa ] = useState('')
-	 const [ video,setVideo ] = useState('')
+   const [ direccion,setDireccion ] = useState('')
+   const [ descripcion,setDescripcion ] = useState('')
+   const [ facebook,setFacebook ] = useState('')
+   const [ instagran,setInstagran ] = useState('')
+   const [ titok,setTitok ] = useState('')
+   const [empresas,setEmpresas]=useState({
+	   empresa:false,
+	   vendedor:false,
+	   emprendedor:false,
+	   distribuidor:false,
+	   proveedor:false,
+	   empresa:false
+   })
+  
+   const [ video,setVideo ] = useState('')
    const [ i,setI ] = useState(null)	
    const [error, setError] = useState("");
-	 const empresaCollection = collection(db, "novedades")
+	 const empresaCollection = collection(db, "negocios")
    let urlDescarga
    const navigate = useNavigate()
   
@@ -67,7 +80,7 @@ function RegistraNegocio() {
  
   const checkIfImageExists = async (imageName) => {
       try {
-      const imageRef = ref(storage,`novedades/${imageName}`); // Reemplaza 'images' con tu ruta de almacenamiento
+      const imageRef = ref(storage,`negocios/${imageName}`); // Reemplaza 'images' con tu ruta de almacenamiento
       await getDownloadURL(imageRef);
       return true; // La imagen existe
       } catch (error) {
@@ -80,7 +93,13 @@ function RegistraNegocio() {
       }
     };
 
-  
+    const handleCheckboxChange = (event) => {
+    const { name, checked } = event.target;
+    setEmpresas({
+      ...empresas,
+      [name]: checked,
+    });
+  };
 
   const store = async (e) => {
     e.preventDefault()
@@ -100,22 +119,29 @@ function RegistraNegocio() {
      try
      {     
 
-		 const archivoRef=ref(storage,`novedades/${i.name}`)
+	   const selectedEmpresas = Object.keys(empresas).filter(key =>empresas[key]);
+	   const archivoRef=ref(storage,`negocios/${i.name}`)
 	   const uplo=await uploadBytes(archivoRef,i)
 	   urlDescarga=await getDownloadURL(archivoRef)
-    await addDoc( empresaCollection, { nombre_novedades:codigo_empresa, 
-	                                   fecha:nombre_empresa,
-									   descripcion:direccion_empresa,
-									    video:video,
-									   imagen:urlDescarga
-		} )
+       await addDoc( empresaCollection, { 
+	                                   nombre_negocio:codigo_empresa, 
+	                                   direccion:direccion,
+									   descripcion:descripcion,
+									   telefono:video,
+									   foto:urlDescarga,
+									   facebook:facebook,
+									   instagran:instagran,
+									   titok:titok,
+									   empresas:selectedEmpresas
+		                               }
+			   )
 		 MySwal.fire({
                            title: "Felicitaciones!",
                            text: "Registro con exito!",
                            icon: "danger",
                            button: "Felicitaciones!"
 					    });
-        navigate('/ModuloAdministrador/modulo_novedades/ModuloNovedades')
+        //navigate('/ModuloAdministrador/Negocios')
     
   }catch(error){
 		console.log(error)
@@ -125,7 +151,7 @@ function RegistraNegocio() {
 
 
   return (
-      <>
+   <>
 
 	<Aside/>
 
@@ -150,70 +176,192 @@ function RegistraNegocio() {
 					  </div>
 </div>	
     
-    <div className='row mover'>
+    <div className='row'>
 
         <div className='col-md-8 grid-margin stretch-card'>
            <div className="card">
 			      <div className="card-body">
-			       <h4 className="text-center">Registro Novedades</h4><br/>
+			       <h4 className="text-center">Registro Negocio</h4><br/>
              
               <form className="forms-sample"onSubmit={store} >
 
 				       <div className="form-group">
-                        <label for="Categoriar">Nombre Novedades</label>
+                        <label for="Categoriar">Nombre Negocio</label>
                         <textarea
-                            
-                            className='form-control'
-						    placeholder="Nombre Novedades ..."
-                            required
-							value={codigo_empresa}
-                            onChange={ (e) => setcodigoempresa(e.target.value)}
-							 cols="30" 				  
-				             rows="5" 
-							
-                        />
+                        className='form-control'
+						placeholder="Nombre Negocio ..."
+                        required
+						value={codigo_empresa}
+                        onChange={ (e) => setcodigoempresa(e.target.value)}
+						cols="30" 				  
+				        rows="5" 
+			                />
                     </div>                  
+				         
+          <div className="form-group">
+            <label for="Categoriar">Dirección</label>
+            <textarea
+              className='form-control'
+		      placeholder="Dirección Negocio ..."
+             value={direccion}
+                        onChange={ (e) => setDireccion(e.target.value)}
+ 			  required
+			  cols="30" 				  
+			   rows="5" 
+			/>
+         </div>  
 				
-                  <div className="form-group">
-                        <label for="Categoriar">Fecha Novedades</label>
-                        <input
-                            type="date"
-                            className='form-control'
-						                 placeholder="Fecha Novedades ..."
-                            required
-							             value={nombre_empresa}
-                            onChange={ (e) => setNombreempresa(e.target.value)}
-							
-                        />
-                    </div>  
-				
-				
+		 <div className="form-group">
+           <label for="Categoriar">Descripción</label>
+            <textarea
+             className='form-control'
+		     placeholder="Descripción ..."
+			 value={descripcion}
+             onChange={ (e) => setDescripcion(e.target.value)}
+             required
+    		 cols="30" 				  
+			 rows="5" 
+              />
+             </div> 
 					
-					 <div className="form-group">
-                        <label for="Categoriar">Descripción</label>
-                        <textarea
-                            
-                            className='form-control'
-						    placeholder="Descripción ..."
-						    value={direccion_empresa}
-                            onChange={ (e) => setDireccionempresa(e.target.value)}
-                            required
-							 cols="30" 				  
-				            rows="5" 
-                        />
-                    </div> 
+			 <div className="form-group">
+             <label for="Categoriar">Telefono</label>
+              <textarea
+               className='form-control'
+			   placeholder="Telefono ..."
+			   value={video}
+               onChange={ (e) => setVideo(e.target.value)}
+               />
+             </div> 
+
+             <div className="form-group">
+              <label for="Categoriar">Facebook</label>
+               <textarea
+                className='form-control'
+			    placeholder="Facebook ..."
+         		value={facebook}
+               onChange={ (e) => setFacebook(e.target.value)}
+               />
+             </div>         
 					
-					 <div className="form-group">
-                        <label for="Categoriar">Url Video</label>
-                        <textarea
-                            
-                            className='form-control'
-						    placeholder="Url  Video..."
-						    value={video}
-                            onChange={ (e) => setVideo(e.target.value)}
-                            
-                        />
-                    </div> 
+             <div className="form-group">
+              <label for="Categoriar">Instagran</label>
+               <textarea
+                className='form-control'
+				placeholder="Instagran ..."
+				value={instagran}
+               onChange={ (e) => setInstagran(e.target.value)}
+						  
+               />
+             </div>         
+
+             <div className="form-group">
+              <label for="Categoriar">Titok</label>
+               <textarea
+                className='form-control'
+				placeholder="Titok ..."
+				value={titok}
+               onChange={ (e) => setTitok(e.target.value)}		   
+               />
+             </div>         
+		    
+			<div className="form-group mb-5">
+             <label className="text-black" for="message">Tipo Actividad</label>
+             <div className="mb-3 form-check">
+             <input
+              type="checkbox"
+              className="form-check-input"
+               name="vendedor"
+			   checked={empresas.vendedor} onChange={handleCheckboxChange}  
+              
+              
+             />
+              <label 
+               className="form-check-label" 
+               htmlFor="acceptTerms"
+			  >
+             Vendedor
+             </label>
+             </div>
+
+             <div className="mb-3 form-check">
+              <input
+               type="checkbox"
+               className="form-check-input"
+                name="comprador"
+			   checked={empresas.comprador} onChange={handleCheckboxChange}  
+              
+              />
+              <label 
+               className="form-check-label" 
+               htmlFor="acceptTerms">
+                 Comprador
+                </label>
+             </div>
+
+               <div className="mb-3 form-check">
+              <input
+               type="checkbox"
+               className="form-check-input"
+               name="emprendedor"
+			   checked={empresas.emprendedor} onChange={handleCheckboxChange}  
+              
+              />
+              <label 
+               className="form-check-label" 
+               htmlFor="acceptTerms">
+                 Emprendedor
+                </label>
+             </div>
+
+              <div className="mb-3 form-check">
+              <input
+               type="checkbox"
+               className="form-check-input"
+                name="distribuidor"
+			   checked={empresas.distribuidor} onChange={handleCheckboxChange}  
+              
+              />
+              <label 
+               className="form-check-label" 
+               htmlFor="acceptTerms">
+                Distribuidor
+                </label>
+             </div>
+            
+              <div className="mb-3 form-check">
+              <input
+               type="checkbox"
+               className="form-check-input"
+               name="proveedor"
+			   checked={empresas.proveedor} onChange={handleCheckboxChange}  
+              
+              />
+              <label 
+               className="form-check-label" 
+               htmlFor="acceptTerms">
+                 Proveedor
+                </label>
+             </div>
+
+              <div className="mb-3 form-check">
+              <input
+               type="checkbox"
+               className="form-check-input"
+               name="empresa"
+			   checked={empresas.empresa} onChange={handleCheckboxChange}  
+              
+              />
+              <label 
+               className="form-check-label" 
+               htmlFor="acceptTerms">
+                 Empresa
+                </label>
+             </div>
+
+           </div>
+
+
 					
 					 <div className="form-group">
               <label for="Categoriar">Imagen</label>
@@ -240,7 +388,7 @@ function RegistraNegocio() {
                       Guardar
                     </button>
 					          <Link
-                      to="/ModuloAdministrador/modulo_novedades/ModuloNovedades" 
+                      to="/ModuloAdministrador/Negocios" 
                       className='btn btn-primary mr-2'>
                        Regresar
                     </Link>

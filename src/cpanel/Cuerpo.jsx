@@ -1,12 +1,12 @@
 import React from "react";
-import { useUserAuth } from "../context/UsuarioContext";
+import {useUserAuth} from "../context/UsuarioContext";
 
 
 
 const Cuerpo = () => {
  let fechas=new Date()
  const { user } = useUserAuth();
- let nom=user.email
+let nom=user.email
 const fecha=new Date().toLocaleDateString()
   return (
   <div>
@@ -18,8 +18,8 @@ const fecha=new Date().toLocaleDateString()
           <div className="col-12">
             <div className="callout callout-info">
               <h5><i className="fas fa-info"></i> Nota:</h5>
-             Bienvenido a el cpanel Adimistrativo usuario:  
-			 {nom}
+             Bienvenido a el cpanel Adimistrativo usuario:{nom}
+			 
             </div>
 			
 			<div className="invoice p-3 mb-3">

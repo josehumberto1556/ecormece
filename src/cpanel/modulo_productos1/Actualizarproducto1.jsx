@@ -1,4 +1,4 @@
-import React,{useState,useEffect}from 'react'
+import {useState,useEffect}from 'react'
 import {Link,useParams} from 'react-router-dom'
 import { getDoc, updateDoc, doc } from "firebase/firestore"
 import {db,app} from '../../Configfirebase/Configfirebase'	
@@ -7,7 +7,7 @@ import { getStorage,
          uploadBytes,
          getDownloadURL } from 'firebase/storage'
 import Header  from '../header'
-import Aside   from '../Aside'
+import Aside1  from '../Aside1'
 import Footer  from '../Footer'
 import './formulario.css'
 import Swal  from 'sweetalert2'
@@ -65,7 +65,7 @@ export const Actualizarproducto1=()=> {
     
     return (
          <div className="hold-transition sidebar-mini layout-fixed">
-         <Aside/>
+         <Aside1/>
          <div className="wrapper">
          
           <div className="main-panel" style={{marginTop:"80px"}}>
@@ -85,7 +85,7 @@ export const Actualizarproducto1=()=> {
                   </div>
                       </div>
   </div>	
-          <div className='row mover'>
+          <div className='row'>
               <div className='col-md-8 grid-margin stretch-card'>
                <div className="card">
               <div className="card-body">
@@ -105,37 +105,7 @@ export const Actualizarproducto1=()=> {
                           />
                       </div>                  
                  
-                
-                    
-                     <div className="form-group">
-                       <label for="Categoriar">Descripción</label>
-                       <textarea
-                        className='form-control'
-                        placeholder="Descripción ..."
-                        required
-                        value={descripcion}
-                        onChange={(e)=>setDescripcion(e.target.value)}
-                        cols="30" 				  
-                         rows="5" 
-                         disabled  
-                       />
-                      </div> 
                  
-                    
-                    <div className="form-group">
-                      <label for="Categoriar">Precio</label>
-                       <input 
-                        type="text" 
-                        name="precio" 
-                        placeholder="Precio" 
-                        minlength="1" 
-                        maxlength="6" size="10"
-                        className='form-control'
-                        value={precio}
-                        onChange={ (e) => setPrecio(e.target.value)}
-                        disabled/>
-                      </div> 
-                    
                     <div className="form-group">
                      <label for="Categoriar">Categoria</label>
                      <textarea

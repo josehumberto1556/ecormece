@@ -24,7 +24,7 @@ function ListadoNeg() {
   const [empre,setEmpresas ]=useState([])
   const [filtereCountries,setfiltereCountries]=useState([])
 
-  const  empresaCollection=collection(db,"pago_producto")
+  const  empresaCollection=collection(db,"imagenes_subidas_comprobante")
   const getEmpresas=async ()   => {
   const data=await getDocs(empresaCollection)
    //console.log(data.docs)
@@ -36,83 +36,29 @@ function ListadoNeg() {
    )
      }
 
-  const activarpago = async (id) => 
-  {
- 
-    const empresaDoc =await doc(db, "pago_producto", id)
-    const data = { 
-                    estado:"activo",
-                    mensaje_pago:"Pago cancelado"
-                 }
-         await updateDoc(empresaDoc, data)
-          
-   }	 
-
-
-   
-  const pagoPendiente = async (id) => 
-    {
-   
-      const empresaDoc =await doc(db, "pago_producto", id)
-      const data = { 
-                      mensaje_pago:"Esta Pendiente Su Pago"
-                   }
-           await updateDoc(empresaDoc, data)
-            
-     }
-
-
-  const activar = (id) => {
-    MySwal.fire({
-      title: '¿Esta Seguro de Activar este Comprobante de pago?',
-      text: "",
-      icon: 'warning',
-      showCancelButton: true,
-      confirmButtonColor: '#d33',
-      cancelButtonColor: '#3085d6',
-      confirmButtonText: 'Activar'
-    }).then((result) => {
-      if (result.isConfirmed) { 
-        //llamamos a la fcion para eliminar   
-        activarpago(id)               
-        Swal.fire(
-          'Comprobante!',
-          'Validado.',
-          'Con Exito'
-        )
-      }
-    })    
-  }
-
-  const Enviarmensaje = (id) => {
-    MySwal.fire({
-      title: '¿Esta Seguro de Activar este Comprobante de pago?',
-      text: "",
-      icon: 'warning',
-      showCancelButton: true,
-      confirmButtonColor: '#d33',
-      cancelButtonColor: '#3085d6',
-      confirmButtonText: 'Activar'
-    }).then((result) => {
-      if (result.isConfirmed) { 
-        //llamamos a la fcion para eliminar   
-        pagoPendiente(id)               
-        Swal.fire(
-          'Esta!',
-          'Pendienete.',
-          'el pago'
-        )
-      }
-    })    
-  }
-
+   	 
   const columns= [
   
   {
     name:"Nombre negocio",
     selector:(row)=>row.nombre_negocio
   },
-
+  
+  {
+    name:"Venta negocio",
+    selector:(row)=>row.venta
+  },
+  
+  
+  {
+    name:"Correo",
+    selector:(row)=>row.correo
+  },
+	
+	{
+    name:"Compra al negocio",
+    selector:(row)=>row.tipo_operacion
+  },
   {
     name:"Nombre Productos",
     selector:(row)=>row.nombre_producto
@@ -123,50 +69,22 @@ function ListadoNeg() {
     selector:(row)=>row.fecha_pago
   },
 
-  {
-    name:"Estado",
-    selector:(row)=>row.estado
-  },
-
-  {
-    name:"tipo Operación",
-    selector:(row)=>row.tipo_operacion
-  },
-  
-  {
-    name:"Pago  Pendiente",
-    selector:(row)=>row.mensaje_pago
-    },
-
-  {
+   {
     name:"Comprabante de pago negocio",
     selector:(row)=>
-    <a href={row.imagen} target="_blank">
-      <img src={row.imagen} width="100" height="100"/>
+    <a href={row.url} target="_blank">
+      <img src={row.url} width="100" height="100"/>
     </a>,
     sortable:true
     },
-
-    
-  {
-    name:"Comprabante de pago  administrador",
-    selector:(row)=>
-    <a href={row.imagena} target="_blank">
-     <img src={row.imagena} width="100" height="100"/>
-    </a>,
-    sortable:true
-    },
-    
-    {
-      cell:(row)=><button onClick={ () => { activar(row.id) } } className="btn btn-danger">Activar</button>
-    },
-
-    {
-      cell:(row)=><button onClick={ () => { Enviarmensaje(row.id) } } className="btn btn-danger">Enviar Mensaje</button>
+	
+	{
+	  name:"Ver Detalle comprobante",
+	  cell:(row)=><Link 
+	  to={`/ModuloAdministrador/modulo_pago_negocio/DetalleComprobante/${row.id}`} 
+	  className="btn btn-light">Detalle Comprobante</Link>
     }
-
-
-  
+	
   ]
 	
   useEffect( () => {
@@ -175,7 +93,7 @@ function ListadoNeg() {
   
     useEffect( () => {
     const result=empre.filter((country)=>{
-	  return country.nombre_negocio.toLowerCase().match(search.toLowerCase())
+	  return country.correo.toLowerCase().match(search.toLowerCase())
 	})
 	setfiltereCountries(result)
   }, [search] ) 
@@ -200,8 +118,8 @@ function ListadoNeg() {
 				fixedHeaderScrollHeight="450px"
 				selecttablesRow
 				selecttablesRowHighlight
-				actions={<Link to="/ModuloAdministrador/modulo_pago_negocio/Buscarfecha" 
-				className='btn btn-secondary mt-2 mb-2'>Buscar por fecha</Link>    }
+				//actions={<Link to="/ModuloAdministrador/modulo_pago_negocio/Buscarfecha" 
+				//className='btn btn-secondary mt-2 mb-2'>Buscar por fecha</Link>    }
 				highlightOnHover
 				subHeader
 				subHeaderComponent={<input 

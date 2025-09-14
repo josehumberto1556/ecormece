@@ -3,6 +3,7 @@ import {Link,useParams} from 'react-router-dom'
 import { getDoc, updateDoc, doc } from "firebase/firestore"
 import {db,app} from '../../Configfirebase/Configfirebase'	
 import { getStorage,
+         deleteObject,
          ref, 
 		 uploadBytes,
 		 getDownloadURL } from 'firebase/storage'
@@ -30,32 +31,39 @@ function EditarNegocio() {
   const [ i,setI ] = useState(null)
   const [error, setError] = useState("");
   const maxSize = 5 * 1024 * 1024; // 5 MB en bytes 
-  const [acceptTerms, setAcceptTerms] = useState(false);
-  const [receiveUpdates, setReceiveUpdates] = useState(false);
-  const [empresaUpdates, setEmpresaUpdates] = useState(false);
-  const [distribuidorUpdates, setDistribuidorUpdates] = useState(false);
-  const [proveedorUpdates, setProveedorUpdates] = useState(false);
-  const [emprendedorUpdates, setEmprendedorUpdates] = useState(false);
+   const [empresas,setEmpresas]=useState({
+	   empres:false,
+	   vendedor:false,
+	   emprendedor:false,
+	   distribuidor:false,
+	   proveedor:false,
+	   empresa:false
+   })
   const {id} = useParams()
     
 	const getEmpresaById = async (id) => {
-        const empresa = await getDoc( doc(db, "negocios", id) )
-        if(empresa.exists()) {
+        const empres = await getDoc( doc(db, "negocios", id) )
+        if(empres.exists()) 
+		{
             //console.log(product.data())
-            setcodigoempresa(empresa.data().nombre_negocio)    
-            setNombreempresa(empresa.data().direccion)
-			      setDescripcion(empresa.data().descripcion) 
-            setImagen(empresa.data().foto)
-			      setVideo(empresa.data().telefono)	
-            setRed(empresa.data().rede_social)	
-            setRed1(empresa.data().rede_social1)	
-            setRed2(empresa.data().rede_social2)	
-            setAcceptTerms(empresa.data().vendedor)
-            setReceiveUpdates(empresa.data().comprador)
-            setEmpresaUpdates(empresa.data().empresa)
-            setProveedorUpdates(empresa.data().proveedor)
-            setDistribuidorUpdates(empresa.data().distribuidor)
-            setEmprendedorUpdates(empresa.data().emprendedor)
+          const fetchedData = empres.data();
+          // Mapeamos los hobbies de la base de datos a nuestro estado local
+          const newEmpresa = { ...empresas };
+          fetchedData.empresas.forEach(empr => {
+            newEmpresa[empr] = true;
+          });
+          setEmpresas(newEmpresa);  
+       
+          
+			setcodigoempresa(empres.data().nombre_negocio)    
+            setNombreempresa(empres.data().direccion)
+			setDescripcion(empres.data().descripcion) 
+            setImagen(empres.data().foto)
+			setVideo(empres.data().telefono)	
+            setRed(empres.data().facebook)	
+            setRed1(empres.data().instagran)	
+            setRed2(empres.data().titiok)	
+         
         }else{
             console.log('El  no existe')
         }
@@ -66,7 +74,13 @@ function EditarNegocio() {
         // eslint-disable-next-line
     }, [])
   
-	
+	 const handleCheckboxChange = (event) => {
+    const { name, checked } = event.target;
+    setEmpresas({
+      ...empresas,
+      [name]: checked,
+    });
+  };
 	 let urlDescarga
      let archivoLocalname
 
@@ -117,12 +131,17 @@ function EditarNegocio() {
 		{
 			
 		  
-             const empresa = doc(db, "novedades", id)
-		    
-              const data = { nombre_novedades:nombre_novedades, 
-	                         fecha:fecha,
+             const empresa = doc(db, "negocios", id)
+             const selectedHobbies = Object.keys(empresas).filter(key => empresas[key]);        		 
+              const data = { 
+			                 nombre_negocio:nombre_novedades, 
+	                         direccion:fecha,
+							 empresas:selectedHobbies,
 					         descripcion:descripcion,
-					         video:video
+					         telefono:video,
+							 facebook:red,
+							 instagran:red1,
+							 titok:red2
 					       }
 						   
               await updateDoc(empresa, data)
@@ -133,19 +152,29 @@ function EditarNegocio() {
                            button: "Felicitaciones!"
 					    });
 		}
-		else{
-		  const empresa = doc(db, "novedades", id)	
-		const n=i	  
-	    const archivoRef=ref(storage,`novedades/${n.name}`)
-	    const uplo=await uploadBytes(archivoRef,n)
-	    urlDescarga=await getDownloadURL(archivoRef)   
+		else
+		{
 		
-		const data = { nombre_novedades:nombre_novedades, 
-	                   fecha:fecha,
-					   descripcion:descripcion,
-					   video:video,
-					   imagen:urlDescarga
-					}
+		 const imageRef = ref(storage, imagen);
+         const eli=await deleteObject(imageRef);
+ 		 const empresa = doc(db, "negocios", id)	
+		 const n=i	  
+	     const archivoRef=ref(storage,`negocios/${n.name}`)
+	     const uplo=await uploadBytes(archivoRef,n)
+	     urlDescarga=await getDownloadURL(archivoRef)   
+		 const selectedHobbies = Object.keys(empresas).filter(key => empresas[key]);        		 
+         const data = { 
+			                 nombre_negocio:nombre_novedades, 
+	                         direccion:fecha,
+							 empresas:selectedHobbies,
+					         descripcion:descripcion,
+					         telefono:video,
+							 facebook:red,
+							 foto:urlDescarga,
+							 instagran:red1,
+							 titok:red2
+					       }
+			
         await updateDoc(empresa, data)
          MySwal.fire({
                            title: "Felicitaciones!",
@@ -180,7 +209,7 @@ function EditarNegocio() {
 				  </div>
 					  </div>
 </div>	
-        <div className='row mover'>
+        <div className='row'>
             <div className='col-md-8 grid-margin stretch-card'>
              <div className="card">
 			  <div className="card-body">
@@ -228,23 +257,22 @@ function EditarNegocio() {
                     </div> 
 					
 					
-					 <div className="form-group">
-             <label for="Categoriar">Telefono</label>
+			 <div className="form-group">
+              <label for="Categoriar">Telefono</label>
               <textarea
                className='form-control'
-						   placeholder="Url  Video..."
-						   value={video}
+			   placeholder="Url  Video..."
+			   value={video}
                onChange={ (e) => setVideo(e.target.value)}
-               
-               />
-                    </div> 
+                />
+             </div> 
 
              <div className="form-group">
               <label for="Categoriar">Facebook</label>
                <textarea
                 className='form-control'
-						    placeholder="Facebook ..."
-						    value={red}
+				placeholder="Facebook ..."
+				value={red}
                 onChange={ (e) => setRed(e.target.value)}
                />
              </div>         
@@ -253,8 +281,8 @@ function EditarNegocio() {
               <label for="Categoriar">Instagran</label>
                <textarea
                 className='form-control'
-						    placeholder="Facebook ..."
-						    value={red1}
+				placeholder="Instagran ..."
+				value={red1}
                 onChange={ (e) => setRed1(e.target.value)}
                />
              </div>         
@@ -263,32 +291,27 @@ function EditarNegocio() {
               <label for="Categoriar">Titok</label>
                <textarea
                 className='form-control'
-						    placeholder="Titok ..."
-						    value={red2}
+				placeholder="Titok ..."
+				value={red2}
                 onChange={ (e) => setRed2(e.target.value)}
                />
              </div>         
-					
-					
-
-						 <div className="form-group">
-               <label for="Categoriar">Imagen</label>
-                 <img src={imagen} width="100"  height="100"/>
-              </div> 
-					
-            <div className="form-group mb-5">
+			
+<div className="form-group mb-5">
              <label className="text-black" for="message">Tipo Actividad</label>
              <div className="mb-3 form-check">
              <input
               type="checkbox"
               className="form-check-input"
-              id="acceptTerms"
-               checked={acceptTerms}
+               name="vendedor"
+			   checked={empresas.vendedor} onChange={handleCheckboxChange}  
+              
               
              />
               <label 
                className="form-check-label" 
-               htmlFor="acceptTerms">
+               htmlFor="acceptTerms"
+			  >
              Vendedor
              </label>
              </div>
@@ -297,9 +320,9 @@ function EditarNegocio() {
               <input
                type="checkbox"
                className="form-check-input"
-               id="receiveUpdates"
-              checked={receiveUpdates}
-              //  onChange={handleUpdatesChange}
+                name="comprador"
+			   checked={empresas.comprador} onChange={handleCheckboxChange}  
+              
               />
               <label 
                className="form-check-label" 
@@ -312,9 +335,9 @@ function EditarNegocio() {
               <input
                type="checkbox"
                className="form-check-input"
-               id="receiveUpdates"
-              checked={emprendedorUpdates}
-              //  onChange={handleUpdatesChange}
+               name="emprendedor"
+			   checked={empresas.emprendedor} onChange={handleCheckboxChange}  
+              
               />
               <label 
                className="form-check-label" 
@@ -327,9 +350,9 @@ function EditarNegocio() {
               <input
                type="checkbox"
                className="form-check-input"
-               id="receiveUpdates"
-              checked={distribuidorUpdates}
-              //  onChange={handleUpdatesChange}
+                name="distribuidor"
+			   checked={empresas.distribuidor} onChange={handleCheckboxChange}  
+              
               />
               <label 
                className="form-check-label" 
@@ -342,9 +365,9 @@ function EditarNegocio() {
               <input
                type="checkbox"
                className="form-check-input"
-               id="receiveUpdates"
-              checked={proveedorUpdates}
-              //  onChange={handleUpdatesChange}
+               name="proveedor"
+			   checked={empresas.proveedor} onChange={handleCheckboxChange}  
+              
               />
               <label 
                className="form-check-label" 
@@ -357,9 +380,9 @@ function EditarNegocio() {
               <input
                type="checkbox"
                className="form-check-input"
-               id="receiveUpdates"
-              checked={empresaUpdates}
-              //  onChange={handleUpdatesChange}
+               name="empresa"
+			   checked={empresas.empresa} onChange={handleCheckboxChange}  
+              
               />
               <label 
                className="form-check-label" 
@@ -368,7 +391,15 @@ function EditarNegocio() {
                 </label>
              </div>
 
-           </div>
+           </div>			
+					
+
+						 <div className="form-group">
+               <label for="Categoriar">Imagen</label>
+                 <img src={imagen} width="100"  height="100"/>
+              </div> 
+					
+            
 
 
 					 <div className="form-group">

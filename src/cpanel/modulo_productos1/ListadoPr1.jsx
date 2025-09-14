@@ -4,8 +4,11 @@ import {collection,
         getDocs,
 		getDoc,
 		deleteDoc,
-		doc} from 'firebase/firestore'
-    import { ref, deleteObject,getStorage, } from 'firebase/storage';
+		doc,
+		query,
+		where} from 'firebase/firestore'
+import { ref, deleteObject,getStorage, } from 'firebase/storage';
+import {useUserAuth} from "../../context/UsuarioContext";
 import {app,db} from '../../Configfirebase/Configfirebase'		
 import DataTable from 'react-data-table-component'
 import Swal  from 'sweetalert2'
@@ -22,14 +25,25 @@ function ListadoPr1() {
   const [empre,setEmpresas ]=useState([])
   const [empre1,setEmpresas1 ]=useState([])
   const [filtereCountries,setfiltereCountries]=useState([])
-
+  const { user } = useUserAuth();
+  let correo=user.email
   const  empresaCollection=collection(db,"m_productos")
   const getEmpresas=async ()   => {
-  const data=await getDocs(empresaCollection)
+   const q = query(
+          empresaCollection,
+          where("nombre_usuario", "==", correo) // 👈 Aquí está la cláusula WHERE
+        );
+  const data=await getDocs(q)
+   
    //console.log(data.docs)
    setEmpresas(
        data.docs.map( (doc) => ( {...doc.data(),id:doc.id}))
    )
+   
+      setEmpresas1(
+    data.docs.map( (doc) => ( {...doc.data(),id:doc.id}))
+)
+   
    setfiltereCountries(
        data.docs.map( (doc) => ( {...doc.data(),id:doc.id}))
    )

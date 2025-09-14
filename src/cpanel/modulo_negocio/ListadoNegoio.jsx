@@ -5,6 +5,7 @@ import {collection,
 		getDoc,
 		deleteDoc,
 		doc} from 'firebase/firestore'
+import { getStorage,deleteObject,ref} from 'firebase/storage'
 import {app,db} from '../../Configfirebase/Configfirebase'		
 import DataTable from 'react-data-table-component'
 import Swal  from 'sweetalert2'
@@ -21,7 +22,7 @@ function ListadoNegocio() {
   const [search,setSearch ]=useState([])
   const [empre,setEmpresas ]=useState([])
   const [filtereCountries,setfiltereCountries]=useState([])
-	
+  const storage=getStorage(app)
   const  empresaCollection=collection(db,"negocios")
   const getEmpresas=async ()   => {
   const data=await getDocs(empresaCollection)
@@ -34,12 +35,14 @@ function ListadoNegocio() {
    )
      }
 
-  const deleteempresa = async (id) => {
-   const empresaDoc = doc(db, "novedades", id)
+  const deleteempresa = async (id,imagen) => {
+   const imageRef = ref(storage, imagen);
+   const eli=await deleteObject(imageRef);
+   const empresaDoc = doc(db, "negocios", id)
    await deleteDoc(empresaDoc)
     getEmpresas()
   }	 
-  const confirmDelete = (id) => {
+  const confirmDelete = (id,imagen) => {
     MySwal.fire({
       title: '¿Esta Seguro de Eliminar esta Registro?',
       text: "",
@@ -51,7 +54,7 @@ function ListadoNegocio() {
     }).then((result) => {
       if (result.isConfirmed) { 
         //llamamos a la fcion para eliminar   
-        deleteempresa(id)               
+        deleteempresa(id,imagen)               
         Swal.fire(
           'Eliminado!',
           'Registro Eliminado.',
@@ -61,15 +64,14 @@ function ListadoNegocio() {
     })    
   }
   
-  const columns= [
+    const columns= [
   
   {
 	name:"Nombre Negocio",
 	selector:(row)=>row.nombre_negocio.substring(0, 20)
   },
   
-    
-  {
+   {
 	name:"Dirección",
 	selector:(row)=>row.direccion.substring(0, 20)
   },
@@ -78,20 +80,11 @@ function ListadoNegocio() {
 	name:"Descripción",
 	selector:(row)=>row.descripcion.substring(0, 20)
   },
-  
-   
-  {
-	name:"Metodo de Pago",
-	selector:(row)=>row.metodos_pago.substring(0, 20)
-  },
-  
-  
-  {
+   {
 	name:"Imagen",
 	selector:(row)=><img src={row.foto} width="100" height="100"/>,
 	sortable:true
   },
-  
   {
 	name:"Modificar",
 	cell:(row)=><Link 
@@ -100,12 +93,10 @@ function ListadoNegocio() {
   },
    {
 	 name:"Eliminar",
-     cell:(row)=><button onClick={ () => { confirmDelete(row.id) } } className="btn btn-danger">Eliminar</button>
+     cell:(row)=><button onClick={ () => { confirmDelete(row.id,row.foto) } } className="btn btn-danger">Eliminar</button>
 
    }
-  
   ]
-	
   useEffect( () => {
     getEmpresas()
   }, [] )
@@ -143,14 +134,13 @@ function ListadoNegocio() {
 				className='btn btn-secondary mt-2 mb-2'>Nuevo Registro</Link>    }
 				highlightOnHover
 				subHeader
-				subHeaderComponent={
-                             <input 
-				                       type="text" 
-									             placeholder="Buscar Negocio ..." 
-									             className="w25 form-control" 
-									             value={search}
-									             onChange={(e)=>setSearch(e.target.value)}/>
-									         }
+				subHeaderComponent={<input 
+				                    type="text" 
+									placeholder="Buscar Novedades ..." 
+									className="w25 form-control" 
+									value={search}
+									onChange={(e)=>setSearch(e.target.value)}/>
+									}
 				/>
 		          
 		       </div>

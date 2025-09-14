@@ -107,6 +107,10 @@ import MensajeAdministrador from "./cpanel/pago_administrador/MensajeAdministrad
 import ListadoNegocio from "./cpanel/modulo_negocio/ListadoNegoio";
 import RegistraNegocio from "./cpanel/modulo_negocio/Registrar";
 import EditarNegocio from "./cpanel/modulo_negocio/Editar";
+import DetalleComprobante from "./cpanel/modulo_negocio/DetalleComprobante"
+
+import DetalleComprobante1 from "./cpanel/modulo_negocio/DetalleComprobante1"
+
 
 import ListadoPago from "./cpanel/modulo_pago_negocio/ListadoPago";
 import { MensjaePago } from "./pagescarrito/MensjaePago";
@@ -152,6 +156,14 @@ function App() {
 		 <Route path="/MensajePago"             exact   element={<MensjaePago/>}/>
 		 <Route path="/VerNoticia/:id"          exact   element={<VerNoticia/>}/>
 		 <Route path="/VerNoticias/:id"         exact   element={<VerNoticia1/>}/>
+		 <Route 
+		 path="/ModuloAdministrador/modulo_pago_negocio/DetalleComprobante/:id"  
+		 exact
+		 element={<DetalleComprobante/>}/>  
+		  <Route 
+		 path="/ModuloAdministrador/modulo_pago_negocio/DetalleComprobantes/:id"  
+		 exact
+		 element={<DetalleComprobante1/>}/>  
 		 <Route 
 		path="/Comprador" 
 		 element={

@@ -5,7 +5,7 @@ import {collection,
 		getDoc,
 		deleteDoc,
 		doc} from 'firebase/firestore'
-    import { ref, deleteObject,getStorage, } from 'firebase/storage';
+import { ref, deleteObject,getStorage } from 'firebase/storage';
 import {app,db} from '../../Configfirebase/Configfirebase'		
 import DataTable from 'react-data-table-component'
 import Swal  from 'sweetalert2'
@@ -22,6 +22,7 @@ function ListadoPr() {
   const [empre,setEmpresas ]=useState([])
   const [empre1,setEmpresas1 ]=useState([])
   const [filtereCountries,setfiltereCountries]=useState([])
+ 
   const  empresaCollection=collection(db,"m_productos")
   const getEmpresas=async ()   => {
   const data=await getDocs(empresaCollection)
@@ -37,17 +38,38 @@ function ListadoPr() {
    )
      }
 
-  const deleteempresa = async (id,imageurl) => {
-  const empresaDoc = doc(db, "m_productos", id)
-  const ima=`${imageurl}`
-  const imageRef = ref(storage,ima);
- //Eiminar el archivo
+  const deleteempresa = async (id,imagenurl) =>
+  {
+    const imageRef = ref(storage, imagenurl);
+    const eli=await deleteObject(imageRef);
+    const deletionPromises = empre.map(async (imageDoc) =>
+    {
+	   if (
+	        !imageDoc.storagePath ||
+			typeof imageDoc.storagePath !== 'string' 
+			|| imageDoc.storagePath.trim() === '')
+		    {
+              console.warn(`Documento ID: ${imageDoc.id} no tiene una storagePath válida. Saltando eliminación de Storage.`);
+            }   
+	  const imageRef1= ref(storage, imageDoc.storagePath);
+	  try
+	  {
+          await Promise.all([deleteObject(imageRef1)]);
+          return { id: imageDoc.id, status: 'fulfilled' };
+      }
+	  catch(error)
+	  {
+          console.error(`Error al eliminar (Storage/Firestore) para ID ${imageDoc.id}:`, error);
+          return { id: imageDoc.id, status: 'rejected', reason: error.message }
+       }
+    })//fin del deletion
+ 
+      const results = await Promise.allSettled(deletionPromises);
+ const empresaDoc = doc(db, "m_productos", id)
  await deleteDoc(empresaDoc)
- await deleteObject(imageRef);
-
-    getEmpresas()
+ getEmpresas()
   }	 
-  const confirmDelete = (id,imageurl) => {
+  const confirmDelete = (id,imagenurl) => {
     MySwal.fire({
       title: '¿Esta Seguro de Eliminar esta Registro?',
       text: "",
@@ -59,7 +81,7 @@ function ListadoPr() {
     }).then((result) => {
       if (result.isConfirmed) { 
         //llamamos a la fcion para eliminar   
-        deleteempresa(id,imageurl)               
+        deleteempresa(id,imagenurl)               
         Swal.fire(
           'Eliminado!',
           'Registro Eliminado.',

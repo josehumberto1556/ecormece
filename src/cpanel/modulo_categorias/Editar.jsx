@@ -5,7 +5,8 @@ import {db,app} from '../../Configfirebase/Configfirebase'
 import { getStorage,
          ref, 
 		 uploadBytes,
-		 getDownloadURL } from 'firebase/storage'		
+		 getDownloadURL,
+         deleteObject} from 'firebase/storage'		
 import Header  from '../header'
 import Aside   from '../Aside'
 import Footer  from '../Footer'
@@ -100,7 +101,9 @@ function EditarP() {
   else{
     const empresa = doc(db, "categoria", id)	
     const n=i	  
-    const archivoRef=ref(storage,`categoria/${n.name}`)
+    const imageRef = ref(storage,nombre_empresa);
+    const eli=await deleteObject(imageRef);
+	const archivoRef=ref(storage,`categoria/${n.name}`)
     const uplo=await uploadBytes(archivoRef,n)
     urlDescarga=await getDownloadURL(archivoRef)   
   
@@ -142,7 +145,7 @@ function EditarP() {
 				  </div>
 					  </div>
 </div>	
-        <div className='row mover'>
+        <div className='row'>
             <div className='col-md-8 grid-margin stretch-card'>
              <div className="card">
 			  <div className="card-body">

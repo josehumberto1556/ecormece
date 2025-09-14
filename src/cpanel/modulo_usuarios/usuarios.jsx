@@ -2,10 +2,13 @@ import React,{useState,useEffect}from 'react'
 import {Link}      from 'react-router-dom'
 import {collection,
         getDocs,
-		getDoc,
-		deleteDoc,
-		doc} from 'firebase/firestore'
-import {app,db} from '../../Configfirebase/Configfirebase'		
+		    getDoc,
+		   deleteDoc,
+		   doc,
+      updateDoc} from 'firebase/firestore'
+import { getStorage, ref, deleteObject } from 'firebase/storage';
+import { deleteUser } from 'firebase/auth';
+import {app,db,auth} from '../../Configfirebase/Configfirebase'		
 import DataTable from 'react-data-table-component'
 import Swal  from 'sweetalert2'
 import withReactContent from 'sweetalert2-react-content'
@@ -33,33 +36,80 @@ function Usuarios() {
    )
      }
 
-  const deleteempresa = async (id) => {
-   const empresaDoc = doc(db, "usuarios", id)
-   await deleteDoc(empresaDoc)
+  const deleteempresa = async (id) => 
+  {
+	  
+    if(!id)
+    {
+      console.log("el id del usuario no existe")
+    }//fin del if id
+   
+    const empresa=doc(db, "usuarios", id)
+    const data = { estado:"Inabilitado"}
+    await updateDoc(empresa, data)
     getEmpresas()
+		
   }	 
+
+  const activar = async (id) => 
+  {
+	  
+    if(!id)
+    {
+      console.log("el id del usuario no existe")
+    }//fin del if id
+   
+    const empresa=doc(db, "usuarios", id)
+    const data = { estado:"Haabilitado"}
+    await updateDoc(empresa, data)
+    getEmpresas()
+		
+  }	 
+
   const confirmDelete = (id) => {
     MySwal.fire({
-      title: '¿Esta Seguro de Eliminar esta Registro?',
+      title: '¿Esta Seguro de Inabilitar este Registro?',
       text: "",
       icon: 'warning',
       showCancelButton: true,
       confirmButtonColor: '#d33',
       cancelButtonColor: '#3085d6',
-      confirmButtonText: 'Eliminar'
+      confirmButtonText: 'Habilitar'
     }).then((result) => {
       if (result.isConfirmed) { 
         //llamamos a la fcion para eliminar   
         deleteempresa(id)               
         Swal.fire(
-          'Eliminado!',
-          'Registro Eliminado.',
+          'Inabilitando',
+          'Usuario Inabilitado.',
           'Con Exito'
         )
       }
     })    
   }
   
+ const confirmActivar = (id) => {
+    MySwal.fire({
+      title: '¿Esta Seguro de Activar este Usuario?',
+      text: "",
+      icon: 'warning',
+      showCancelButton: true,
+      confirmButtonColor: '#d33',
+      cancelButtonColor: '#3085d6',
+      confirmButtonText: 'Inabilitar'
+    }).then((result) => {
+      if (result.isConfirmed) { 
+        //llamamos a la fcion para eliminar   
+        activar(id)               
+        Swal.fire(
+          'Habilitando',
+          'Usuario Habilitado.',
+          'Con Exito'
+        )
+      }
+    })    
+  }
+
   const columns= [
   
   {
@@ -72,10 +122,7 @@ function Usuarios() {
 	selector:(row)=>row.email_usuario
   },
   
-  {
-	name:"Clave usuario",
-	selector:(row)=>row.clave_usuario
-  },
+
   
    
   {
@@ -85,14 +132,25 @@ function Usuarios() {
   },
   
   {
+	name:"Estado Usuario",
+	selector:(row)=>row.estado
+  },
+  
+  {
 	name:"Modificar",
 	cell:(row)=><Link 
 	to={`/ModuloAdministrador/modulo_usuarios/EditarUsuarios/${row.id}`} 
 	className="btn btn-light">Editar</Link>
   },
    {
-	 name:"Eliminar",
-     cell:(row)=><button onClick={ () => { confirmDelete(row.id) } } className="btn btn-danger">Eliminar</button>
+	 name:"Inabilitar",
+     cell:(row)=><button onClick={ () => { confirmDelete(row.id)} } className="btn btn-danger">Habilitar</button>
+
+   },
+
+  {
+	   name:"Activar",
+     cell:(row)=><button onClick={ () => { confirmActivar(row.id)} } className="btn btn-danger">Inabilitar</button>
 
    }
   

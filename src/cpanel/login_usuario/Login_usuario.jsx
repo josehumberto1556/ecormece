@@ -6,7 +6,6 @@ import {collection,query,where,getDocs } from 'firebase/firestore';
 import "./Login.css"
 import Swal from 'sweetalert2'
 import withReactContent from 'sweetalert2-react-content'
-import CryptoJS from 'crypto-js';
 const MySwal = withReactContent(Swal)
 
 
@@ -14,10 +13,10 @@ const LoginUsuario = () => {
 	
 	const{log} = useUserAuth();
     let navigate = useNavigate();
-	  const [ email,setEmail ] = useState('')
+    const [ email,setEmail ] = useState('')
     const [ clave,setClave ] = useState('')
     const [error, setError] = useState("")
-	  const[ nivel,setNivelUsuario] =useState(null);
+	const[ nivel,setNivelUsuario] =useState(null);
     const[ nivelu,setNivelU] =useState(null);
     const[ nivelc,setNivelC] =useState(null);
     const[ em,setEm] =useState(null);
@@ -27,59 +26,60 @@ const LoginUsuario = () => {
 		 e.preventDefault() 
 			try
 			{
-        const password= CryptoJS.MD5(clave).toString();
-        const col= collection(db,'usuarios');
-        const q=query(col,where("email_usuario","==",email),where("clave_usuario","==",password));
-        const datos=await getDocs(q);       
-        if(datos.empty){setError("Correo o contraeña invalida.");return null;}
-        else{	
-            const userData = datos.docs[0].data();
-            setNivelU(userData.vendedor)
-            setNivelC(userData.comprador)
-            setNivelUsuario(userData.status);
-            setEm(userData.email_usuario)
+        
+               const col= collection(db,'usuarios');
+			   const q=query(col,where("email_usuario","==",email),where("clave_usuario","==",clave));
+               const datos=await getDocs(q);       
+               if(datos.empty){setError("Correo o contraeña invalida.");return null;}
+               else
+			   {	
+                 const userData = datos.docs[0].data();
+                 setNivelU(userData.vendedor)
+                 setNivelC(userData.comprador)
+                 setNivelUsuario(userData.status);
+                 setEm(userData.email_usuario)
             
-           if(nivel==0)
-           {
-               navigate( `/ModuloAdministrador/PerfilNegocio/${em}`);   
-           }
-           else
-           {
-            if(nivel==1)
-            {  
-                if(nivelu &&  nivelc)
-             {
-                
-                await log(email,password);
-				        MySwal.fire({
-                              title: "Bien hecho!",
-                              text: "Has Iniciado Sección!",
-                              icon: "success",
-                              button: "Felicitaciones!",
-                            });
-                 navigate("/Administrador");
-                }  
+                if(nivel==0)
+                {
+                  navigate( `/ModuloAdministrador/PerfilNegocio/${em}`);   
+                }
                 else
                 {
-                  if(nivelu)
-                {
-                
-                  await log(email,password);
-				          MySwal.fire({
-                              title: "Bien hecho!",
-                              text: "Has Iniciado Sección!",
-                              icon: "success",
-                              button: "Felicitaciones!",
-                            });
-                 navigate("/Administrador");
-                 }  
-                }//fin del lse 
-            }//fin del if
-            else
-            {
-               if(nivel==2){
-                 setError("Esta Inabilitado ponga ese contacto con soporte.");return null;
-               }
+				if(nivel==1)
+				{  
+				 if(nivelu &&  nivelc)
+				 {
+					
+					await log(email,clave);
+							MySwal.fire({
+								  title: "Bien hecho!",
+								  text: "Has Iniciado Sección!",
+								  icon: "success",
+								  button: "Felicitaciones!",
+								});
+					 navigate("/Administrador");
+					}  
+					else
+					{
+					  if(nivelu)
+					{
+					
+					  await log(email,clave);
+							  MySwal.fire({
+								  title: "Bien hecho!",
+								  text: "Has Iniciado Sección!",
+								  icon: "success",
+								  button: "Felicitaciones!",
+								});
+					 navigate("/Administrador");
+					 }  
+					}//fin del lse 
+				}//fin del if
+				else
+				{
+				   if(nivel==2){
+					 setError("Esta Inabilitado ponga ese contacto con soporte.");return null;
+				   }
             }  
             
            }

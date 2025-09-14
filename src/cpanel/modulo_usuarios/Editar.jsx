@@ -1,7 +1,7 @@
 import React,{useState,useEffect}from 'react'
 import { Link, useParams } from "react-router-dom"
 import { getDoc, updateDoc, doc } from "firebase/firestore"
-import {app,db} from '../../Configfirebase/Configfirebase'		
+import {app,db,auth} from '../../Configfirebase/Configfirebase'		
 import Header  from '../header'
 import Aside   from '../Aside'
 import Footer  from '../Footer'
@@ -10,11 +10,12 @@ import CryptoJS from 'crypto-js'
 import { getStorage,
          ref, 
 		 uploadBytes,
+         deleteObject,
 		 getDownloadURL } from 'firebase/storage'
-		 
+import { useUserAuth } from "../../context/UsuarioContext"
 import Swal  from 'sweetalert2'
 import withReactContent from 'sweetalert2-react-content'
-		 
+ 
 const storage=getStorage(app)
 const MySwal = withReactContent(Swal)
 
@@ -26,8 +27,11 @@ function Editar() {
   const [ email_usuario,setNombreempresa ] = useState('')
   const [ clave_usuario,setDireccionempresa ] = useState('')
   const [ imageni,setImagen ] = useState('')
+  const [tipo,setTipo]=useState('')
   const [ i,setI ] = useState(null)
-  
+  const [errorMensaje, setErrorMensaje] = useState(null);
+  const [errorMensajeClave,setErrorMensajeClave] = useState(null);
+  const { crearUsuario } = useUserAuth();
   
   const {id} = useParams()
 
@@ -39,7 +43,8 @@ function Editar() {
             setcodigoempresa(empresa.data().nombre_usuario)    
             setNombreempresa(empresa.data().email_usuario)
 			setDireccionempresa(empresa.data().clave_usuario)   
-            setImagen(empresa.data().imageni)			
+            setImagen(empresa.data().imagen)
+            setTipo(empresa.data().vendedor())			
         }else{
             console.log('El usuario no existe')
         }
@@ -65,54 +70,71 @@ function Editar() {
     const update = async (e) => {
         e.preventDefault()
         const empresa = doc(db, "usuarios", id)
-		if(!i){
-	      
-		  
-          const n=imageni
-		  const archivoRef=ref(storage,`imagenesusuarios/${n}`)
-	      const uplo=await uploadBytes(archivoRef,n)
-	      urlDescarga=await getDownloadURL(archivoRef)
-          const hash = CryptoJS.MD5(clave_usuario).toString();          
-		  const data = { nombre_usuario:nombre_usuario, 
-	                     email_usuario:email_usuario,
-					     clave_usuario:hash,
-					     imagen:n
-				        }
-						
-            await updateDoc(empresa, data)
-		    MySwal.fire({
-                           title: "Felicitaciones!",
-                           text: "Registro Modificado Con Exito!",
-                           icon: "danger",
-                          button: "Felicitaciones!"
-					    });	   
-       }
-       else{
-        const n=i	  
-		    const archivoRef=ref(storage,`imagenesusuarios/${n.name}`)
-	        const uplo=await uploadBytes(archivoRef,n)
-	        urlDescarga=await getDownloadURL(archivoRef) 
-            const hash = CryptoJS.MD5(clave_usuario).toString();  
-   		    const data = { nombre_usuario:nombre_usuario, 
-	                       email_usuario:email_usuario,
-					       clave_usuario:hash,
-					       imagen:urlDescarga
-				         }
+	  
+    if(!i)
+    {
+           
+
+           if(nombre_usuario)
+            {
+               
+            
+                  const data = {
+                                nombre_usuario:nombre_usuario, 
+           
+                                tipo:tipo
+                                }
+                                
+                    await updateDoc(empresa, data)
+                    MySwal.fire({
+                                title: "Felicitaciones!",
+                                text: "Registro Modificado Con Exito!",
+                                icon: "danger",
+                                button: "Felicitaciones!"
+                                });	
+             
+             
+                console.log("Usuario eliminado de Firebase Authentication.");
+    
+               
+             
+            }//fin del if email nuevo      
+            
+          }//fin del if de negar imagen         
+        
+     else
+	   {
+           
+        
+            if(nombre_usuario)
+            {
+               
+               const n=i	 
+		       const imageRef = ref(storage, imageni);
+               const eli=await deleteObject(imageRef);
+               const archivoRef=ref(storage,`musuarios/${n.name}`)
+	            const uplo=await uploadBytes(archivoRef,n)
+	            urlDescarga=await getDownloadURL(archivoRef) 
+   		        const data = { nombre_usuario:nombre_usuario, 
+                            imagen:urlDescarga,
+                            tipo:tipo
+				                   }
 						 
-        await updateDoc(empresa, data)
-		 MySwal.fire({
+            await updateDoc(empresa, data)
+		        MySwal.fire({
                            title: "Felicitaciones!",
                            text: "Registro Modificado Con Exito!",
                            icon: "danger",
                           button: "Felicitaciones!"
 					    });	  
-	  
-	  }
-		
+	   
+	     }
+       
+    
 				
     }
 
-	
+  }	
   return (
   <>
   <Aside/>
@@ -136,7 +158,7 @@ function Editar() {
 				  </div>
 					  </div>
 </div>	
-        <div className='row mover' >
+        <div className='row'  >
             <div className='col-md-8 grid-margin stretch-card'>
              <div className="card">
 			  <div className="card-body">
@@ -169,10 +191,11 @@ function Editar() {
                             required
 							value={email_usuario}
                             onChange={ (e) => setNombreempresa(e.target.value)}
-                        />
-                    </div>  
-					
-					 <div className="form-group">
+                            disabled                  
+				  />
+                    </div>
+
+                 <div className="form-group">
                         <label for="Categoriar">Clave Usuario</label>
                         <input
                             type="password"
@@ -182,10 +205,29 @@ function Editar() {
 							maxlength="20"
                             required
 							value={clave_usuario}
-                            onChange={ (e) => setDireccionempresa(e.target.value)}
+                             disabled    
                         />
                     </div> 
-					
+
+				<div className="form-group">
+                  <label className="text-black" for="message">Tipo Actividad</label>
+					{tipo===true?          
+					<select 
+					className="form-control" 
+					required>
+						<option value="true">Vendedor</option>
+						<option value="false">Comprador</option>
+					</select>
+					:
+					<select 
+					className="form-control" 
+					required>
+						<option value="fale">Comprador</option>
+						<option value="true">Vendedor</option>
+					</select>
+					}
+				</div>
+				
 					 <div className="form-group">
                           <label for="Categoriar">Imagen</label>
                            <img src={imageni} width="100"  height="100"/>

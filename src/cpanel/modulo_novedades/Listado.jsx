@@ -5,6 +5,7 @@ import {collection,
 		getDoc,
 		deleteDoc,
 		doc} from 'firebase/firestore'
+import { getStorage,deleteObject,ref} from 'firebase/storage'
 import {app,db} from '../../Configfirebase/Configfirebase'		
 import DataTable from 'react-data-table-component'
 import Swal  from 'sweetalert2'
@@ -21,7 +22,7 @@ function ListadoN() {
   const [search,setSearch ]=useState([])
   const [empre,setEmpresas ]=useState([])
   const [filtereCountries,setfiltereCountries]=useState([])
-	
+  const storage=getStorage(app)
   const  empresaCollection=collection(db,"novedades")
   const getEmpresas=async ()   => {
   const data=await getDocs(empresaCollection)
@@ -34,12 +35,14 @@ function ListadoN() {
    )
      }
 
-  const deleteempresa = async (id) => {
+  const deleteempresa = async (id,imagen) => {
+   const imageRef = ref(storage, imagen);
+   const eli=await deleteObject(imageRef);
    const empresaDoc = doc(db, "novedades", id)
    await deleteDoc(empresaDoc)
     getEmpresas()
   }	 
-  const confirmDelete = (id) => {
+  const confirmDelete = (id,imagen) => {
     MySwal.fire({
       title: '¿Esta Seguro de Eliminar esta Registro?',
       text: "",
@@ -51,7 +54,7 @@ function ListadoN() {
     }).then((result) => {
       if (result.isConfirmed) { 
         //llamamos a la fcion para eliminar   
-        deleteempresa(id)               
+        deleteempresa(id,imagen)               
         Swal.fire(
           'Eliminado!',
           'Registro Eliminado.',
@@ -99,7 +102,7 @@ function ListadoN() {
   },
    {
 	 name:"Eliminar",
-     cell:(row)=><button onClick={ () => { confirmDelete(row.id) } } className="btn btn-danger">Eliminar</button>
+     cell:(row)=><button onClick={ () => { confirmDelete(row.id,row.imagen) } } className="btn btn-danger">Eliminar</button>
 
    }
   

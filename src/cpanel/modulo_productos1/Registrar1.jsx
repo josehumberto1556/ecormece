@@ -16,7 +16,7 @@ import { getStorage,
 		 getDownloadURL } from 'firebase/storage'
 
 import Header  from '../header'
-import Aside1   from '../Aside1'
+import Aside   from '../Aside'
 import Footer  from '../Footer'
 import './formulario.css'
 import Swal  from 'sweetalert2'
@@ -150,7 +150,7 @@ function RegistrarPr1() {
                            icon: "danger",
                            button: "Felicitaciones!"
 					    });
-        navigate("/ModuloAdministrador/Productos")
+        navigate("/ModuloAdministrador/Producto")
     }catch(error){
 		console.log(error)
 	   } 
@@ -164,7 +164,7 @@ function RegistrarPr1() {
   return (
       <>
 
-	<Aside1/>
+	<Aside/>
 
    <div className="hold-transition sidebar-mini layout-fixed">
 		 <div className="wrapper">
@@ -186,7 +186,7 @@ function RegistrarPr1() {
 				  </div>
 					  </div>
 </div>	
-        <div className='row mover'>
+        <div className='row'>
             <div className='col-md-8 grid-margin stretch-card'>
              <div className="card">
 			  <div className="card-body">

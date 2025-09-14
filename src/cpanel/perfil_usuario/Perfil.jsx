@@ -5,7 +5,6 @@ import {app,db} from '../../Configfirebase/Configfirebase'
 import {Link} from 'react-router-dom'
 import Aside1 from '../Aside1'
 import Footer from '../Footer'
-import CryptoJS from 'crypto-js'
 import { getStorage,
          ref, 
          uploadBytes,
@@ -108,7 +107,7 @@ const Perfil = () => {
               setCodigoempresa(productoData.nombre_usuario || ''); // Asegúrate de que el campo exista
               setNombreempresa(productoData.email_usuario || ''); // Asegúrate de que el campo exista
               setDireccionempresa(productoData.clave_usuario || '')   
-              setI(productoData.imageni)		
+              setI(productoData.imagen)		
             }
         
           } catch (error) {
@@ -130,11 +129,11 @@ const Perfil = () => {
       const empresa = doc(db, "usuarios", idProducto)	
       console.log("el id producto es:",idProducto)       
    
-       const hash = CryptoJS.MD5(clave_usuario).toString();          
+                 
        const data = {
                         nombre_usuario:nombre_usuario, 
                         email_usuario:email_usuario,
-                        clave_usuario:hash,
+                        clave_usuario:clave_usuario,
                         //  imagen:n
                    }
        
@@ -176,7 +175,7 @@ const Perfil = () => {
 					  </div>
        </div>	
        
-        <div className='row mover' >
+        <div className='row' >
            <div className='col-md-8 grid-margin stretch-card'>
              <div className="card">
 		 	   <div className="card-body">

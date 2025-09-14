@@ -1,4 +1,4 @@
-import React,{useState,useEffect}    from 'react'
+import {useState,useEffect}    from 'react'
 import { collection, query, where, getDocs } from 'firebase/firestore';
 import {db,app} from '../../Configfirebase/Configfirebase'
 import { getStorage,
@@ -19,36 +19,66 @@ export const  Buscarfecha=()=> {
 	const [fechaBusqueda, setFechaBusqueda] = useState('');
 	const [resultados, setResultados] = useState([]);
     const [errores, setErrores] = useState("");
+	
 	const buscarPorFecha = async () => {
-	  try {
+	try {
+            if (!fechaBusqueda) {
+                setErrores("Por favor, selecciona una fecha para buscar.");
+                setResultados([]);
+                return;
+            }
+
+            //const fechaDate = new Date(fechaBusqueda);
+         
+			// 1. Crea un objeto Date a partir del string 'YYYY-MM-DD'
+        const fechaObjeto = new Date(fechaBusqueda);
+
+        // 2. Obtiene los componentes de la fecha
+        const dia = String(fechaObjeto.getDate()).padStart(2, '0');
+        const mes = String(fechaObjeto.getMonth() + 1).padStart(2, '0');
         
+        // 3. ¡Importante! Obtiene los últimos dos dígitos del año
+        const anio = String(fechaObjeto.getFullYear()).slice(-2);
 
-		if(fechaBusqueda)
-		{	
-	         console.log("fecha busqueda",fechaBusqueda)
-             const col= collection(db,'pago_producto');
-			 const q=query(col,where("fecha_pago","==",fechaBusqueda));
-			 const datos=await getDocs(q);
-             if(datos){
-			 console.log("Documentos encontrados:", datos.docs);
-			 setResultados(datos.docs.map((doc => ({ ...doc.data(), id: doc.id }))));
-			 console.log("exito")
-			 }
-			 else
-			 {
-				setErrores("No existe comprobante la fecha que introdujo no es correcta")	
-			 }
-		}
-		else
-		{
-			setErrores("No existe comprobante")
-		}	 
+        // 4. Construye el nuevo string en el formato deseado
+        const fechaFormateada = `${dia}/${mes}/${anio}`;
+        
+		  console.log("Fecha a buscar en Firestore:", fechaFormateada);
 
-	} catch (error) {
-		console.error('Error al buscar por fecha:', error);
-	  }
-	};
+        const col = collection(db, 'imagenes_subidas_comprobante');
+        const q = query(col, where("fecha_pago", "==", fechaFormateada));
+        const datos = await getDocs(q);
+		 setResultados(datos.docs.map((doc) => ({ ...doc.data(), id: doc.id })));
 
+        /*if (datos.empty) {
+			
+            setErrores("No se encontraron comprobantes para la fecha seleccionada.");
+            setResultados([]);
+        }
+		
+		if(datos) {
+            console.log("Éxito. Documentos encontrados.");
+            setResultados(datos.docs.map((doc) => ({ ...doc.data(), id: doc.id })));
+            setErrores("");
+        }
+		else{
+			   console.log("No se encontraron documentos.");
+               setErrores("No se encontraron comprobantes para la fecha seleccionada.");
+               setResultados([]); // Limpia resultados anteriores
+		}*/
+
+    } catch (error) {
+        console.error('Error al buscar por fecha:', error);
+        setErrores('Hubo un error al realizar la búsqueda.');
+    }
+            
+   }
+
+   useEffect( () => {
+     buscarPorFecha()
+  }, [] )
+  
+   
   return (
     <>
       <div className="hold-transition sidebar-mini layout-fixed">
@@ -95,6 +125,7 @@ export const  Buscarfecha=()=> {
         Buscar
       </button>
 	 </center>
+	 
         {resultados.map((resultado) => (
 		 
 		 <center>

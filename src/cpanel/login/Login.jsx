@@ -21,24 +21,29 @@ const LoginU = () => {
 		 e.preventDefault()
 		         		 
 		try
-		{
+		 {
 		
-        const password= CryptoJS.MD5(clave).toString();
-		    const col= collection(db,'usuarios');
-        const q=query(col,where("email_usuario","==",email),where("clave_usuario","==",password));
-        const datos=await getDocs(q);       
-        if(datos.empty){setError("Correo o contraeña invalida.");return null;}
-				else{       
-            await log(email,password);
+       
+		  const col= collection(db,'usuarios');
+          const q=query(col,where("email_usuario","==",email),where("clave_usuario","==",clave));
+          const datos=await getDocs(q);       
+          if(datos.empty){setError("Correo o contraeña invalida.");return null;}
+          else
+		  {       
+		    if(datos)
+		    {	 
+            	
+             await log(email,clave);
 				    MySwal.fire({
                       title: "Bien hecho!",
                       text: "Has Iniciado Sección!",
                       icon: "success",
                        button: "Felicitaciones!",
                    });
+			
                 navigate("/ModuloAdministrador"); 
-        
-      }//fin del else
+		  }//fin del if 
+        }//fin del else
 			}catch(error){
 				
 				
@@ -143,10 +148,11 @@ const LoginU = () => {
             
             <div className="form-check d-flex justify-content-start mb-4">
              
-              <Link className="text-center"
+			 {/*<Link className="text-center"
 				to="/RecuperarClave"> 
 				Olvido Contraseña
-                </Link>
+			  </Link>
+			  */}
             </div>
 
             <button className="btn btn-primary btn-lg btn-block" type="submit">Entrar</button>

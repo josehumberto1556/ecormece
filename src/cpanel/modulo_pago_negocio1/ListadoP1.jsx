@@ -24,7 +24,7 @@ function ListadoNeg1() {
   const [empre,setEmpresas ]=useState([])
   const [filtereCountries,setfiltereCountries]=useState([])
 
-  const  empresaCollection=collection(db,"pago_producto")
+  const  empresaCollection=collection(db,"imagenes_subidas_comprobante")
   const getEmpresas=async ()   => {
   const data=await getDocs(empresaCollection)
    //console.log(data.docs)
@@ -78,44 +78,41 @@ function ListadoNeg1() {
   {
     name:"Nombre Productos",
     selector:(row)=>row.nombre_producto
-    },
+  },
 
+   {
+    name:"Correo",
+    selector:(row)=>row.correo
+  },
+  
+ 
   {
-    name:"Tipo de Operación",
+    name:"Compra al negocio",
     selector:(row)=>row.tipo_operacion
   },
+ 
   {
     name:"Fecha de pago",
     selector:(row)=>row.fecha_pago
   },
 
-  {
-    name:"Estado",
-    selector:(row)=>row.estado
-  },
+ 
 
 
   {
     name:"Comprabante de pago negocio",
     selector:(row)=>
-    <a href={row.imagen} target="_blank">
-      <img src={row.imagen} width="100" height="100"/>
+    <a href={row.url} target="_blank">
+      <img src={row.url} width="100" height="100"/>
     </a>,
     sortable:true
     },
 
-    
-  {
-    name:"Comprabante de pago  administrador",
-    selector:(row)=>
-    <a href={row.imagena} target="_blank">
-     <img src={row.imagena} width="100" height="100"/>
-    </a>,
-    sortable:true
-    },
-    
     {
-      cell:(row)=><button onClick={ () => { activar(row.id) } } className="btn btn-danger">Activar</button>
+	  name:"Ver Detalle comprobante",
+	  cell:(row)=><Link 
+	  to={`/ModuloAdministrador/modulo_pago_negocio/DetalleComprobantes/${row.id}`} 
+	  className="btn btn-light">Detalle Comprobante</Link>
     }
 
   
@@ -152,8 +149,6 @@ function ListadoNeg1() {
 				fixedHeaderScrollHeight="450px"
 				selecttablesRow
 				selecttablesRowHighlight
-				actions={<Link to="/ModuloAdministrador/modulo_pagos_de_negocio/Buscarfecha" 
-				className='btn btn-secondary mt-2 mb-2'>Buscar por fecha</Link>    }
 				highlightOnHover
 				subHeader
 				subHeaderComponent={<input 

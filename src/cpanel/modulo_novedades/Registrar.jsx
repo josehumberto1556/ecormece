@@ -150,7 +150,7 @@ function RegistrarN() {
 					  </div>
 </div>	
     
-    <div className='row mover'>
+    <div className='row' style={{marginRight:1000}}>
 
         <div className='col-md-8 grid-margin stretch-card'>
            <div className="card">

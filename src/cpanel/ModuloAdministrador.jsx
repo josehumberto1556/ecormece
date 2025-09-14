@@ -6,11 +6,11 @@ function ModuloAdministrador() {
 	
   return (
   <>
-     <div>
-	  <Aside/>
-	  <Principal/>
-	  <Footer/>
-    </div>
+     
+	<Aside/>
+	<Principal/>
+    <Footer/>
+    
   </>
   )
 }

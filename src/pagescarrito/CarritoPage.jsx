@@ -71,21 +71,21 @@ export const CarritoPage = () => {
                             <td className="product-thumbnail">
                               <img src={item.imagenq} alt="Image"/>
                             </td>
-                            <td class="product-name">
-                              <h2 class="h5 text-black">{item.nombre_productos}</h2>
+                            <td className="product-name">
+                              <h2 className="h5 text-black">{item.nombre_productos}</h2>
                             </td>
                             <td>{item.precio}</td>
                              <td>{item.metodos_pago}</td>
                             <td>
-                              <div class="input-group mb-3 d-flex align-items-center quantity-container">
-                                <div class="input-group-prepend">
+                              <div className="input-group mb-3 d-flex align-items-center quantity-container">
+                                <div className="input-group-prepend">
                                 <button 
                                     className="botoncc" 
                                     onClick={ () => disminuirCantidad(item.id)}
                                     >-</button>
                                 </div>
                                 <button className="botoncc">{item.cantidad}</button>
-                                <div class="input-group-append">
+                                <div className="input-group-append">
                                 <button 
                                     className="botoncc" 
                                     onClick={ () => aumentarCantidad(item.id)}

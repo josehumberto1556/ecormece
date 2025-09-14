@@ -5,6 +5,7 @@ import {collection,
 		getDoc,
 		deleteDoc,
 		doc} from 'firebase/firestore'
+import { getStorage,deleteObject,ref} from 'firebase/storage'
 import {app,db} from '../../Configfirebase/Configfirebase'		
 import DataTable from 'react-data-table-component'
 import Swal  from 'sweetalert2'
@@ -15,14 +16,13 @@ import Footer  from '../Footer'
 
 const MySwal = withReactContent(Swal)
 
-
 function ListadoC() {
 	
-   ///1.configuramos los hooks
+  //1.configuramos los hooks
   const [search,setSearch ]=useState([])
   const [empre,setEmpresas ]=useState([])
   const [filtereCountries,setfiltereCountries]=useState([])
-
+  const storage=getStorage(app)
   const  empresaCollection=collection(db,"contacto")
   const getEmpresas=async ()   => {
   const data=await getDocs(empresaCollection)
@@ -36,40 +36,54 @@ function ListadoC() {
      }
 
   const deleteempresa = async (id) => {
-   const empresaDoc = doc(db, "contactos", id)
+   const empresaDoc = doc(db, "contacto", id) 
    await deleteDoc(empresaDoc)
     getEmpresas()
   }	 
+  const confirmDelete = (id) => {
+    MySwal.fire({
+      title: '¿Esta Seguro de Eliminar esta Registro?',
+      text: "",
+      icon: 'warning',
+      showCancelButton: true,
+      confirmButtonColor: '#d33',
+      cancelButtonColor: '#3085d6',
+      confirmButtonText: 'Eliminar'
+    }).then((result) => {
+      if (result.isConfirmed) { 
+        //llamamos a la fcion para eliminar   
+        deleteempresa(id)               
+        Swal.fire(
+          'Eliminado!',
+          'Registro Eliminado.',
+          'Con Exito'
+        )
+      }
+    })    
+  }
+  const columns= [
  
-   const columns= [
-  
   {
-	name:"Nombre Correo",
+	name:"Nombre",
 	selector:(row)=>row.nombre
   },
   
   {
-	name:"Correo electronico",
-	selector:(row)=>row.email
+	name:"Correo",
+	selector:(row)=>row.correo
   },
-  
-   {
-	name:"Asunto",
-	selector:(row)=>row.asunto
-  },
-  
-  
+
   {
-	name:"Mensaje",
+	name:"Comentario",
 	selector:(row)=>row.comentario
   },
   
-  {
-	name:"Tipo Mensaje",
-	selector:(row)=>row.tipomensaje
-  },
-  
- 
+   {
+	 name:"Eliminar",
+     cell:(row)=><button onClick={ () => { confirmDelete(row.id,row.imagenq) } } className="btn btn-danger">Eliminar</button>
+
+   },
+
   
   ]
 	
@@ -79,19 +93,18 @@ function ListadoC() {
   
     useEffect( () => {
     const result=empre.filter((country)=>{
-	  return country.nombre.toLowerCase().match(search.toLowerCase())
+	  return country.correo.toLowerCase().match(search.toLowerCase())
 	})
 	setfiltereCountries(result)
   }, [search] ) 
 	
-		
-
+	
   return (
     <>
   <div className="hold-transition sidebar-mini layout-fixed">
-      <div className="wrapper">
 	    <Aside/>
-	   <div className="main-panel" style={{marginTop:"150px",marginBottom:"-30px"}}>
+	   <div className="main-panel" 
+	    style={{marginTop:"150px",marginBottom:"-30px"}}>
 		  <div className="row">
 		    <div className="col-lg-12 grid-margin stretch-card">
 			  <div className="card">
@@ -109,7 +122,7 @@ function ListadoC() {
 				subHeader
 				subHeaderComponent={<input 
 				                    type="text" 
-									placeholder="Buscar  Contacto ..." 
+									placeholder="Buscar Correo ..." 
 									className="w25 form-control" 
 									value={search}
 									onChange={(e)=>setSearch(e.target.value)}/>
@@ -117,19 +130,17 @@ function ListadoC() {
 				/>
 		          
 		       </div>
-              </div>		 
-
-		   </div>
+             		 
+		     </div>
+		   
 		  </div>
+		  
 	    </div>
-	   	 
+		<br/><br/>
+	   	 <Footer/>
      </div>
 	  
   </div>
-  
-  <div style={{marginTop:"350px"}}>
-   <Footer/>
-   </div>
   </>
   )
 }

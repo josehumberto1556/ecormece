@@ -1,11 +1,11 @@
-import React,{useState,useEffect}from 'react'
+import  {useState,useEffect}from 'react'
 import {Link}      from 'react-router-dom'
 import {
          collection,
          getDocs,
-		     getDoc,
-		     deleteDoc,
-		     doc,
+		 getDoc,
+		 deleteDoc,
+		 doc,
          updateDoc} from 'firebase/firestore'
 import {app,db} from '../../Configfirebase/Configfirebase'		
 import DataTable from 'react-data-table-component'
